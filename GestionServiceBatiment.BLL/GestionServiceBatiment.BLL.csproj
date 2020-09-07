@@ -43,10 +43,26 @@
   <ItemGroup>
     <Compile Include="Mappers\Mapper.cs" />
     <Compile Include="Models\CategoryBO.cs" />
+    <Compile Include="Models\CompanyBO.cs" />
+    <Compile Include="Models\ModificationBO.cs" />
+    <Compile Include="Models\RejectionBO.cs" />
+    <Compile Include="Models\ServiceBO.cs" />
+    <Compile Include="Models\UserBO.cs" />
+    <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Implementations\CategoryService.cs" />
+    <Compile Include="Services\Implementations\CompanyService.cs" />
+    <Compile Include="Services\Implementations\ModificationService.cs" />
+    <Compile Include="Services\Implementations\RejectionService.cs" />
+    <Compile Include="Services\Implementations\ServiceService.cs" />
+    <Compile Include="Services\Implementations\UserService.cs" />
     <Compile Include="Services\Interfaces\ICategoryService.cs" />
+    <Compile Include="Services\Interfaces\ICompanyService.cs" />
+    <Compile Include="Services\Interfaces\IModificationService.cs" />
+    <Compile Include="Services\Interfaces\IRejectionService.cs" />
     <Compile Include="Services\Interfaces\IService.cs" />
+    <Compile Include="Services\Interfaces\IServiceService.cs" />
+    <Compile Include="Services\Interfaces\IUserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GestionServiceBatiment.DAL\GestionServiceBatiment.DAL.csproj">

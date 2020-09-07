@@ -32,14 +32,14 @@ namespace GestionServiceBatiment.DAL.Repositories.Implementations
             return _connection.ExecuteReader(command, reader => reader.MapTo<VServiceListing>());
         }
 
-        public IEnumerable<VServiceListing> GetServicesByCategory(int categoryId)
+        public IEnumerable<VServiceListing> GetByCategory(int categoryId)
         {
             Command command = new Command("CSP_GetServicesByCategory");
             command.AddParameter("CategoryId", categoryId);
             return _connection.ExecuteReader(command, reader => reader.MapTo<VServiceListing>());
         }
 
-        public IEnumerable<VServiceListing> GetServicesByCompany(int companyId)
+        public IEnumerable<VServiceListing> GetByCompany(int companyId)
         {
             Command command = new Command("CSP_GetServicesByCompany");
             command.AddParameter("CompanyId", companyId);

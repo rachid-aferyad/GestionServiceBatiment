@@ -53,6 +53,8 @@
     <Compile Include="Repositories\Implementations\BaseRepository.cs" />
     <Compile Include="Repositories\Implementations\CategoryRepository.cs" />
     <Compile Include="Repositories\Implementations\CompanyRepository.cs" />
+    <Compile Include="Repositories\Implementations\ModificationRepository.cs" />
+    <Compile Include="Repositories\Implementations\RejectionRepository.cs" />
     <Compile Include="Repositories\Implementations\ServiceRepository.cs" />
     <Compile Include="Repositories\Implementations\UserRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICategoryRepository.cs" />

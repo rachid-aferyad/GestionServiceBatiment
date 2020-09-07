@@ -9,5 +9,6 @@ namespace GestionServiceBatiment.DAL.Repositories
 {
     public interface IModificationRepository : IRepository<int, Modification>
     {
+        IEnumerable<Modification> GetByService(int serviceId);
     }
 }

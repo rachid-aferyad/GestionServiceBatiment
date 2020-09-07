@@ -153,16 +153,40 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DependencyInjection\DefaultDependencyResolver.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructures\Interfaces\ICategoryService.cs" />
     <Compile Include="Infrastructures\Interfaces\IService.cs" />
+    <Compile Include="Infrastructures\Interfaces\IUserService.cs" />
     <Compile Include="Infrastructures\Services\BaseService.cs" />
     <Compile Include="Infrastructures\Services\CategoryService.cs" />
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\CategoryListing.cs" />
+    <Compile Include="Infrastructures\Services\UserService.cs" />
+    <Compile Include="Mappers\Mapper.cs" />
+    <Compile Include="Models\Categories\Category.cs" />
+    <Compile Include="Models\Categories\CreateCategoryForm.cs" />
+    <Compile Include="Models\Categories\DisplayCategory.cs" />
+    <Compile Include="Models\Categories\UpdateCategoryForm.cs" />
+    <Compile Include="Models\Companies\Company.cs" />
+    <Compile Include="Models\Companies\CreateCompanyForm.cs" />
+    <Compile Include="Models\Companies\DisplayCompany.cs" />
+    <Compile Include="Models\Companies\UpdateCompanyForm.cs" />
+    <Compile Include="Models\Modifications\DisplayModification.cs" />
+    <Compile Include="Models\Modifications\Modification.cs" />
+    <Compile Include="Models\Rejections\CreateRejectionForm.cs" />
+    <Compile Include="Models\Rejections\DisplayRejection.cs" />
+    <Compile Include="Models\Rejections\Rejection.cs" />
+    <Compile Include="Models\Services\CreateServiceForm.cs" />
+    <Compile Include="Models\Services\DisplayService.cs" />
+    <Compile Include="Models\Services\Service.cs" />
+    <Compile Include="Models\Services\UpdateServiceForm.cs" />
+    <Compile Include="Models\Users\CreateUserForm.cs" />
+    <Compile Include="Models\Users\DisplayUser.cs" />
+    <Compile Include="Models\Users\UpdateUserForm.cs" />
+    <Compile Include="Models\Users\User.cs" />
+    <Compile Include="Models\Users\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +226,15 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Category\Details.cshtml" />
+    <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\Delete.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

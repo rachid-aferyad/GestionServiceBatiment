@@ -5,7 +5,8 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using GestionServiceBatiment.ASP.Infrastructures.Interfaces;
-using GestionServiceBatiment.ASP.Models;
+using GestionServiceBatiment.ASP.Mappers;
+using GestionServiceBatiment.ASP.Models.Categories;
 
 namespace GestionServiceBatiment.ASP.Controllers
 {
@@ -25,57 +26,70 @@ namespace GestionServiceBatiment.ASP.Controllers
         // GET: Category/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(_categoryService.GetById(id));
         }
 
         // GET: Category/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new CreateCategoryForm());
         }
 
         // POST: Category/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(CreateCategoryForm categoryForm)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    _categoryService.Post(categoryForm.MapTo<Category>());
+                    return RedirectToAction("Index");
+                }
 
-                return RedirectToAction("Index");
+                return View(categoryForm);
             }
             catch
             {
-                return View();
+                return View(categoryForm);
             }
         }
 
         // GET: Category/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Category category = _categoryService.GetById(id);
+            if(category is null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(category.MapTo<UpdateCategoryForm>());
         }
 
         // POST: Category/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, UpdateCategoryForm updateCategoryForm)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    _categoryService.Put(id, updateCategoryForm.MapTo<Category>());
+                    return RedirectToAction(nameof(Index));
+                }
 
-                return RedirectToAction("Index");
+                return View(updateCategoryForm);
             }
             catch
             {
-                return View();
+                return View(updateCategoryForm);
             }
         }
 
         // GET: Category/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return Details(id);
         }
 
         // POST: Category/Delete/5
@@ -84,9 +98,8 @@ namespace GestionServiceBatiment.ASP.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                _categoryService.Delete(id);
+                return RedirectToAction(nameof(Index));
             }
             catch
             {

@@ -1,4 +1,5 @@
 ﻿using GestionServiceBatiment.ASP.Models;
+using GestionServiceBatiment.ASP.Models.Categories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

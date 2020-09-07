@@ -4,7 +4,7 @@
 AS
 	DECLARE @sql NVARCHAR(64)
 
-	SET @sql = 'SELECT * FROM [dbo].' + QUOTENAME(@table) + ' Where [ServiceId] = ' + @ServiceId
+	SET @sql = 'SELECT * FROM [dbo].' + QUOTENAME(@Table) + ' Where [ServiceId] = ' + @ServiceId
  
 	EXEC (@sql)
 RETURN 0

@@ -12,7 +12,7 @@ namespace GestionServiceBatiment.DAL.Repositories
     {
         IEnumerable<VServiceListing> GetAllServicesListing();
         VServiceDetails GetServiceDetailsById(int id);
-        IEnumerable<VServiceListing> GetServicesByCategory(int categoryId);
-        IEnumerable<VServiceListing> GetServicesByCompany(int companyId);
+        IEnumerable<VServiceListing> GetByCategory(int categoryId);
+        IEnumerable<VServiceListing> GetByCompany(int companyId);
     }
 }

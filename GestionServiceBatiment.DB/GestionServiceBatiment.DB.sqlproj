@@ -66,6 +66,7 @@
     <Folder Include="Tables" />
     <Folder Include="Stored Procedures\Services\Admin" />
     <Folder Include="Stored Procedures\Companies" />
+    <Folder Include="Stored Procedures\Rejections" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Fonctions\GetPostSalt.sql" />
@@ -121,5 +122,8 @@
     <Build Include="Stored Procedures\Companies\CSP_GetAllCompanies.sql" />
     <Build Include="Stored Procedures\Companies\CSP_DeleteCompany.sql" />
     <Build Include="Stored Procedures\Companies\CSP_GetCompanyByContractorId.sql" />
+    <Build Include="Stored Procedures\Users\CSP_GetByUser.sql" />
+    <Build Include="Stored Procedures\Rejections\CSP_GetRejectionsByRejector.sql" />
+    <Build Include="Stored Procedures\Rejections\CSP_GetRejectionsByService.sql" />
   </ItemGroup>
 </Project>

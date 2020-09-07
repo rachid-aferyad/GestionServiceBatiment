@@ -9,5 +9,7 @@ namespace GestionServiceBatiment.DAL.Repositories
 {
     public interface IRejectionRepository : IRepository<int, Rejection>
     {
+        IEnumerable<Rejection> GetByRejector(int rejectorId);
+        IEnumerable<Rejection> GetByService(int serviceId);
     }
 }

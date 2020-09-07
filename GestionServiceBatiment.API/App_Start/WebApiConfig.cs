@@ -3,6 +3,7 @@ using GestionServiceBatiment.BLL.Services.Implementations;
 using GestionServiceBatiment.BLL.Services.Interfaces;
 using GestionServiceBatiment.DAL.Repositories;
 using GestionServiceBatiment.DAL.Repositories.Implementations;
+using GestionServiceBatiment.DAL.Repositories.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -39,10 +40,22 @@ namespace GestionServiceBatiment.API
         {
             // Add services
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<ICompanyRepository, CompanyRepository>();
+            services.AddTransient<IModificationRepository, ModificationRepository>();
+            services.AddTransient<IRejectionRepository, RejectionRepository>();
+            services.AddTransient<IServiceRepository, ServiceRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ICompanyService, CompanyService>();
+            services.AddTransient<IModificationService, ModificationService>();
+            services.AddTransient<IRejectionService, RejectionService>();
+            services.AddTransient<IServiceService, ServiceService>();
+            services.AddTransient<IUserService, UserService>();
 
             // Add controllers
             services.AddScoped<CategoryController>(sp => new CategoryController(sp.GetRequiredService<ICategoryService>()));
+            services.AddScoped<UserController>(sp => new UserController(sp.GetRequiredService<IUserService>()));
         }
     }
 

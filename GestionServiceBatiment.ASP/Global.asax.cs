@@ -2,6 +2,7 @@ using GestionServiceBatiment.ASP.Controllers;
 using GestionServiceBatiment.ASP.DependencyInjection;
 using GestionServiceBatiment.ASP.Infrastructures;
 using GestionServiceBatiment.ASP.Infrastructures.Interfaces;
+using GestionServiceBatiment.ASP.Infrastructures.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,10 @@ namespace GestionServiceBatiment.ASP
             Services = new ServiceCollection();
             //Services.AddTransient<IDisposable, HttpClient>();
             Services.AddTransient<ICategoryService, CategoryService>();
+            Services.AddTransient<IUserService, UserService>();
+
             Services.AddTransient(typeof(CategoryController));
+            Services.AddTransient(typeof(UserController));
 
 
             ServiceProvider = Services.BuildServiceProvider();
