@@ -1,0 +1,21 @@
+﻿################################################################################
+# Ce fichier .gitignore a été automatiquement créé par Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/GestionServiceBatiment.API/bin
+/GestionServiceBatiment.API/obj
+/GestionServiceBatiment.ASP/bin
+/GestionServiceBatiment.ASP/obj
+/GestionServiceBatiment.BLL/bin/Debug
+/GestionServiceBatiment.BLL/obj
+/GestionServiceBatiment.DAL/bin/Debug
+/GestionServiceBatiment.DAL/obj
+/GestionServiceBatiment.DB/bin/Debug
+/GestionServiceBatiment.DB/obj/Debug
+/packages
+/Test
+/ToolBox/bin/Debug/netstandard2.0
+/ToolBox/obj
+/GestionServiceBatiment.DB/GestionServiceBatiment.DB.jfm
+/GestionServiceBatiment.DB/GestionServiceBatiment.DB.dbmdl
