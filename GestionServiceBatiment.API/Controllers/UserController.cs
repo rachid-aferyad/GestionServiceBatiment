@@ -47,9 +47,9 @@ namespace GestionServiceBatiment.API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
-            catch
+            catch(Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
 
@@ -79,5 +79,7 @@ namespace GestionServiceBatiment.API.Controllers
             _userService.Delete(id);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
+    
+
     }
 }

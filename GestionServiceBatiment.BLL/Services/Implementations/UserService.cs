@@ -6,6 +6,8 @@ using GestionServiceBatiment.DAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -52,6 +54,7 @@ namespace GestionServiceBatiment.BLL.Services.Implementations
 
         public int Insert(UserBO entity)
         {
+            SendActivationEmail(entity);
             return _userRepository.Insert(entity.MapTo<User>());
         }
 
@@ -60,6 +63,42 @@ namespace GestionServiceBatiment.BLL.Services.Implementations
             User user = entity.MapTo<User>();
             user.Id = id;
             return _userRepository.Update(user);
+        }
+    
+    
+        private bool SendActivationEmail(UserBO entity)
+        {
+            using (MailMessage mm = new MailMessage("ra.gestion.entreprise@gmail.com", entity.Email))
+            {
+                mm.Subject = "Account Activation";
+                string body = "Hello " + entity.FirstName + ",";
+                body += "<br /><br />Please click the following link to activate your account";
+                body += "<br /><a href = 'http://localhost:49895/user/ActivationCode=" + Guid.NewGuid().ToString()
+                    //Request.Url.AbsoluteUri.Replace("CS.aspx", "CS_Activation.aspx?ActivationCode=" + Guid.NewGuid().ToString()) 
+                    + "'>Click here to activate your account.</a>";
+                body += "<br /><br />Thanks";
+                mm.Body = body;
+                mm.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.EnableSsl = true;
+                NetworkCredential NetworkCred = new NetworkCredential("ra.gestion.entreprise@gmail.com", "aqzsedrf0465");
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = NetworkCred;
+                smtp.Port = 587;
+                //smtp.Send(mm);
+
+                try
+                {
+                    smtp.SendMailAsync(mm);
+                }catch(Exception ex)
+                {
+                    return false;
+                }
+
+            }
+
+            return true;
         }
     }
 }

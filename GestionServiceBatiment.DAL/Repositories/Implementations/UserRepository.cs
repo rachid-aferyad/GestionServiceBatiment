@@ -31,8 +31,9 @@ namespace GestionServiceBatiment.DAL.Repositories.Implementations
         public VUser Check(User user)
         {
             Command command = new Command("CSP_CheckUser");
-            command.AddParameter("Email", (object)user.Email ?? DBNull.Value);
+            //command.AddParameter("Email", (object)user.Email ?? DBNull.Value);
             command.AddParameter("Login", (object)user.Login ?? DBNull.Value);
+            //command.AddParameter("UserName", (object)user.UserName ?? DBNull.Value);
             command.AddParameter("Password", user.Password);
             return _connection.ExecuteReader(command, (reader) => reader.MapTo<VUser>()).SingleOrDefault();
         }

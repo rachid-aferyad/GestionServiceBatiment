@@ -17,16 +17,7 @@ namespace GestionServiceBatiment.ASP.Infrastructures.Services
         {
             //_uri = "user/";
         }
-        public bool Delete(int id)
-        {
-            HttpResponseMessage response = _httpClient.DeleteAsync(id.ToString()).Result;
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception("Echec de la suppression des données.");
-            }
-            return true;
-        }
-
+        
         public IEnumerable<User> GetAll()
         {
             HttpResponseMessage response = _httpClient.GetAsync("").Result;
@@ -60,6 +51,28 @@ namespace GestionServiceBatiment.ASP.Infrastructures.Services
         }
 
         public bool Put(int id, User entity)
+        {
+            string jsonContent = JsonConvert.SerializeObject(entity);
+            StringContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = _httpClient.PutAsync(id.ToString(), content).Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Echec de la mise à jour des données.");
+            }
+            return true;
+        }
+        
+        public bool Delete(int id)
+        {
+            HttpResponseMessage response = _httpClient.DeleteAsync(id.ToString()).Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Echec de la suppression des données.");
+            }
+            return true;
+        }
+
+        public bool ChangePassword(int id, User entity)
         {
             string jsonContent = JsonConvert.SerializeObject(entity);
             StringContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");

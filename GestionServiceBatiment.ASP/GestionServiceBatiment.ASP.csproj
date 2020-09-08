@@ -151,6 +151,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -158,13 +159,26 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructures\Interfaces\IAccountService.cs" />
     <Compile Include="Infrastructures\Interfaces\ICategoryService.cs" />
     <Compile Include="Infrastructures\Interfaces\IService.cs" />
     <Compile Include="Infrastructures\Interfaces\IUserService.cs" />
+    <Compile Include="Infrastructures\Services\AccountService.cs" />
     <Compile Include="Infrastructures\Services\BaseService.cs" />
     <Compile Include="Infrastructures\Services\CategoryService.cs" />
     <Compile Include="Infrastructures\Services\UserService.cs" />
     <Compile Include="Mappers\Mapper.cs" />
+    <Compile Include="Models\Account\Account.cs" />
+    <Compile Include="Models\Account\AccountViewModel.cs" />
+    <Compile Include="Models\Account\ExternalLoginConfirmationViewModel.cs" />
+    <Compile Include="Models\Account\ExternalLoginListViewModel.cs" />
+    <Compile Include="Models\Account\ForgotPasswordViewModel.cs" />
+    <Compile Include="Models\Account\ForgotViewModel.cs" />
+    <Compile Include="Models\Account\LoginViewModel.cs" />
+    <Compile Include="Models\Account\RegisterViewModel.cs" />
+    <Compile Include="Models\Account\ResetPasswordViewModel.cs" />
+    <Compile Include="Models\Account\SendCodeViewModel.cs" />
+    <Compile Include="Models\Account\VerifyCodeViewModel.cs" />
     <Compile Include="Models\Categories\Category.cs" />
     <Compile Include="Models\Categories\CreateCategoryForm.cs" />
     <Compile Include="Models\Categories\DisplayCategory.cs" />
@@ -238,6 +252,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

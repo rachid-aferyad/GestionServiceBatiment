@@ -21,7 +21,9 @@ namespace GestionServiceBatiment.ASP.Models.Users
 		public string FirstName { get; set; }
 		//public string Password { get; set; }
 		[DisplayName("Date de naissance")]
+		[DataType(DataType.DateTime)]
 		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+
 		public DateTime? BirthDate { get; set; }
 		public bool Active { get; set; }
 		public UserRole Role { get; set; }

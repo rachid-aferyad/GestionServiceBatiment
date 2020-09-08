@@ -13,12 +13,12 @@ namespace GestionServiceBatiment.ASP.Models.Users
 	{
 		[HiddenInput]
 		public int Id { get; set; }
-		[Required]
-		[StringLength(50, MinimumLength = 8)]
-		public string Login { get; set; }
-		[Required]
-		[EmailAddress]
-		public string Email { get; set; }
+		//[Required]
+		//[StringLength(50, MinimumLength = 8)]
+		//public string Login { get; set; }
+		//[Required]
+		//[EmailAddress]
+		//public string Email { get; set; }
 		[Required]
 		[StringLength(50, MinimumLength = 2)]
 		[DisplayName("Nom")]
@@ -29,6 +29,7 @@ namespace GestionServiceBatiment.ASP.Models.Users
 		public string FirstName { get; set; }
 		[Required]
 		[DataType(DataType.Date)]
+		//[UIHint("Date")]
 		[DisplayName("Date de naissance")]
 		public DateTime? BirthDate { get; set; }
 	}
