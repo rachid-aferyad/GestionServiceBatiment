@@ -67,6 +67,8 @@
     <Folder Include="Stored Procedures\Services\Admin" />
     <Folder Include="Stored Procedures\Companies" />
     <Folder Include="Stored Procedures\Rejections" />
+    <Folder Include="Stored Procedures\Comments" />
+    <Folder Include="Stored Procedures\Requests" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Fonctions\GetPostSalt.sql" />
@@ -125,5 +127,29 @@
     <Build Include="Stored Procedures\Users\CSP_GetByUser.sql" />
     <Build Include="Stored Procedures\Rejections\CSP_GetRejectionsByRejector.sql" />
     <Build Include="Stored Procedures\Rejections\CSP_GetRejectionsByService.sql" />
+    <Build Include="Tables\Request.sql" />
+    <Build Include="Tables\Comment.sql" />
+    <Build Include="Stored Procedures\Comments\CSP_AddComment.sql" />
+    <Build Include="Stored Procedures\Requests\CSP_AddRequest.sql" />
+    <Build Include="Stored Procedures\Requests\CSP_DeleteRequest.sql" />
+    <Build Include="Stored Procedures\Requests\CSP_GetAllRequests.sql" />
+    <Build Include="Stored Procedures\Requests\CSP_GetByRequest.sql" />
+    <Build Include="Stored Procedures\Requests\CSP_GetRequestById.sql" />
+    <Build Include="Stored Procedures\Requests\CSP_GetRequestsByCategory.sql" />
+    <Build Include="Stored Procedures\Requests\CSP_GetRequestsByUser.sql" />
+    <Build Include="Stored Procedures\Requests\CSP_UpdateRequest.sql" />
+    <Build Include="Stored Procedures\Requests\CTR_OnDeleteRequest.sql" />
+    <Build Include="Stored Procedures\Companies\CTR_OnDeleteCompany.sql" />
+    <Build Include="Stored Procedures\Comments\CSP_DelecteComment.sql" />
+    <Build Include="Views\V_RequestListing.sql" />
+    <Build Include="Views\V_RequestAdmin.sql" />
+    <Build Include="Views\V_RequestCreator.sql" />
+    <Build Include="Views\V_RequestDetails.sql" />
+    <Build Include="Stored Procedures\Comments\CSP_UpdateComment.sql" />
+    <Build Include="Stored Procedures\Categories\CSP_GetSupCategories.sql" />
+    <Build Include="Stored Procedures\Categories\CSP_GetByParent.sql" />
+    <Build Include="Stored Procedures\Categories\CSP_GetCategoryByName.sql" />
+    <Build Include="Stored Procedures\Categories\CSP_GetByParentName.sql" />
+    <Build Include="Stored Procedures\Companies\CSP_GetByCompany.sql" />
   </ItemGroup>
 </Project>

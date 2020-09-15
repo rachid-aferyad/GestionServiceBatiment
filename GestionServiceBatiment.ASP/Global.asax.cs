@@ -28,11 +28,24 @@ namespace GestionServiceBatiment.ASP
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             Services = new ServiceCollection();
-            //Services.AddTransient<IDisposable, HttpClient>();
+
             Services.AddTransient<ICategoryService, CategoryService>();
+            Services.AddTransient<ICommentService, CommentService>();
+            Services.AddTransient<ICompanyService, CompanyService>();
+            Services.AddTransient<IModificationService, ModificationService>();
+            Services.AddTransient<IRejectionService, RejectionService>();
+            Services.AddTransient<IRequestService, RequestService>();
+            Services.AddTransient<IServiceService, ServiceService>();
             Services.AddTransient<IUserService, UserService>();
 
+            Services.AddTransient(typeof(HomeController));
             Services.AddTransient(typeof(CategoryController));
+            Services.AddTransient(typeof(CommentController));
+            Services.AddTransient(typeof(CompanyController));
+            Services.AddTransient(typeof(ModificationController));
+            Services.AddTransient(typeof(RejectionController));
+            Services.AddTransient(typeof(RequestController));
+            Services.AddTransient(typeof(ServiceController));
             Services.AddTransient(typeof(UserController));
 
 

@@ -13,9 +13,9 @@ namespace GestionServiceBatiment.BLL.Models
         public DateTime RejectionDate { get; set; }
         public string Comment { get; set; }
         
-        private int? RejectorId { get; set; }
+        public int? RejectorId { get; set; }
         private UserBO _rejector;
-        public UserBO Rejectorr
+        public UserBO Rejector
         {
             get
             { 
@@ -31,11 +31,11 @@ namespace GestionServiceBatiment.BLL.Models
             }
             set 
             { 
-                RejectorId = value.Id; 
+                Rejector = value; 
             }
         }
 
-        private int? ServiceId { get; set; }
+        public int? ServiceId { get; set; }
         private ServiceBO _service;
         public ServiceBO Service
         {

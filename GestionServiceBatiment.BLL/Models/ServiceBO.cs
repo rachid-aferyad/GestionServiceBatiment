@@ -19,7 +19,7 @@ namespace GestionServiceBatiment.BLL.Models
         public DateTime CreationDate { get; set; }
         public DateTime? ValidationDate { get; set; }
         
-        private int? CompanyId { get; set; }
+        public int? CompanyId { get; set; }
         private CompanyBO _company;
         public CompanyBO Company
         {
@@ -37,7 +37,7 @@ namespace GestionServiceBatiment.BLL.Models
             }
             set
             {
-                CompanyId = value.Id;
+                Company = value;
             }
         }
 
@@ -59,11 +59,11 @@ namespace GestionServiceBatiment.BLL.Models
             }
             set
             {
-                ValidatorId = value.Id;
+                Validator = value;
             }
         }
 
-        private int? CategoryId { get; set; }
+        public int? CategoryId { get; set; }
         private CategoryBO _category;
         public CategoryBO Category
         {
@@ -81,7 +81,7 @@ namespace GestionServiceBatiment.BLL.Models
             }
             set
             {
-                CategoryId = value.Id;
+                Category = value;
             }
         }
 

@@ -14,5 +14,6 @@ namespace GestionServiceBatiment.API.Models.Categories
         public string Name { get; set; }
         [MaxLength(255)]
         public string Description { get; set; }
+        public int? ParentId { get; set; }
     }
 }

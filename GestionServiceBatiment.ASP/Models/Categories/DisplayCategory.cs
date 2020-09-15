@@ -10,9 +10,10 @@ namespace GestionServiceBatiment.ASP.Models.Categories
 {
     public class DisplayCategory
     {
-        public int Id { get; }
+        public int Id { get; set; }
         //[DisplayName("Nom")]
-        public string Name { get; }
-        public string Description { get; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int? ParentId { get; set; }
     }
 }

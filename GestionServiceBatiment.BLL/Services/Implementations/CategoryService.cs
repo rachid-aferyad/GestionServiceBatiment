@@ -2,7 +2,7 @@
 using GestionServiceBatiment.BLL.Models;
 using GestionServiceBatiment.BLL.Services.Interfaces;
 using GestionServiceBatiment.DAL.Models;
-using GestionServiceBatiment.DAL.Repositories;
+using GestionServiceBatiment.DAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +30,29 @@ namespace GestionServiceBatiment.BLL.Services.Implementations
             return _categoryRepository.GetAll().Select(c => c.MapTo<CategoryBO>());
         }
 
+        public IEnumerable<CategoryBO> GetSup()
+        {
+            return _categoryRepository.GetSup().Select(c => c.MapTo<CategoryBO>());
+        }
+
+        public IEnumerable<CategoryBO> GetSub(int categoryId)
+        {
+            return _categoryRepository.GetSub(categoryId).Select(c => c.MapTo<CategoryBO>());
+        }
+
+        public IEnumerable<CategoryBO> GetSubByParentName(string parentName)
+        {
+            return _categoryRepository.GetSubByParentName(parentName).Select(c => c.MapTo<CategoryBO>());
+        }
+
         public CategoryBO GetById(int id)
         {
             return _categoryRepository.GetById(id).MapTo<CategoryBO>();
+        }
+
+        public CategoryBO GetByName(string name)
+        {
+            return _categoryRepository.GetByName(name).MapTo<CategoryBO>();
         }
 
         public int Insert(CategoryBO entity)

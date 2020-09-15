@@ -20,7 +20,14 @@ namespace GestionServiceBatiment.ASP.Controllers
         // GET: Category
         public ActionResult Index()
         {
-            return View(_categoryService.GetAll());
+            return View(_categoryService.GetSupCategories());
+        }
+
+        [Route("services/{parentName}")]
+        [Route("demandes/{parentName}")]
+        public ActionResult Index(string parentName)
+        {
+            return View(_categoryService.GetSubCategoriesByName(parentName));
         }
 
         // GET: Category/Details/5
@@ -32,7 +39,12 @@ namespace GestionServiceBatiment.ASP.Controllers
         // GET: Category/Create
         public ActionResult Create()
         {
-            return View(new CreateCategoryForm());
+            CreateCategoryForm createCategoryForm = new CreateCategoryForm();
+            createCategoryForm.SupCategories = _categoryService.GetSupCategories()
+                .Select(c => new SelectListItem() { Text = c.Name, Value = c.Id.ToString() })
+                .ToList();
+
+            return View(createCategoryForm);
         }
 
         // POST: Category/Create
@@ -94,16 +106,17 @@ namespace GestionServiceBatiment.ASP.Controllers
 
         // POST: Category/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, Category category)
         {
             try
             {
                 _categoryService.Delete(id);
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                return View(category);
             }
         }
     }

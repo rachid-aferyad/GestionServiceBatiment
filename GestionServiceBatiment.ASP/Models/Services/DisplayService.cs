@@ -9,12 +9,12 @@ namespace GestionServiceBatiment.ASP.Models.Services
 {
     public class DisplayService
     {
-        public int Id { get; }
-        public string Title { get; }
-        public string Description { get; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
         public string ImageURI { get; }
-        public DateTime CreationDate { get; }
-        public string CompanyName { get; }
-        public string CategoryName { get; }
+        public DateTime CreationDate { get; set; }
+        public string CompanyName { get; set; }
+        public string CategoryName { get; set; }
     }
 }

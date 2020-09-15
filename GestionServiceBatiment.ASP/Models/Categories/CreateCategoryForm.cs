@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace GestionServiceBatiment.ASP.Models.Categories
 {
@@ -16,5 +17,7 @@ namespace GestionServiceBatiment.ASP.Models.Categories
         public string Name { get; set; }
         [MaxLength(255)]
         public string Description { get; set; }
+        public int? ParentId { get; set; }
+        public IList<SelectListItem> SupCategories { get; set; }
     }
 }

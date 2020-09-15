@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GestionServiceBatiment.ASP.Models.Categories;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,5 +19,6 @@ namespace GestionServiceBatiment.ASP.Models.Services
         public int CompanyId { get; set; }
         [Required]
         public int CategoryId { get; set; }
+        public IEnumerable<DisplayCategory> Categories { get; set; }
     }
 }

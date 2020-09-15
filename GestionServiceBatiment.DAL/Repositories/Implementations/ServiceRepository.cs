@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ToolBox.Connections.Database;
 using GestionServiceBatiment.DAL.Models;
 using GestionServiceBatiment.DAL.Mappers;
-using GestionServiceBatiment.DAL.Repositories;
+using GestionServiceBatiment.DAL.Repositories.Interfaces;
 using GestionServiceBatiment.DAL.Views.Projects;
 
 namespace GestionServiceBatiment.DAL.Repositories.Implementations

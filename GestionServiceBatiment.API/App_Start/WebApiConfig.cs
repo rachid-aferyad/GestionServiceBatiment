@@ -1,7 +1,6 @@
 ﻿using GestionServiceBatiment.API.Controllers;
 using GestionServiceBatiment.BLL.Services.Implementations;
 using GestionServiceBatiment.BLL.Services.Interfaces;
-using GestionServiceBatiment.DAL.Repositories;
 using GestionServiceBatiment.DAL.Repositories.Implementations;
 using GestionServiceBatiment.DAL.Repositories.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +31,7 @@ namespace GestionServiceBatiment.API
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                defaults: new { controller = "Home", id = RouteParameter.Optional }
             );
         }
 
@@ -40,21 +39,31 @@ namespace GestionServiceBatiment.API
         {
             // Add services
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<ICommentRepository, CommentRepository>();
             services.AddTransient<ICompanyRepository, CompanyRepository>();
             services.AddTransient<IModificationRepository, ModificationRepository>();
             services.AddTransient<IRejectionRepository, RejectionRepository>();
+            services.AddTransient<IRequestRepository, RequestRepository>();
             services.AddTransient<IServiceRepository, ServiceRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
 
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<ICompanyService, CompanyService>();
             services.AddTransient<IModificationService, ModificationService>();
             services.AddTransient<IRejectionService, RejectionService>();
+            services.AddTransient<IRequestService, RequestService>();
             services.AddTransient<IServiceService, ServiceService>();
             services.AddTransient<IUserService, UserService>();
 
             // Add controllers
             services.AddScoped<CategoryController>(sp => new CategoryController(sp.GetRequiredService<ICategoryService>()));
+            services.AddScoped<CommentController>(sp => new CommentController(sp.GetRequiredService<ICommentService>()));
+            services.AddScoped<CompanyController>(sp => new CompanyController(sp.GetRequiredService<ICompanyService>()));
+            services.AddScoped<ModificationController>(sp => new ModificationController(sp.GetRequiredService<IModificationService>()));
+            services.AddScoped<RejectionController>(sp => new RejectionController(sp.GetRequiredService<IRejectionService>()));
+            services.AddScoped<RequestController>(sp => new RequestController(sp.GetRequiredService<IRequestService>()));
+            services.AddScoped<ServiceController>(sp => new ServiceController(sp.GetRequiredService<IServiceService>()));
             services.AddScoped<UserController>(sp => new UserController(sp.GetRequiredService<IUserService>()));
         }
     }

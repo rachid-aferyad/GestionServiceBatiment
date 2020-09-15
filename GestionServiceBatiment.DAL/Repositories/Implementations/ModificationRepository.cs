@@ -1,5 +1,6 @@
 ﻿using GestionServiceBatiment.DAL.Mappers;
 using GestionServiceBatiment.DAL.Models;
+using GestionServiceBatiment.DAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +19,15 @@ namespace GestionServiceBatiment.DAL.Repositories.Implementations
 
         public IEnumerable<Modification> GetAll()
         {
-            Command command = new Command("CSP_GetAllModifications");
+            Command command = new Command("CSP_GetAll");
+            command.AddParameter("Table", "Modification");
             return _connection.ExecuteReader(command, reader => reader.MapTo<Modification>());
         }
 
         public Modification GetById(int id)
         {
-            Command command = new Command("CSP_GetModificationById");
-            //command.AddParameter("Table", "Company");
+            Command command = new Command("CSP_GetById");
+            command.AddParameter("Table", "Modification");
             command.AddParameter("Id", id);
             return _connection.ExecuteReader(command, reader => reader.MapTo<Modification>()).SingleOrDefault();
         }

@@ -2,7 +2,7 @@
 using GestionServiceBatiment.BLL.Models;
 using GestionServiceBatiment.BLL.Services.Interfaces;
 using GestionServiceBatiment.DAL.Models;
-using GestionServiceBatiment.DAL.Repositories;
+using GestionServiceBatiment.DAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

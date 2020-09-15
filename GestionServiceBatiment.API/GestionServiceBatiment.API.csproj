@@ -170,6 +170,12 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Controllers\RequestController.cs" />
+    <Compile Include="Controllers\RejectionController.cs" />
+    <Compile Include="Controllers\ModificationController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -178,6 +184,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Comments\Comment.cs" />
+    <Compile Include="Models\Comments\CreateCommentForm.cs" />
+    <Compile Include="Models\Comments\DisplayComment.cs" />
+    <Compile Include="Models\Comments\UpdateCommentForm.cs" />
     <Compile Include="Models\Categories\DisplayCategory.cs" />
     <Compile Include="Models\Categories\UpdateCategoryForm.cs" />
     <Compile Include="Models\Categories\CreateCategoryForm.cs" />
@@ -186,7 +196,12 @@
     <Compile Include="Models\Companies\UpdateCompanyForm.cs" />
     <Compile Include="Models\Companies\CreateCompanyForm.cs" />
     <Compile Include="Models\Companies\Company.cs" />
+    <Compile Include="Models\Rejections\UpdateRejectionForm.cs" />
     <Compile Include="Models\Rejections\CreateRejectionForm.cs" />
+    <Compile Include="Models\Requests\CreateRequestForm.cs" />
+    <Compile Include="Models\Requests\DisplayRequest.cs" />
+    <Compile Include="Models\Requests\Request.cs" />
+    <Compile Include="Models\Requests\UpdateRequestForm.cs" />
     <Compile Include="Models\Services\DisplayService.cs" />
     <Compile Include="Models\Modifications\DisplayModification.cs" />
     <Compile Include="Models\Rejections\DisplayRejection.cs" />

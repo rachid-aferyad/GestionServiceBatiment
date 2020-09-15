@@ -12,27 +12,29 @@ namespace GestionServiceBatiment.ASP.Models.Users
 	{
 		[Required]
 		[StringLength(50, MinimumLength = 8)]
+		[DisplayName("Login*")]
 		public string Login { get; set; }
 		[Required]
 		[EmailAddress]
+		[DisplayName("Email*")]
 		public string Email { get; set; }
 		[Required]
 		[StringLength(50, MinimumLength = 2)]
-		[DisplayName("Nom")]
+		[DisplayName("Nom*")]
 		public string LastName { get; set; }
 		[Required]
 		[StringLength(50, MinimumLength = 2)]
-		[DisplayName("Prénom")]
+		[DisplayName("Prénom*")]
 		public string FirstName { get; set; }
 		[Required]
 		[StringLength(20, MinimumLength = 8)]
 		[DataType(DataType.Password)]
-		[DisplayName("Mot de passe")]
+		[DisplayName("Mot de passe*")]
 		public string Password { get; set; }
 		[Required]
 		[StringLength(20, MinimumLength = 8)]
 		[DataType(DataType.Password)]
-		[DisplayName("Confirmez le mot de passe")]
+		[DisplayName("Confirmez le mot de passe*")]
 		public string ConfirmPassword { get; set; }
 		[Required]
 		[DataType(DataType.Date)]

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<GestionServiceBatiment.ASP.Models.Categories.DisplayCategory>
+
+@{
+    ViewBag.Title = "Create";
+    //ViewBag.breadcrumbs = new List<string> { "Services", "Nouveau Service" };
+}
+
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Nouveau Service</h2>
+                <ol>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Services", "Index")</li>
+                    <li>Nouveau Service</li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- End Breadcrumbs -->
+    <!-- ======= Blog Section ======= -->
+    <section id="blog" class="blog">
+        <div class="container">
+
+            <div class="row">
+                @foreach (var category in Model)
+                {
+                    <div class="col-lg-4  col-md-6 d-flex align-items-stretch" data-aos="fade-up">
+                        <article class="entry" id="category">
+
+                            <div class="entry-img">
+                                <a href="~/service/create/@Html.DisplayFor(model => category.Name)">
+                                    <img src="~/Content/assets/img/blog-1.jpg" alt="" class="img-fluid">
+                                </a>
+                            </div>
+
+                            <h2 class="entry-title">
+                                <a href="~/service/@Html.DisplayFor(model => category.Name)">@Html.DisplayFor(model => category.Name)</a>
+                            </h2>
+
+                            <div class="entry-meta">
+                                <ul>
+                                    <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="blog-single.html">John Doe</a></li>
+                                    <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">Jan 1, 2020</time></a></li>
+                                </ul>
+                            </div>
+
+                            <div class="entry-content">
+                                <p>
+                                    @Html.DisplayFor(model => category.Description)
+                                </p>
+                                <div class="read-more">
+                                    <a href="blog-single.html">Read More</a>
+                                </div>
+                            </div>
+
+                        </article><!-- End blog entry -->
+                    </div>
+                }
+            </div>
+
+            <div class="blog-pagination" data-aos="fade-up">
+                <ul class="justify-content-center">
+                    <li class="disabled"><i class="icofont-rounded-left"></i></li>
+                    <li><a href="#">1</a></li>
+                    <li class="active"><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#"><i class="icofont-rounded-right"></i></a></li>
+                </ul>
+            </div>
+
+        </div>
+    </section><!-- End Blog Section -->
+</main>
+
+@section Scripts {
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+    <script type="text/javascript">
+        //$("#category").on('click', e => {
+        //    e.preventDefault();
+        //    $.post('/Service/Create/Sub', $('form').serialize(), function (partialView) {
+        //            $('#levels').html(partialView);
+        //    });
+        //});
+    </script>
+}

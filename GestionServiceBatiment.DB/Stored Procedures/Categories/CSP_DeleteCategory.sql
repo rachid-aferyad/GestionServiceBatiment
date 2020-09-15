@@ -3,5 +3,5 @@
 AS
 	BEGIN
 		Delete From [dbo].[Category]
-			Where [Id] = @Id;
+			Where [Id] = @Id or [parentId] = @Id
 	END

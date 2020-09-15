@@ -50,11 +50,51 @@ namespace GestionServiceBatiment.ASP.Infrastructures
             return response.Content.ReadAsAsync<Category>().Result;
         }
 
+        public Category GetByName(string name)
+        {
+            HttpResponseMessage response = _httpClient.GetAsync("Name/" + name).Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Echec de la réception de données.");
+            }
+            return response.Content.ReadAsAsync<Category>().Result;
+        }
+
+        public IEnumerable<Category> GetSubCategories(int categoryId)
+        {
+            HttpResponseMessage response = _httpClient.GetAsync("Sub/" + categoryId.ToString()).Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Echec de la réception de données.");
+            }
+            return response.Content.ReadAsAsync<IEnumerable<Category>>().Result;
+        }
+
+        public IEnumerable<Category> GetSubCategoriesByName(string parentName)
+        {
+            HttpResponseMessage response = _httpClient.GetAsync("Sub/ParentName/" + parentName).Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Echec de la réception de données.");
+            }
+            return response.Content.ReadAsAsync<IEnumerable<Category>>().Result;
+        }
+
+        public IEnumerable<Category> GetSupCategories()
+        {
+            HttpResponseMessage response = _httpClient.GetAsync("Sup").Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Echec de la réception de données.");
+            }
+            return response.Content.ReadAsAsync<IEnumerable<Category>>().Result;
+        }
+
         public int Post(Category entity)
         {
             string jsonContent = JsonConvert.SerializeObject(entity, Formatting.Indented);
             StringContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = _httpClient.PostAsync("", content).Result;
+            HttpResponseMessage response = _httpClient.PostAsync("Post", content).Result;
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Echec de l'envois de données.");

@@ -12,7 +12,7 @@ namespace GestionServiceBatiment.BLL.Models
         public int Id { get; set; }
         public DateTime ModificationDate { get; set; }
         
-        private int? ServiceId { get; set; }
+        public int? ServiceId { get; set; }
         private ServiceBO _service;
         public ServiceBO Service
         {
@@ -30,7 +30,7 @@ namespace GestionServiceBatiment.BLL.Models
             }
             set 
             { 
-                ServiceId = value.Id; 
+                Service = value; 
             }
         }
 

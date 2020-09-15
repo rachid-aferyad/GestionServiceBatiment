@@ -1,5 +1,6 @@
 ﻿using GestionServiceBatiment.DAL.Mappers;
 using GestionServiceBatiment.DAL.Models;
+using GestionServiceBatiment.DAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

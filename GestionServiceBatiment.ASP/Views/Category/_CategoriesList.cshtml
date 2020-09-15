@@ -1,0 +1,11 @@
+﻿@model System.Collections.Generic.IList<SelectListItem>
+
+@foreach (var item in Model)
+{
+    <div class="col-md-6">
+        <div class="icon-box">
+            <i class="icofont-computer"></i>
+            <h4><a href="#">@item.Text</a></h4>
+        </div>
+    </div>
+}

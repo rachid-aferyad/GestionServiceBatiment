@@ -15,24 +15,47 @@ namespace GestionServiceBatiment.API.Controllers
     public class CategoryController : ApiController
     {
         private readonly ICategoryService _categoryService;
+
         public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
 
-        // GET: api/Category
         public IEnumerable<Category> Get()
         {
             return _categoryService.GetAll().Select(c => c.MapTo<Category>());
         }
 
-        // GET: api/Category/5
+        [Route("api/Category/Sup")]
+        public IEnumerable<Category> GetSup()
+        {
+            return _categoryService.GetSup().Select(c => c.MapTo<Category>());
+        }
+
+        [Route("api/Category/Sub/{id:int:min(1)}")]
+        public IEnumerable<Category> GetSub(int id)
+        {
+            return _categoryService.GetSub(id).Select(c => c.MapTo<Category>());
+        }
+
+        [Route("api/Category/Sub/ParentName/{parentName}")]
+        public IEnumerable<Category> GetSubByParentName(string parentName)
+        {
+            return _categoryService.GetSubByParentName(parentName).Select(c => c.MapTo<Category>());
+        }
+
+        [Route("api/Category/{id}:int:min(1)")]
         public Category Get(int id)
         {
             return _categoryService.GetById(id).MapTo<Category>();
         }
 
-        // POST: api/Category
+        [Route("api/Category/Name/{name:alpha:int}")]
+        public Category GetByName(string param)
+        {
+            return _categoryService.GetByName(param).MapTo<Category>();
+        }
+
         public HttpResponseMessage Post(CreateCategoryForm createCategoryForm)
         {
             try
@@ -51,8 +74,7 @@ namespace GestionServiceBatiment.API.Controllers
             }
         }
 
-        // PUT: api/Category/5
-        public HttpResponseMessage Put(int id, UpdateCategoryForm updateCategoryForm)
+        public HttpResponseMessage Put(int param, UpdateCategoryForm updateCategoryForm)
         {
             try
             {
@@ -60,7 +82,7 @@ namespace GestionServiceBatiment.API.Controllers
                 {
                     return Request.CreateResponse(HttpStatusCode.BadRequest);
                 }
-                _categoryService.Update(id, updateCategoryForm.MapTo<CategoryBO>());
+                _categoryService.Update(param, updateCategoryForm.MapTo<CategoryBO>());
 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
@@ -70,10 +92,9 @@ namespace GestionServiceBatiment.API.Controllers
             }
         }
 
-        // DELETE: api/Category/5
-        public HttpResponseMessage Delete(int id)
+        public HttpResponseMessage Delete(int param)
         {
-            _categoryService.Delete(id);
+            _categoryService.Delete(param);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }

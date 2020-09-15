@@ -20,7 +20,7 @@ namespace GestionServiceBatiment.BLL.Models
         public int AddressZipCode { get; set; }
         public string AddressCountry { get; set; }
         
-        private int? ContractorId { get; set; }
+        public int ContractorId { get; set; }
         private UserBO _contractor;
         public UserBO Contractor
         {
@@ -28,17 +28,13 @@ namespace GestionServiceBatiment.BLL.Models
             {
                 if (_contractor is null)
                 {
-                    if (!(this.ContractorId is null))
-                    {
-                        _contractor = _userService.GetById((int)this.ContractorId);
-                    }
-                    else _contractor = null;
+                    _contractor = _userService.GetById((int)this.ContractorId);
                 }
                 return _contractor;
             }
             set
             { 
-                ContractorId = value.Id; 
+                Contractor = value; 
             }
         }
 

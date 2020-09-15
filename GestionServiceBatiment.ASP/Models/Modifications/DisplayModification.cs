@@ -8,8 +8,8 @@ namespace GestionServiceBatiment.ASP.Models.Modifications
 {
     public class DisplayModification
     {
-        public int Id { get; }
-        public string ServiceName { get; }
-        public DateTime ModificationDate { get; }
+        public int Id { get; set;  }
+        public string ServiceName { get; set;}
+        public DateTime ModificationDate { get; set;}
     }
 }

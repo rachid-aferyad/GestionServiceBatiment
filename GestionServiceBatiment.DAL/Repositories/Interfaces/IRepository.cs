@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GestionServiceBatiment.DAL.Repositories
+namespace GestionServiceBatiment.DAL.Repositories.Interfaces
 {
     public interface IRepository<TId, TEntity>
     {

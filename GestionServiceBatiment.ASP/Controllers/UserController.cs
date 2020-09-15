@@ -16,6 +16,7 @@ namespace GestionServiceBatiment.ASP.Controllers
         {
             _userService = userService;
         }
+        
         // GET: User
         public ActionResult Index()
         {
