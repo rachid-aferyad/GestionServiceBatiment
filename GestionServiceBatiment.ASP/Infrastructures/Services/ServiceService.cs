@@ -16,7 +16,7 @@ namespace GestionServiceBatiment.ASP.Infrastructures
     {
         //private string _uri;
         public ServiceService(string login = null, string password = null)
-            : base("service/", login, password)
+            : base("Service/", login, password)
         {
             //_uri = "category/";
         }
@@ -40,6 +40,26 @@ namespace GestionServiceBatiment.ASP.Infrastructures
             return response.Content.ReadAsAsync<IEnumerable<Service>>().Result;
         }
 
+        public IEnumerable<Service> GetByCategory(int categoryId)
+        {
+            HttpResponseMessage response = _httpClient.GetAsync("Category/" + categoryId).Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Echec de la réception de données.");
+            }
+            return response.Content.ReadAsAsync<IEnumerable<Service>>().Result;
+        }
+
+        //public IEnumerable<Service> GetByCategoryName(string categoryName)
+        //{
+        //    HttpResponseMessage response = _httpClient.GetAsync("CategoryName/" + categoryName).Result;
+        //    if (!response.IsSuccessStatusCode)
+        //    {
+        //        throw new Exception("Echec de la réception de données.");
+        //    }
+        //    return response.Content.ReadAsAsync<IEnumerable<Service>>().Result;
+        //}
+
         public Service GetById(int id)
         {
             HttpResponseMessage response = _httpClient.GetAsync(id.ToString()).Result;
@@ -47,7 +67,8 @@ namespace GestionServiceBatiment.ASP.Infrastructures
             {
                 throw new Exception("Echec de la réception de données.");
             }
-            return response.Content.ReadAsAsync<Service>().Result;
+            Service service = response.Content.ReadAsAsync<Service>().Result;
+            return service;
         }
 
         public int Post(Service entity)

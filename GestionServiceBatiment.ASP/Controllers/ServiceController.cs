@@ -5,9 +5,10 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using GestionServiceBatiment.ASP.Infrastructures.Interfaces;
-using GestionServiceBatiment.ASP.Mappers;
 using GestionServiceBatiment.ASP.Models.Categories;
+using GestionServiceBatiment.ASP.Models.Comments;
 using GestionServiceBatiment.ASP.Models.Services;
+using Tools.Mappers;
 
 namespace GestionServiceBatiment.ASP.Controllers
 {
@@ -15,61 +16,94 @@ namespace GestionServiceBatiment.ASP.Controllers
     {
         private readonly IServiceService _serviceService;
         private readonly ICategoryService _categoryService;
+        private readonly ICommentService _commentService;
+        private readonly IMappersService _mappersService;
 
-        public ServiceController(IServiceService serviceService, ICategoryService categoryService)
+        public ServiceController(IServiceService serviceService, 
+                                 ICategoryService categoryService, 
+                                 ICommentService commentService,
+                                 IMappersService mappersService
+            )
         {
             _serviceService = serviceService;
             _categoryService = categoryService;
+            _commentService = commentService;
+            _mappersService = mappersService;
         }
-       
+
         // GET: Service
         public ActionResult Index()
         {
-            return View(_serviceService.GetAll().Select(s => s.MapTo<DisplayService>()));
+            return View(_serviceService.GetAll().Select(s => _mappersService.Map<Service, DisplayService>(s)));
+        }
+
+        [Route("Services/{subCatgeory}/{categoryName}")]
+        public ActionResult Index(string categoryName)
+        {
+            Category category = _categoryService.GetByName(categoryName);
+            IEnumerable<DisplayService> displayServices = _serviceService.GetByCategory(category.Id).Select(
+                s => _mappersService.Map<Service, DisplayService>(s));
+            return View(displayServices);
         }
 
         // GET: Service/Details/5
+        [Route("Services/{subCatgeory}/{categoryName}/{id}")]
+        [Route("Service/Details/{id}")]
         public ActionResult Details(int id)
         {
-            DisplayService displayService = _serviceService.GetById(id).MapTo<DisplayService>();
+            DisplayService displayService = _mappersService.Map<Service, DisplayService>(_serviceService.GetById(id));
+            //IEnumerable<DisplayComment> comments = _commentService.GetByService(displayService.Id).Select(c => _mappersService.Map<Comment, DisplayComment>(c));
+            //displayService.Comments = comments;
             return View(displayService);
         }
 
         // GET: Service/Create
-        [Route("Service/Create")]
+        [HttpGet]
+        [Route("Create-Service")]
         public ActionResult Create()
         {
             //CreateServiceForm createServiceForm = new CreateServiceForm();
-            IEnumerable<DisplayCategory> supCategories = _categoryService.GetAll().Select(c => c.MapTo<DisplayCategory>());
+            //IEnumerable<DisplayCategory> supCategories = _categoryService.GetAll().Select(c => c.MapTo<DisplayCategory>());
 
-            return View(supCategories);
+            CreateServiceForm createServiceForm = new CreateServiceForm();
+            createServiceForm.CategoryId = int.Parse(Request.Params["category"]);
+
+            return View(createServiceForm);
         }
 
         // GET: Service/Create
-        [Route("Service/Create/{parentName}")]
-        public ActionResult Create(string parentName)
-        {
-            //Category parent = _categoryService.GetByName(parentName);
-            //CreateServiceForm createServiceForm = new CreateServiceForm();
-            //createServiceForm.Categories = _categoryService.GetSubCategories(parent).Select(c => c.MapTo<DisplayCategory>());
-            return View(_categoryService.GetSubCategoriesByName(parentName));
-        }
+
+        //[Route("Service/Create/{category}")]
+        //public ActionResult Create(int category)
+        //{
+        //    //Category parent = _categoryService.GetByName(parentName);
+        //    //CreateServiceForm createServiceForm = new CreateServiceForm();
+        //    //createServiceForm.Categories = _categoryService.GetSubCategories(parent).Select(c => c.MapTo<DisplayCategory>());
+
+        //    CreateServiceForm createServiceForm = new CreateServiceForm();
+        //    createServiceForm.CategoryId = category;
+
+        //    return View(createServiceForm);
+        //}
 
         // POST: Service/Create
         [HttpPost]
+        [Route("Create-Service")]
         public ActionResult Create(CreateServiceForm serviceForm)
         {
             try
             {
+                serviceForm.CompanyId = 17;
+
                 if (ModelState.IsValid)
                 {
-                    _serviceService.Post(serviceForm.MapTo<Service>());
-                    return RedirectToAction("Index");
+                    int serviceId = _serviceService.Post(_mappersService.Map<CreateServiceForm, Service>(serviceForm));
+                    return RedirectToAction(nameof(Details), new { id = serviceId });
                 }
 
                 return View(serviceForm);
             }
-            catch
+            catch (Exception ex)
             {
                 return View(serviceForm);
             }
@@ -84,7 +118,7 @@ namespace GestionServiceBatiment.ASP.Controllers
             {
                 return RedirectToAction(nameof(Index));
             }
-            return View(service.MapTo<UpdateServiceForm>());
+            return View(_mappersService.Map<Service, UpdateServiceForm>(service));
         }
 
         // POST: Service/Edit/5
@@ -95,7 +129,7 @@ namespace GestionServiceBatiment.ASP.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _serviceService.Put(id, updateServiceForm.MapTo<Service>());
+                    _serviceService.Put(id, _mappersService.Map<UpdateServiceForm, Service>(updateServiceForm));
                     return RedirectToAction(nameof(Index));
                 }
 

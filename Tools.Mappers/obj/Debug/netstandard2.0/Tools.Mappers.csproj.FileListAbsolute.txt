@@ -1,0 +1,9 @@
+C:\Users\r.aferyad\Desktop\sandbox\GestionServiceBatiment\Tools.Mappers\bin\Debug\netstandard2.0\Tools.Mappers.deps.json
+C:\Users\r.aferyad\Desktop\sandbox\GestionServiceBatiment\Tools.Mappers\bin\Debug\netstandard2.0\Tools.Mappers.dll
+C:\Users\r.aferyad\Desktop\sandbox\GestionServiceBatiment\Tools.Mappers\bin\Debug\netstandard2.0\Tools.Mappers.pdb
+C:\Users\r.aferyad\Desktop\sandbox\GestionServiceBatiment\Tools.Mappers\obj\Debug\netstandard2.0\Tools.Mappers.csprojAssemblyReference.cache
+C:\Users\r.aferyad\Desktop\sandbox\GestionServiceBatiment\Tools.Mappers\obj\Debug\netstandard2.0\Tools.Mappers.AssemblyInfoInputs.cache
+C:\Users\r.aferyad\Desktop\sandbox\GestionServiceBatiment\Tools.Mappers\obj\Debug\netstandard2.0\Tools.Mappers.AssemblyInfo.cs
+C:\Users\r.aferyad\Desktop\sandbox\GestionServiceBatiment\Tools.Mappers\obj\Debug\netstandard2.0\Tools.Mappers.csproj.CoreCompileInputs.cache
+C:\Users\r.aferyad\Desktop\sandbox\GestionServiceBatiment\Tools.Mappers\obj\Debug\netstandard2.0\Tools.Mappers.dll
+C:\Users\r.aferyad\Desktop\sandbox\GestionServiceBatiment\Tools.Mappers\obj\Debug\netstandard2.0\Tools.Mappers.pdb

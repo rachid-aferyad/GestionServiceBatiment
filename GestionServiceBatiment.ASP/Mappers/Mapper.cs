@@ -18,11 +18,11 @@ namespace GestionServiceBatiment.ASP.Mappers
                 List<PropertyInfo> sourceProperties = source.GetType().GetProperties().ToList<PropertyInfo>();
                 List<PropertyInfo> destinationProperties = destination.GetType().GetProperties().ToList<PropertyInfo>();
 
-                foreach (PropertyInfo sourceProperty in sourceProperties)
+                foreach (PropertyInfo destinationProperty in destinationProperties)
                 {
-                    PropertyInfo destinationProperty = destinationProperties.Find(item => item.Name.ToLower() == sourceProperty.Name.ToLower());
+                    PropertyInfo sourceProperty = sourceProperties.Find(item => item.Name.ToLower() == destinationProperty.Name.ToLower());
 
-                    if (destinationProperty != null)
+                    if (sourceProperty != null)
                     {
                         try
                         {
@@ -32,8 +32,21 @@ namespace GestionServiceBatiment.ASP.Mappers
                             else if (sourceProperty.PropertyType.Name == "String" && destinationProperty.PropertyType.BaseType == typeof(Enum))
                                 destinationProperty.SetValue(destination, Enum.Parse(destinationProperty.PropertyType, sourceProperty.GetValue(source).ToString()));
 
-                            else
+                            else if (sourceProperty.PropertyType.IsPrimitive ||
+                                    sourceProperty.PropertyType == typeof(String) ||
+                                    destinationProperty.PropertyType == typeof(Decimal) ||
+                                    destinationProperty.PropertyType == typeof(DateTime) ||
+                                    destinationProperty.PropertyType == typeof(Nullable<Int32>)
+                                ) 
                                 destinationProperty.SetValue(destination, sourceProperty.GetValue(source, null), null);
+
+                            else if (sourceProperty.PropertyType.IsClass)
+                            {
+                                Type destinationPropertyType = destinationProperty.PropertyType;
+                                object destinationPropertyObject = Activator.CreateInstance(destinationPropertyType);
+                                destinationProperty.SetValue(destination, destinationPropertyObject);
+                                MatchAndMap(sourceProperty.GetValue(source), destinationPropertyObject);
+                            }
                         }
                         catch (Exception ex)
                         {

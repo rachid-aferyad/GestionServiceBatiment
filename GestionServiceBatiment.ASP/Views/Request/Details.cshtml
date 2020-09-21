@@ -2,65 +2,476 @@
 
 @{
     ViewBag.Title = "Details";
+    IEnumerable<GestionServiceBatiment.ASP.Models.Comments.DisplayComment> supComments = Model.Comments.Where(c => c.ParentId == null);
+    IEnumerable<GestionServiceBatiment.ASP.Models.Comments.DisplayComment> subComments = Model.Comments.Where(c => c.ParentId != null);
+    //IList<string> breadcrumbs = new List<string> { "Services", Model.Title };
 }
 
-<h2>Details</h2>
+<main id="main">
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
 
-<div>
-    <h4>DisplayRequest</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+            <div class="d-flex justify-content-between align-items-center">
+                <h2></h2>
+                <ol>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Demandes", "Index")</li>
+                    <li>@Html.DisplayFor(model => model.Title)</li>
+                </ol>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+        </div>
+    </section><!-- End Breadcrumbs -->
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+        <div class="container" data-aos="fade-up">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <div class="section-title">
+                <h2>@Html.DisplayFor(model => model.Title)</h2>
+                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+            <div class="row">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ImageURI)
-        </dt>
+                <div class="col-lg-8 mt-6 mt-lg-0 d-flex align-items-stretch">
+                    <form class="php-email-form">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ImageURI)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ImageURI)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.ImageURI)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </dt>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Description)
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CreationDate)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.Description)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatorName)
-        </dt>
+                        </dl>
 
-        <dd>
-            @Html.DisplayFor(model => model.CreatorName)
-        </dd>
+                        <hr />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </dt>
+                        <div class="">
+                            <h3>Commentaires</h3>
+                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.CategoryName)
-        </dd>
+                    </form>
+                </div>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                <div class="col-lg-4 d-flex align-items-stretch">
+                    <div class="info">
+
+                        <div class="phone">
+                            <i class="icofont-chart-flow-2"></i>
+                            <h4>@Html.DisplayNameFor(model => model.Category.Name)</h4>
+                            <p>@Html.DisplayNameFor(model => model.Category.Name)</p>
+                        </div>
+
+                        <div class="phone">
+                            <i class="icofont-ui-calendar"></i>
+                            <h4>@Html.DisplayNameFor(model => model.CreationDate)</h4>
+                            <p>@Html.DisplayNameFor(model => model.CreationDate)</p>
+                        </div>
+
+                        <div class="email">
+                            <i class="icofont-email"></i>
+                            <h4>Email:</h4>
+                            <p>@Html.DisplayFor(model => model.Creator.Email)</p>
+                        </div>
+
+                        <div class="phone">
+                            <i class="icofont-phone"></i>
+                            <h4>Tél:</h4>
+                            <p>@Html.DisplayFor(model => model.Creator.Login)</p>
+                        </div>
+
+                        <div class="phone">
+                            <i class="icofont-company"></i>
+                            <h4>@Html.DisplayNameFor(model => model.Creator.FirstName) @Html.DisplayNameFor(model => model.Creator.LastName)</h4>
+                            <p>@Html.DisplayNameFor(model => model.Creator.Login)</p>
+                        </div>
+
+                        @*<div class="address">
+            <i class="icofont-google-map"></i>
+            <h4>Localisation</h4>
+            <p>
+                @Html.DisplayFor(model => model.Company.AddressStreet) @Html.DisplayFor(model => model.Company.AddressNumber) / @Html.DisplayFor(model => model.Company.AddressMailBox) <br />
+                @Html.DisplayFor(model => model.Company.AddressZipCode) @Html.DisplayFor(model => model.Company.AddressCity) <br />
+                @Html.DisplayFor(model => model.Company.AddressCountry)
+            </p>
+        </div>*@
+
+                        @*<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>*@
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Contact Section -->
+    <!-- ======= Blog Section ======= -->
+    <section id="blog" class="blog">
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-8 entries">
+
+                    <article class="entry entry-single">
+
+                        <div class="entry-img">
+                            <img src="~/Content/assets/img/blog-1.jpg" alt="" class="img-fluid">
+                        </div>
+
+                        <h2 class="entry-title">
+                            <a href="blog-single.html">@Html.DisplayFor(model => model.Title)</a>
+                        </h2>
+
+                        <div class="entry-meta">
+                            <ul>
+                                <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="blog-single.html">@Html.DisplayFor(model => model.Creator.FirstName) @Html.DisplayFor(model => model.Creator.LastName)</a></li>
+                                <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">@Html.DisplayFor(model => model.CreationDate)</time></a></li>
+                                <li class="d-flex align-items-center"><i class="icofont-comment"></i> <a href="blog-single.html">12 Commentaires</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="entry-content">
+                            <p>
+                                @Html.DisplayFor(model => model.Description)
+                            </p>
+
+                        </div>
+
+                        <div class="entry-footer clearfix">
+                            <div class="float-left">
+                                <i class="icofont-folder"></i>
+                                <ul class="cats">
+                                    <li><a href="#">Business</a></li>
+                                </ul>
+
+                                <i class="icofont-tags"></i>
+                                <ul class="tags">
+                                    <li><a href="#">Creative</a></li>
+                                    <li><a href="#">Tips</a></li>
+                                    <li><a href="#">Marketing</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="float-right share">
+                                <a href="" title="Share on Twitter"><i class="icofont-twitter"></i></a>
+                                <a href="" title="Share on Facebook"><i class="icofont-facebook"></i></a>
+                                <a href="" title="Share on Instagram"><i class="icofont-instagram"></i></a>
+                            </div>
+
+                        </div>
+
+                    </article><!-- End blog entry -->
+
+                    <div class="blog-author clearfix">
+                        <img src="~/Content/assets/img/blog-author.jpg" class="rounded-circle float-left" alt="">
+                        <h4>@Html.DisplayFor(model => model.Creator.FirstName) @Html.DisplayFor(model => model.Creator.LastName)</h4>
+                        <div class="social-links">
+                            <a href="https://twitters.com/#"><i class="icofont-twitter"></i></a>
+                            <a href="https://facebook.com/#"><i class="icofont-facebook"></i></a>
+                            <a href="https://instagram.com/#"><i class="icofont-instagram"></i></a>
+                        </div>
+                        <p>
+                            @Html.DisplayFor(model => model.Creator.FirstName)
+                        </p>
+                    </div><!-- End blog author bio -->
+
+                    <div class="blog-comments">
+
+                        <h4 class="comments-count">8 Commentaires</h4>
+
+                        <form action="">
+                            <div class="row">
+                                <div class="col form-group">
+                                    <textarea name="comment" class="form-control" placeholder="Your Comment*"></textarea>
+                                </div>
+                            </div>
+                        </form>
+
+                        @foreach (var supComment in supComments)
+                        {
+                            <h2>@Html.DisplayFor(model => supComment.ParentId)</h2>
+                            <div id="comment-2" class="comment clearfix">
+                                <img src="~/Content/assets/img/comments-2.jpg" class="comment-img  float-left" alt="">
+                                <h5><a href="">@Html.DisplayFor(model => supComment.CreatorId)</a> <a href="#" class="reply"><i class="icofont-reply"></i> Reply</a></h5>
+                                <time datetime="2020-01-01">@Html.DisplayFor(model => supComment.CreationDate)</time>
+                                <p>
+                                    @Html.DisplayFor(model => supComment.ParentId)
+                                    @Html.DisplayFor(model => supComment.Content)
+                                </p>
+
+                                @foreach (var subComment in subComments.Where(c => c.ParentId == supComment.Id))
+                                {
+
+                                    <div id="comment-reply-1" class="comment comment-reply clearfix">
+                                        <img src="~/Content/assets/img/comments-3.jpg" class="comment-img  float-left" alt="">
+                                        <h5><a href="">@Html.DisplayFor(model => subComment.CreatorId)</a> <a href="#" class="reply"><i class="icofont-reply"></i> Reply</a></h5>
+                                        <time datetime="2020-01-01">@Html.DisplayFor(model => subComment.CreationDate)</time>
+                                        <p>
+                                            @Html.DisplayFor(model => subComment.Content)
+                                        </p>
+                                    </div><!-- End comment reply #1-->
+                                }
+                            </div><!-- End comment #2-->
+                        }
+
+                    </div><!-- End blog comments -->
+
+                </div><!-- End blog entries list -->
+
+                <div class="col-lg-4">
+
+                    <div class="sidebar">
+
+                        <h3 class="sidebar-title">Search</h3>
+                        <div class="sidebar-item search-form">
+                            <form action="">
+                                <input type="text">
+                                <button type="submit"><i class="icofont-search"></i></button>
+                            </form>
+
+                        </div><!-- End sidebar search formn-->
+
+                        <h3 class="sidebar-title">Categories</h3>
+                        <div class="sidebar-item categories">
+                            <ul>
+                                <li><a href="#">General <span>(25)</span></a></li>
+                                <li><a href="#">Lifestyle <span>(12)</span></a></li>
+                                <li><a href="#">Travel <span>(5)</span></a></li>
+                                <li><a href="#">Design <span>(22)</span></a></li>
+                                <li><a href="#">Creative <span>(8)</span></a></li>
+                                <li><a href="#">Educaion <span>(14)</span></a></li>
+                            </ul>
+
+                        </div><!-- End sidebar categories-->
+
+                        <h3 class="sidebar-title">Recent Posts</h3>
+                        <div class="sidebar-item recent-posts">
+                            <div class="post-item clearfix">
+                                <img src="~/Content/assets/img/business-6.jpg" alt="">
+                                <h4><a href="blog-single.html">Nihil blanditiis at in nihil autem</a></h4>
+                                <time datetime="2020-01-01">Jan 1, 2020</time>
+                            </div>
+
+                            <div class="post-item clearfix">
+                                <img src="~/Content/assets/img/business-20.jpg" alt="">
+                                <h4><a href="blog-single.html">Quidem autem et impedit</a></h4>
+                                <time datetime="2020-01-01">Jan 1, 2020</time>
+                            </div>
+
+                            <div class="post-item clearfix">
+                                <img src="~/Content/assets/img/business-26.jpg" alt="">
+                                <h4><a href="blog-single.html">Id quia et et ut maxime similique occaecati ut</a></h4>
+                                <time datetime="2020-01-01">Jan 1, 2020</time>
+                            </div>
+
+                            <div class="post-item clearfix">
+                                <img src="~/Content/assets/img/business-30.jpg" alt="">
+                                <h4><a href="blog-single.html">Laborum corporis quo dara net para</a></h4>
+                                <time datetime="2020-01-01">Jan 1, 2020</time>
+                            </div>
+
+                            <div class="post-item clearfix">
+                                <img src="~/Content/assets/img/business-16.jpg" alt="">
+                                <h4><a href="blog-single.html">Et dolores corrupti quae illo quod dolor</a></h4>
+                                <time datetime="2020-01-01">Jan 1, 2020</time>
+                            </div>
+
+                        </div><!-- End sidebar recent posts-->
+
+                        <h3 class="sidebar-title">Tags</h3>
+                        <div class="sidebar-item tags">
+                            <ul>
+                                <li><a href="#">App</a></li>
+                                <li><a href="#">IT</a></li>
+                                <li><a href="#">Business</a></li>
+                                <li><a href="#">Business</a></li>
+                                <li><a href="#">Mac</a></li>
+                                <li><a href="#">Design</a></li>
+                                <li><a href="#">Office</a></li>
+                                <li><a href="#">Creative</a></li>
+                                <li><a href="#">Studio</a></li>
+                                <li><a href="#">Smart</a></li>
+                                <li><a href="#">Tips</a></li>
+                                <li><a href="#">Marketing</a></li>
+                            </ul>
+
+                        </div><!-- End sidebar tags-->
+
+                    </div><!-- End sidebar -->
+
+                </div><!-- End blog sidebar -->
+
+            </div>
+
+        </div>
+    </section><!-- End Blog Section -->
+    @*<section id="contact" class="contact">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>@Html.DisplayFor(model => model.Title)</h2>
+                </div>
+
+                <div>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Title)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Title)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Description)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ImageURI)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ImageURI)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CreationDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CreationDate)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CompanyName)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CompanyName)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CategoryName)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CategoryName)
+                        </dd>
+
+                    </dl>
+                </div>
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                    @Html.ActionLink("Back to List", "Index")
+                </p>
+
+            </div>
+        </section>*@
+
+</main>
+
+
+
+
+@*
+    <main id="main">
+        <!-- ======= Breadcrumbs ======= -->
+        <section id="breadcrumbs" class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2></h2>
+                    <ol>
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Demandes", "Index")</li>
+                        <li>@Html.DisplayFor(model => model.Title)</li>
+                    </ol>
+                </div>
+
+            </div>
+        </section><!-- End Breadcrumbs -->
+
+
+        <section id="contact" class="contact">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>@Html.DisplayFor(model => model.Title)</h2>
+                </div>
+
+                <div>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Title)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Title)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Description)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ImageURI)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ImageURI)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CreationDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CreationDate)
+                        </dd>
+
+                        @*<dt>
+                                @Html.DisplayNameFor(model => model.CreatorName)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.CreatorName)
+                            </dd>*@
+
+@*<dt>
+                                @Html.DisplayNameFor(model => model.CategoryName)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.CategoryName)
+                            </dd>
+
+                    </dl>
+                </div>
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                    @Html.ActionLink("Back to List", "Index")
+                </p>
+            </div>
+        </section>
+    </main>
+*@

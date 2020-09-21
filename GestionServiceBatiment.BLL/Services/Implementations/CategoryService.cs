@@ -8,16 +8,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tools.Mappers;
 
 namespace GestionServiceBatiment.BLL.Services.Implementations
 {
     public class CategoryService : ICategoryService
     {
-        private ICategoryRepository _categoryRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        //private readonly IServiceRepository _serviceRepository;
+        //private readonly ICategoryService _categoryService;
+        //private readonly ICompanyService _companyService;
+        //private readonly ICommentService _commentService;
+        private readonly IMappersService _mappersService;
 
-        public CategoryService(ICategoryRepository categoryRepository)
+
+        public CategoryService(ICategoryRepository categoryRepository,
+            IMappersService mappersService
+            )
         {
             _categoryRepository = categoryRepository;
+            _mappersService = mappersService;
         }
 
         public bool Delete(int id)
@@ -27,42 +37,46 @@ namespace GestionServiceBatiment.BLL.Services.Implementations
 
         public IEnumerable<CategoryBO> GetAll()
         {
-            return _categoryRepository.GetAll().Select(c => c.MapTo<CategoryBO>());
+            return _categoryRepository.GetAll().Select(c => _mappersService.Map<Category, CategoryBO>(c));
         }
 
         public IEnumerable<CategoryBO> GetSup()
         {
-            return _categoryRepository.GetSup().Select(c => c.MapTo<CategoryBO>());
+            return _categoryRepository.GetSup().Select(c => _mappersService.Map<Category, CategoryBO>(c));
         }
 
         public IEnumerable<CategoryBO> GetSub(int categoryId)
         {
-            return _categoryRepository.GetSub(categoryId).Select(c => c.MapTo<CategoryBO>());
+            return _categoryRepository.GetSub(categoryId).Select(c => _mappersService.Map<Category, CategoryBO>(c));
         }
 
         public IEnumerable<CategoryBO> GetSubByParentName(string parentName)
         {
-            return _categoryRepository.GetSubByParentName(parentName).Select(c => c.MapTo<CategoryBO>());
+            return _categoryRepository.GetSubByParentName(parentName).Select(c => _mappersService.Map<Category, CategoryBO>(c));
         }
 
         public CategoryBO GetById(int id)
         {
-            return _categoryRepository.GetById(id).MapTo<CategoryBO>();
+            CategoryBO categoryBO = _mappersService.Map<Category, CategoryBO>(_categoryRepository.GetById(id));
+            CategoryBO parent = null;
+            if (categoryBO.ParentId != null)
+                parent = _mappersService.Map<Category, CategoryBO>(_categoryRepository.GetById((int)categoryBO.ParentId));
+            return categoryBO;
         }
 
         public CategoryBO GetByName(string name)
         {
-            return _categoryRepository.GetByName(name).MapTo<CategoryBO>();
+            return _mappersService.Map<Category, CategoryBO>(_categoryRepository.GetByName(name));
         }
 
         public int Insert(CategoryBO entity)
         {
-            return _categoryRepository.Insert(entity.MapTo<Category>());
+            return _categoryRepository.Insert(_mappersService.Map<CategoryBO, Category>(entity));
         }
 
         public bool Update(int id, CategoryBO entity)
         {
-            Category category = entity.MapTo<Category>();
+            Category category = _mappersService.Map<CategoryBO, Category>(entity);
             category.Id = id;
             return _categoryRepository.Update(category);
         }

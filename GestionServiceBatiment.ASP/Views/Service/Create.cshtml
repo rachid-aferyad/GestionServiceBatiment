@@ -1,12 +1,6 @@
-﻿@model IEnumerable<GestionServiceBatiment.ASP.Models.Categories.DisplayCategory>
-
-@{
-    ViewBag.Title = "Create";
-    //ViewBag.breadcrumbs = new List<string> { "Services", "Nouveau Service" };
-}
+﻿@model GestionServiceBatiment.ASP.Models.Services.CreateServiceForm
 
 <main id="main">
-
     <!-- ======= Breadcrumbs ======= -->
     <section id="breadcrumbs" class="breadcrumbs">
         <div class="container">
@@ -22,24 +16,104 @@
 
         </div>
     </section><!-- End Breadcrumbs -->
+
+
+    <section id="contact" class="contact">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>Création d'un nouveau service</h2>
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-5 d-flex align-items-stretch">
+                    <div class="hero-img" data-aos="zoom-in" data-aos-delay="200">
+                        <img src="~/Content/assets/img/hero-img.png" class="img-fluid animated" alt="">
+                    </div>
+
+                </div>
+
+                <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
+                    @using (Html.BeginForm("Create", "Service", FormMethod.Post, new { @class = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.HiddenFor(model => model.CategoryId)
+                        <!--<div class="form-row">-->
+                        @*<div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.CategoryId, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                        </div>*@
+                        <!--</div>-->
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = 10 })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="mb-3">
+                            <div class="loading">Loading</div>
+                            <div class="error-message"></div>
+                            <div class="sent-message">La demande est créée.</div>
+                        </div>
+                        <div class="text-center"><button type="submit">Créer</button></div>
+                    </div>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+</main>
+
+
+
+
+
+    @*<main id="main">*@
+    <!-- ======= Breadcrumbs ======= -->
+    <!--<section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Nouveau Service</h2>
+                <ol>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Services", "Index")</li>
+                    <li>Nouveau Service</li>
+                </ol>
+            </div>
+
+        </div>
+    </section>-->
+    <!-- End Breadcrumbs -->
     <!-- ======= Blog Section ======= -->
-    <section id="blog" class="blog">
+    <!--<section id="blog" class="blog">
         <div class="container">
 
             <div class="row">
-                @foreach (var category in Model)
+                @@foreach (var category in Model)
                 {
-                    <div class="col-lg-4  col-md-6 d-flex align-items-stretch" data-aos="fade-up">
+                    @@Html.Partial("_CategoryList", Model)
+                    <!--<div class="col-lg-4  col-md-6 d-flex align-items-stretch" data-aos="fade-up">
                         <article class="entry" id="category">
 
                             <div class="entry-img">
-                                <a href="~/service/create/@Html.DisplayFor(model => category.Name)">
+                                <a href="~/service/create/@@Html.DisplayFor(model => category.Name)">
                                     <img src="~/Content/assets/img/blog-1.jpg" alt="" class="img-fluid">
                                 </a>
                             </div>
 
                             <h2 class="entry-title">
-                                <a href="~/service/@Html.DisplayFor(model => category.Name)">@Html.DisplayFor(model => category.Name)</a>
+                                <a href="~/service/@@Html.DisplayFor(model => category.Name)">@@Html.DisplayFor(model => category.Name)</a>
                             </h2>
 
                             <div class="entry-meta">
@@ -51,16 +125,17 @@
 
                             <div class="entry-content">
                                 <p>
-                                    @Html.DisplayFor(model => category.Description)
+                                    @@Html.DisplayFor(model => category.Description)
                                 </p>
                                 <div class="read-more">
                                     <a href="blog-single.html">Read More</a>
                                 </div>
                             </div>
 
-                        </article><!-- End blog entry -->
-                    </div>
-                }
+                        </article>-->
+    <!-- End blog entry -->
+    <!--</div>-->
+    <!--}
             </div>
 
             <div class="blog-pagination" data-aos="fade-up">
@@ -74,17 +149,18 @@
             </div>
 
         </div>
-    </section><!-- End Blog Section -->
-</main>
+    </section>-->
+    <!-- End Blog Section -->
+    <!--</main>-->
 
-@section Scripts {
-    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
-    <script type="text/javascript">
-        //$("#category").on('click', e => {
-        //    e.preventDefault();
-        //    $.post('/Service/Create/Sub', $('form').serialize(), function (partialView) {
-        //            $('#levels').html(partialView);
-        //    });
-        //});
-    </script>
-}
+    @section Scripts {
+        @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+        <script type="text/javascript">
+                //$("#category").on('click', e => {
+                //    e.preventDefault();
+                //    $.post('/Service/Create/Sub', $('form').serialize(), function (partialView) {
+                //            $('#levels').html(partialView);
+                //    });
+                //});
+        </script>
+    }

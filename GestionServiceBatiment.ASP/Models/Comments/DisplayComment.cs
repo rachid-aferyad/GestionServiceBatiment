@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GestionServiceBatiment.ASP.Models.Users;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,8 +15,10 @@ namespace GestionServiceBatiment.ASP.Models.Comments
         public int Star { get; set; }
         public DateTime CreationDate { get; set; }
         public int CreatorId { get; set; }
+        public DisplayUser Creator { get; set; }
         public int? CompanyId { get; set; }
         public int? ServiceId { get; set; }
         public int? RequestId { get; set; }
+        public int? ParentId { get; set; }
     }
 }

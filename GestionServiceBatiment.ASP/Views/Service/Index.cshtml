@@ -43,7 +43,7 @@
 
                             <div class="entry-meta">
                                 <ul>
-                                    <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="blog-single.html">@Html.DisplayFor(modelItem => item.CompanyName)</a></li>
+                                    <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="blog-single.html">@Html.DisplayFor(modelItem => item.Title)</a></li>
                                     <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="blog-single.html"><time datetime="01-01-2020">@Html.DisplayFor(modelItem => item.CreationDate)</time></a></li>
                                 </ul>
                             </div>
@@ -53,7 +53,7 @@
                                     @Html.DisplayFor(modelItem => item.Description)
                                 </p>
                                 <div class="read-more">
-                                    <a href="blog-single.html">Read More</a>
+                                    <a href="@Request.Path/@item.Id">Details</a>
                                 </div>
                             </div>
 

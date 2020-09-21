@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GestionServiceBatiment.API.Models.Users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,15 +10,16 @@ namespace GestionServiceBatiment.API.Models.Companies
 {
     public class DisplayCompany
     {
-        public int Id { get; }
-        public string Name { get; }
-        public string VatNumber { get; }
-        public string AddressStreet { get; }
-        public int AddressNumber { get; }
-        public string AddressMailBox { get; }
-        public string AddressCity { get; }
-        public int AddressZipCode { get; }
-        public string AddressCountry { get; }
-        public int ContractorId { get; }
+        public int Id { get; set; }
+        public string Name { get; set;}
+        public string VatNumber { get; set;}
+        public string AddressStreet { get; set;}
+        public int AddressNumber { get; set;}
+        public string AddressMailBox { get; set;}
+        public string AddressCity { get; set;}
+        public int AddressZipCode { get; set;}
+        public string AddressCountry { get; set;}
+        public int ContractorId { get; set;}
+        public DisplayUser Contractor { get; set; }
     }
 }

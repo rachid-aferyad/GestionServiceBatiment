@@ -16,7 +16,7 @@ namespace GestionServiceBatiment.ASP.Infrastructures
     {
         //private string _uri;
         public CategoryService(string login = null, string password = null)
-            : base("category/", login, password)
+            : base("Category/", login, password)
         {
             //_uri = "category/";
         }
@@ -37,7 +37,8 @@ namespace GestionServiceBatiment.ASP.Infrastructures
             {
                 throw new Exception("Echec de la réception de données.");
             }
-            return response.Content.ReadAsAsync<IEnumerable<Category>>().Result;
+            IEnumerable<Category> categories = response.Content.ReadAsAsync<IEnumerable<Category>>().Result;
+            return categories;
         }
 
         public Category GetById(int id)
@@ -52,6 +53,8 @@ namespace GestionServiceBatiment.ASP.Infrastructures
 
         public Category GetByName(string name)
         {
+            name = name.Replace('-', ' ');
+
             HttpResponseMessage response = _httpClient.GetAsync("Name/" + name).Result;
             if (!response.IsSuccessStatusCode)
             {
@@ -67,11 +70,14 @@ namespace GestionServiceBatiment.ASP.Infrastructures
             {
                 throw new Exception("Echec de la réception de données.");
             }
-            return response.Content.ReadAsAsync<IEnumerable<Category>>().Result;
+            IEnumerable<Category> categories = response.Content.ReadAsAsync<IEnumerable<Category>>().Result;
+            return categories;
         }
 
         public IEnumerable<Category> GetSubCategoriesByName(string parentName)
         {
+            parentName = parentName.Replace('-', ' ');
+
             HttpResponseMessage response = _httpClient.GetAsync("Sub/ParentName/" + parentName).Result;
             if (!response.IsSuccessStatusCode)
             {
@@ -87,7 +93,8 @@ namespace GestionServiceBatiment.ASP.Infrastructures
             {
                 throw new Exception("Echec de la réception de données.");
             }
-            return response.Content.ReadAsAsync<IEnumerable<Category>>().Result;
+            IEnumerable<Category> categories = response.Content.ReadAsAsync<IEnumerable<Category>>().Result;
+            return categories;
         }
 
         public int Post(Category entity)

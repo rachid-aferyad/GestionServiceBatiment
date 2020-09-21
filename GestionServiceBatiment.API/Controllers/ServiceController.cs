@@ -1,5 +1,4 @@
-﻿using GestionServiceBatiment.BLL.Mappers;
-using GestionServiceBatiment.BLL.Services.Interfaces;
+﻿using GestionServiceBatiment.BLL.Services.Interfaces;
 using GestionServiceBatiment.BLL.Services.Implementations;
 using System;
 using System.Collections.Generic;
@@ -9,28 +8,52 @@ using System.Net.Http;
 using System.Web.Http;
 using GestionServiceBatiment.BLL.Models;
 using GestionServiceBatiment.API.Models.Services;
+using GestionServiceBatiment.API.Models.Companies;
+using GestionServiceBatiment.API.Models.Comments;
+using Tools.Mappers;
+using GestionServiceBatiment.API.Models.Categories;
+using GestionServiceBatiment.API.Models.Users;
 
 namespace GestionServiceBatiment.API.Controllers
 {
     public class ServiceController : ApiController
     {
         private readonly IServiceService _serviceService;
-        public ServiceController(IServiceService serviceService)
+        private readonly ICommentService _commentService;
+        private readonly IMappersService _mappersService;
+
+        public ServiceController(IServiceService serviceService, ICommentService commentService, IMappersService mappersService)
         {
             _serviceService = serviceService;
+            _commentService = commentService;
+            _mappersService = mappersService;
         }
 
         // GET: api/Service
         public IEnumerable<Service> Get()
         {
-            return _serviceService.GetAll().Select(c => c.MapTo<Service>());
+            return _serviceService.GetAll().Select(c => _mappersService.Map<ServiceBO, Service>(c));
         }
 
         // GET: api/Service/5
-        public Service Get(int id)
+        public DisplayService Get(int id)
         {
-            return _serviceService.GetById(id).MapTo<Service>();
+            ServiceBO serviceBO = _serviceService.GetById(id);
+            DisplayService displayService = _mappersService.Map<ServiceBO, DisplayService>(serviceBO);
+            return displayService;
         }
+
+        [Route("api/Service/Category/{categoryId}")]
+        public IEnumerable<DisplayService> GetByCategory(int categoryId)
+        {
+            return _serviceService.GetByCategory(categoryId).Select(s => _mappersService.Map<ServiceBO, DisplayService>(s));
+        }
+
+        //[Route("Service/CategoryName/{categoryName}")]
+        //public Service GetByCategoryName(string categoryName)
+        //{
+        //    return _serviceService.GetByCategoryName(categoryName).MapTo<Service>();
+        //}
 
         // POST: api/Service
         public HttpResponseMessage Post(CreateServiceForm createServiceForm)
@@ -41,11 +64,11 @@ namespace GestionServiceBatiment.API.Controllers
                 {
                     return Request.CreateResponse(HttpStatusCode.BadRequest);
                 }
-                _serviceService.Insert(createServiceForm.MapTo<ServiceBO>());
+                int serviceId = _serviceService.Insert(_mappersService.Map<CreateServiceForm, ServiceBO>(createServiceForm));
                 
-                return Request.CreateResponse(HttpStatusCode.OK);
+                return Request.CreateResponse(HttpStatusCode.OK, serviceId);
             }
-            catch
+            catch(Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
@@ -60,7 +83,7 @@ namespace GestionServiceBatiment.API.Controllers
                 {
                     return Request.CreateResponse(HttpStatusCode.BadRequest);
                 }
-                _serviceService.Update(id, updateServiceForm.MapTo<ServiceBO>());
+                _serviceService.Update(id, _mappersService.Map<UpdateServiceForm, ServiceBO>(updateServiceForm));
 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }

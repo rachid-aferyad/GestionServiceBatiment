@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace GestionServiceBatiment.ASP.Models.Services
 {
@@ -18,7 +19,7 @@ namespace GestionServiceBatiment.ASP.Models.Services
         [Required]
         public int CompanyId { get; set; }
         [Required]
+        [HiddenInput]
         public int CategoryId { get; set; }
-        public IEnumerable<DisplayCategory> Categories { get; set; }
     }
 }

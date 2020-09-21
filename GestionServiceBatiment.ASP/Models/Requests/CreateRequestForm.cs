@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace GestionServiceBatiment.ASP.Models.Requests
 {
@@ -15,10 +16,12 @@ namespace GestionServiceBatiment.ASP.Models.Requests
         [StringLength(255, MinimumLength = 15)]
         public string Description { get; set; }
         public string ImageURI { get; set; }
-        [Range(1, 99999999)]
+        [Required]
+        //[Range(1, 99999999)]
         public int CreatorId { get; set; }
         [Required]
         [Range(1, 99999999)]
+        [HiddenInput]
         public int CategoryId { get; set; }
     }
 }

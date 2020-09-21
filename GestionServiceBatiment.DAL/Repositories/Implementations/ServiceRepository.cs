@@ -7,7 +7,7 @@ using ToolBox.Connections.Database;
 using GestionServiceBatiment.DAL.Models;
 using GestionServiceBatiment.DAL.Mappers;
 using GestionServiceBatiment.DAL.Repositories.Interfaces;
-using GestionServiceBatiment.DAL.Views.Projects;
+using GestionServiceBatiment.DAL.Views.Services;
 
 namespace GestionServiceBatiment.DAL.Repositories.Implementations
 {
@@ -32,12 +32,19 @@ namespace GestionServiceBatiment.DAL.Repositories.Implementations
             return _connection.ExecuteReader(command, reader => reader.MapTo<VServiceListing>());
         }
 
-        public IEnumerable<VServiceListing> GetByCategory(int categoryId)
+        public IEnumerable<Service> GetByCategory(int categoryId)
         {
             Command command = new Command("CSP_GetServicesByCategory");
             command.AddParameter("CategoryId", categoryId);
-            return _connection.ExecuteReader(command, reader => reader.MapTo<VServiceListing>());
+            return _connection.ExecuteReader(command, reader => reader.MapTo<Service>());
         }
+
+        //public IEnumerable<VServiceListing> GetByCategoryName(string categoryName)
+        //{
+        //    Command command = new Command("CSP_GetServicesByCategory");
+        //    command.AddParameter("CategoryName", categoryName);
+        //    return _connection.ExecuteReader(command, reader => reader.MapTo<VServiceListing>());
+        //}
 
         public IEnumerable<VServiceListing> GetByCompany(int companyId)
         {

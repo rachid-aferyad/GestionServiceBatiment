@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GestionServiceBatiment.ASP.Models.Categories.Category>
+﻿@model IEnumerable<GestionServiceBatiment.ASP.Models.Categories.DisplayCategory>
 
 @{
     ViewBag.Title = "Index";
@@ -18,9 +18,37 @@
             </div>
 
         </div>
-    </section><!-- End Breadcrumbs -->
+    </section>
+    <!-- End Breadcrumbs -->
     <!-- ======= Service Section ======= -->
-    <section id="services" class="services">
+    <section id="blog" class="blog">
+        <div class="container">
+            <div class="row">
+                @Html.Partial("_CategoryList", Model)
+            </div>
+        </div>
+    </section>
+</main>
+
+@*Category List For Admin*@
+<!--<main id="main">-->
+<!-- ======= Breadcrumbs ======= -->
+<!--<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Listes des catégories</h2>
+            <ol>
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>Catégories</li>
+            </ol>
+        </div>
+
+    </div>
+</section>-->
+<!-- End Breadcrumbs -->
+<!-- ======= Service Section ======= -->
+<!--<section id="services" class="services">
         <div class="container">
 
             <p>
@@ -41,7 +69,14 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Name)
+                            @if (item.ParentId is null)
+                            {
+                                <a href="/Services/@Html.DisplayFor(modelItem => item.Name)">@Html.DisplayFor(modelItem => item.Name)</a>
+                            }
+                            else
+                            {
+                                <a href="/Service/Create?category=@Html.DisplayFor(modelItem => item.Id)">@Html.DisplayFor(modelItem => item.Name)</a>
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Description)
@@ -58,4 +93,4 @@
 
         </div>
     </section>
-</main>
+</main>-->

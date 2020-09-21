@@ -10,16 +10,19 @@ using GestionServiceBatiment.BLL.Services.Implementations;
 using GestionServiceBatiment.API.Models.Comments;
 using GestionServiceBatiment.BLL.Services;
 using GestionServiceBatiment.BLL.Models;
+using Tools.Mappers;
 
 namespace GestionServiceBatiment.API.Controllers
 {
     public class CommentController : ApiController
     {
         private readonly ICommentService _commentService;
+        private readonly IMappersService _mappersService;
         
-        public CommentController(ICommentService commentService)
+        public CommentController(ICommentService commentService, IMappersService mappersService)
         {
             _commentService = commentService;
+            _mappersService = mappersService;
         }
 
         [Route("api/Comments")]
@@ -44,7 +47,8 @@ namespace GestionServiceBatiment.API.Controllers
         [Route("api/Service/{serviceId:int:min(1)}/Comments")]
         public IEnumerable<Comment> GetByService(int serviceId)
         {
-            return _commentService.GetByService(serviceId).Select(c => c.MapTo<Comment>());
+            IEnumerable<Comment> comments = _commentService.GetByService(serviceId).Select(c => c.MapTo<Comment>());
+            return comments;
         }
         
         // GET: api/Comment/5
@@ -63,7 +67,7 @@ namespace GestionServiceBatiment.API.Controllers
                 {
                     return Request.CreateResponse(HttpStatusCode.BadRequest);
                 }
-                _commentService.Insert(createCommentForm.MapTo<CommentBO>());
+                _commentService.Insert(_mappersService.Map<CreateCommentForm, CommentBO>(createCommentForm));
                 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
@@ -83,7 +87,7 @@ namespace GestionServiceBatiment.API.Controllers
                 {
                     return Request.CreateResponse(HttpStatusCode.BadRequest);
                 }
-                _commentService.Update(id, updateCommentForm.MapTo<CommentBO>());
+                _commentService.Update(id, _mappersService.Map<UpdateCommentForm, CommentBO>(updateCommentForm));
 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }

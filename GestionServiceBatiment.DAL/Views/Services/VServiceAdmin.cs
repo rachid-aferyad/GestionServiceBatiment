@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GestionServiceBatiment.DAL.Views.Projects
+namespace GestionServiceBatiment.DAL.Views.Services
 {
     public class VServiceAdmin
     {

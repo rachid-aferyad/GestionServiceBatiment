@@ -649,3 +649,15 @@ transition: 0.3s;
     font-size: 14px;
     text-align: justify;
 }
+
+
+
+
+.service-details {
+    width: 100%;
+    border-top: 3px solid #47b2e4;
+    border-bottom: 3px solid #47b2e4;
+    padding: 30px;
+    background: #fff;
+    box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.12);
+}

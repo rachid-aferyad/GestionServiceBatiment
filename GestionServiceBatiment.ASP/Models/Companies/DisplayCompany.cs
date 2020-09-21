@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GestionServiceBatiment.ASP.Models.Users;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace GestionServiceBatiment.ASP.Models.Companies
     public class DisplayCompany
     {
         public int Id { get; set;  }
-        [DisplayName("Nom")]
+        [DisplayName("Nom de l'entreprise")]
         public string Name { get; set;}
         [DisplayName("TVA")]
         public string VatNumber { get; set;}
@@ -29,5 +30,6 @@ namespace GestionServiceBatiment.ASP.Models.Companies
         public string AddressCountry { get; set;}
         [DisplayName("Prestataire")]
         public int ContractorId { get; set; }
+        public DisplayUser Contractor { get; set; }
     }
 }

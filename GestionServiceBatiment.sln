@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolBox", "ToolBox\ToolBox.csproj", "{70596C63-8926-44ED-859C-DDA5100C0F85}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tools.Mappers", "Tools.Mappers\Tools.Mappers.csproj", "{B139CA9F-F821-4E98-9F04-06D50E968238}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{70596C63-8926-44ED-859C-DDA5100C0F85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70596C63-8926-44ED-859C-DDA5100C0F85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70596C63-8926-44ED-859C-DDA5100C0F85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B139CA9F-F821-4E98-9F04-06D50E968238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B139CA9F-F821-4E98-9F04-06D50E968238}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B139CA9F-F821-4E98-9F04-06D50E968238}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B139CA9F-F821-4E98-9F04-06D50E968238}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

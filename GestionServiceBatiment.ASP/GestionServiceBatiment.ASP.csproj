@@ -183,6 +183,8 @@
     <Compile Include="Infrastructures\Services\CategoryService.cs" />
     <Compile Include="Infrastructures\Services\UserService.cs" />
     <Compile Include="Mappers\Mapper.cs" />
+    <Compile Include="Mappers\MapperASP.cs" />
+    <Compile Include="Mappers\Mappers.cs" />
     <Compile Include="Models\Categories\Category.cs" />
     <Compile Include="Models\Categories\CreateCategoryForm.cs" />
     <Compile Include="Models\Categories\DisplayCategory.cs" />
@@ -578,7 +580,7 @@
     <Content Include="Views\Comment\Edit.cshtml" />
     <Content Include="Views\Comment\Delete.cshtml" />
     <Content Include="Views\Modification\Index.cshtml" />
-    <Content Include="Views\Category\_CategoriesList.cshtml" />
+    <Content Include="Views\Category\_CategoryList.cshtml" />
     <Content Include="Views\Category\_SubCategoriesList.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -597,6 +599,12 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tools.Mappers\Tools.Mappers.csproj">
+      <Project>{b139ca9f-f821-4e98-9f04-06d50e968238}</Project>
+      <Name>Tools.Mappers</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GestionServiceBatiment.BLL.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,10 +13,32 @@ namespace GestionServiceBatiment.BLL.Models
         public string Content { get; set; }
         public int Star { get; set; }
         public DateTime CreationDate { get; set; }
-        public int CreatorId { get; set; }
+        //public int CreatorId { get; set; }
+        //public UserBO Creator { get; set; }
         public int? CompanyId { get; set; }
         public int? ServiceId { get; set; }
         public int? RequestId { get; set; }
+        public int? ParentId { get; set; }
+        //public IEnumerable<CommentBO> Children { get; set; }
+
+
+        public int CreatorId { get; set; }
+        //private UserBO _creator;
+        public UserBO Creator { get; set; }
+        //{
+        //    get
+        //    {
+        //        if (_creator is null)
+        //        {
+        //            _creator = _userService.GetById((int)CreatorId);
+        //        }
+        //        return _creator;
+        //    }
+        //    set
+        //    {
+        //        CreatorId = value.Id;
+        //    }
+        //}
 
         //private int? CompanyId { get; set; }
         //private CompanyBO _company;
@@ -38,29 +61,6 @@ namespace GestionServiceBatiment.BLL.Models
         //        CompanyId = value.Id;
         //    }
         //}
-
-        //public int? CreatorId { get; set; }
-        //private UserBO _creator;
-        //public UserBO Creator
-        //{
-        //    get
-        //    {
-        //        if (_creator is null)
-        //        {
-        //            if (!(CreatorId is null))
-        //            {
-        //                _creator = _userService.GetById((int)CreatorId);
-        //            }
-        //            else _creator = null;
-        //        }
-        //        return _creator;
-        //    }
-        //    set
-        //    {
-        //        CreatorId = value.Id;
-        //    }
-        //}
-
         //private int? ServiceId { get; set; }
         //private ServiceBO _service;
         //public ServiceBO Service
@@ -106,17 +106,21 @@ namespace GestionServiceBatiment.BLL.Models
         //}
 
         //private readonly ICompanyService _companyService;
-        //private readonly IUserService _userService;
+        private readonly IUserService _userService;
         //private readonly IServiceService _serviceService;
-        //public ServiceBO(ICompanyService companyService, IUserService userService, IServiceService serviceService)
-        //{
-        //    _companyService = companyService;
-        //    _userService = userService;
-        //    _serviceService = serviceService;
-        //}
-        //public ServiceBO()
-        //{
+        public CommentBO(
+            //ICompanyService companyService, 
+            IUserService userService
+            //IServiceService serviceService
+            )
+        {
+            //_companyService = companyService;
+            _userService = userService;
+            //_serviceService = serviceService;
+        }
+        public CommentBO()
+        {
 
-        //}
+        }
     }
 }

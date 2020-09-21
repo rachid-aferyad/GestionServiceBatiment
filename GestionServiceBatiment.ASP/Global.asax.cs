@@ -3,6 +3,7 @@ using GestionServiceBatiment.ASP.DependencyInjection;
 using GestionServiceBatiment.ASP.Infrastructures;
 using GestionServiceBatiment.ASP.Infrastructures.Interfaces;
 using GestionServiceBatiment.ASP.Infrastructures.Services;
+using GestionServiceBatiment.ASP.Mappers;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Tools.Mappers;
 
 namespace GestionServiceBatiment.ASP
 {
@@ -47,6 +49,10 @@ namespace GestionServiceBatiment.ASP
             Services.AddTransient(typeof(RequestController));
             Services.AddTransient(typeof(ServiceController));
             Services.AddTransient(typeof(UserController));
+
+
+            // Add mappers
+           Services.AddSingleton<IMappersService, MapperASP>();
 
 
             ServiceProvider = Services.BuildServiceProvider();

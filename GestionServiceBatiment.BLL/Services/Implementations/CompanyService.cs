@@ -14,10 +14,16 @@ namespace GestionServiceBatiment.BLL.Services.Implementations
     public class CompanyService : ICompanyService
     {
         private readonly ICompanyRepository _companyRepository;
+        private readonly IUserService _userService;
 
-        public CompanyService(ICompanyRepository companyRepository)
+        public CompanyService()
+        {
+        }
+
+        public CompanyService(ICompanyRepository companyRepository, IUserService userService)
         {
             _companyRepository = companyRepository;
+            _userService = userService;
         }
 
         public bool Delete(int id)
@@ -32,7 +38,9 @@ namespace GestionServiceBatiment.BLL.Services.Implementations
 
         public CompanyBO GetById(int id)
         {
-            return _companyRepository.GetById(id).MapTo<CompanyBO>();
+            CompanyBO companyBO = _companyRepository.GetById(id).MapTo<CompanyBO>();
+            companyBO.Contractor = _userService.GetById(companyBO.ContractorId);
+            return companyBO;
         }
 
         public int Insert(CompanyBO entity)

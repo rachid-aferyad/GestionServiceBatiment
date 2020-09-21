@@ -17,5 +17,6 @@ namespace GestionServiceBatiment.API.Models.Comments
         public int? CompanyId { get; set; }
         public int? ServiceId { get; set; }
         public int? RequestId { get; set; }
+        public int? ParentId { get; set; }
     }
 }

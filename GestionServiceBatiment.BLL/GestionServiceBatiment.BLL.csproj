@@ -41,7 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mappers\Mapper.cs" />
+    <Compile Include="Mappers\MyMapper.cs" />
+    <Compile Include="Mappers\MappersBLL.cs" />
     <Compile Include="Models\CategoryBO.cs" />
     <Compile Include="Models\CommentBO.cs" />
     <Compile Include="Models\CompanyBO.cs" />
@@ -62,7 +63,7 @@
     <Compile Include="Services\Implementations\UserService.cs" />
     <Compile Include="Services\Interfaces\ICategoryService.cs" />
     <Compile Include="Services\Interfaces\ICommentService.cs" />
-    <Compile Include="Services\Interfaces\ICompanyService.cs" />
+    <Compile Include="Services\Interfaces\ICommentService1.cs" />
     <Compile Include="Services\Interfaces\IModificationService.cs" />
     <Compile Include="Services\Interfaces\IRejectionService.cs" />
     <Compile Include="Services\Interfaces\IRequestService.cs" />
@@ -74,6 +75,10 @@
     <ProjectReference Include="..\GestionServiceBatiment.DAL\GestionServiceBatiment.DAL.csproj">
       <Project>{769ea0b4-3044-40ac-ae0a-3038ec173468}</Project>
       <Name>GestionServiceBatiment.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools.Mappers\Tools.Mappers.csproj">
+      <Project>{b139ca9f-f821-4e98-9f04-06d50e968238}</Project>
+      <Name>Tools.Mappers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

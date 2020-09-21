@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using GestionServiceBatiment.ASP.Infrastructures.Interfaces;
 using GestionServiceBatiment.ASP.Mappers;
+using GestionServiceBatiment.ASP.Models.Categories;
 using GestionServiceBatiment.ASP.Models.Requests;
 
 namespace GestionServiceBatiment.ASP.Controllers
@@ -13,38 +14,59 @@ namespace GestionServiceBatiment.ASP.Controllers
     public class RequestController : Controller
     {
         private IRequestService _requestService;
-        public RequestController(IRequestService requestService)
+        private ICategoryService _categoryService;
+
+        public RequestController(IRequestService requestService, ICategoryService categoryService)
         {
             _requestService = requestService;
+            _categoryService = categoryService;
         }
+        
         // GET: Request
         public ActionResult Index()
         {
             return View(_requestService.GetAll().Select(s => s.MapTo<DisplayRequest>()));
         }
 
+        [Route("Requests/{subCatgeory}/{categoryName}")]
+        public ActionResult Index(string categoryName)
+        {
+            Category category = _categoryService.GetByName(categoryName);
+            return View(_requestService.GetByCategory(category.Id).Select(s => s.MapTo<DisplayRequest>()));
+        }
+
         // GET: Request/Details/5
+        [Route("Requests/{subCatgeory}/{categoryName}/{id}")]
+        [Route("Request/Details/{id}")]
         public ActionResult Details(int id)
         {
             return View(_requestService.GetById(id).MapTo<DisplayRequest>());
         }
 
         // GET: Request/Create
+        [HttpGet]
+        [Route("Create-Request")]
         public ActionResult Create()
         {
-            return View(new CreateRequestForm());
+
+            CreateRequestForm createRequestForm = new CreateRequestForm();
+            createRequestForm.CategoryId = int.Parse(Request.Params["category"]);
+            return View(createRequestForm);
         }
 
         // POST: Request/Create
         [HttpPost]
+        [Route("Create-Request")]
         public ActionResult Create(CreateRequestForm requestForm)
         {
             try
             {
+                requestForm.CreatorId = 17;
+
                 if (ModelState.IsValid)
                 {
-                    _requestService.Post(requestForm.MapTo<Request>());
-                    return RedirectToAction("Index");
+                    int requestId = _requestService.Post(requestForm.MapTo<Request>());
+                    return RedirectToAction(nameof(Details), new { id = requestId } );
                 }
 
                 return View(requestForm);

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using GestionServiceBatiment.ASP.Models.Categories;
+using GestionServiceBatiment.ASP.Models.Comments;
+using GestionServiceBatiment.ASP.Models.Companies;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +20,10 @@ namespace GestionServiceBatiment.ASP.Models.Services
         public DateTime CreationDate { get; set; }
         public DateTime? ValidationDate { get; set; }
         public int CompanyId { get; set; }
+        public Company Company { get; set; }
         public int? ValidatorId { get; set; }
         public int CategoryId { get; set; }
+        public Category Category { get; set; }
+        public IEnumerable<Comment> Comments { get; set; }
     }
 }

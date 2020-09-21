@@ -15,45 +15,12 @@ namespace GestionServiceBatiment.BLL.Models
         public string ImageURI { get; set; }
         public DateTime CreationDate { get; set; }
         public int CreatorId { get; set; }
-        private UserBO _creator;
-        public UserBO Creator
-        {
-            get
-            {
-                if (_creator is null)
-                {
-                    _creator = _userService.GetById((int)CreatorId);
-                }
-                return _creator;
-            }
-            set
-            {
-                Creator = value;
-            }
-        }
+        public UserBO Creator { get; set; }
 
-        public int? CategoryId { get; set; }
-        //public string CategoryName { get { return Category.Name; } set { CategoryName = value; } }
-        private CategoryBO _category;
-        public CategoryBO Category
-        {
-            get
-            {
-                if (_category is null)
-                {
-                    if (!(CategoryId is null))
-                    {
-                        _category = _categoryService.GetById((int)CategoryId);
-                    }
-                    else _category = null;
-                }
-                return _category;
-            }
-            set
-            {
-                Category = value;
-            }
-        }
+        public int CategoryId { get; set; }
+        public CategoryBO Category { get; set; }
+
+        public IEnumerable<CommentBO> Comments { get; set; }
 
         private readonly IUserService _userService;
         private readonly ICategoryService _categoryService;

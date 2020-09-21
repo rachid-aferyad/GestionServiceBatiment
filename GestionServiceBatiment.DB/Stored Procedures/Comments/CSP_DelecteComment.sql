@@ -2,5 +2,5 @@
 	@CommentId int
 AS
 	Delete From [dbo].[Comment]
-		Where [Id] = @CommentId
+		Where [Id] = @CommentId or [ParentId] = @CommentId
 RETURN 0

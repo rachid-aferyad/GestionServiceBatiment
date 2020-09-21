@@ -1,4 +1,4 @@
-﻿using GestionServiceBatiment.DAL.Views.Projects;
+﻿using GestionServiceBatiment.DAL.Views.Services;
 using GestionServiceBatiment.DAL.Models;
 using System;
 using System.Collections.Generic;

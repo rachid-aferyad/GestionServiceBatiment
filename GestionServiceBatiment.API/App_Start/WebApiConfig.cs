@@ -11,6 +11,10 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Dispatcher;
+using GestionServiceBatiment.BLL.Models;
+using Tools.Mappers;
+using GestionServiceBatiment.API.Mappers;
+using GestionServiceBatiment.BLL.Mappers;
 
 namespace GestionServiceBatiment.API
 {
@@ -56,15 +60,40 @@ namespace GestionServiceBatiment.API
             services.AddTransient<IServiceService, ServiceService>();
             services.AddTransient<IUserService, UserService>();
 
+            // Add mappers
+            services.AddTransient<IMappersService, MapperAPI>();
+            //services.Add<IMappersService, MapperBLL>();
+            
             // Add controllers
-            services.AddScoped<CategoryController>(sp => new CategoryController(sp.GetRequiredService<ICategoryService>()));
-            services.AddScoped<CommentController>(sp => new CommentController(sp.GetRequiredService<ICommentService>()));
+            services.AddScoped<CategoryController>(sp => new CategoryController(sp.GetRequiredService<ICategoryService>(), 
+                                                                                sp.GetRequiredService<IMappersService>()
+                                                                                ));
+
+            services.AddScoped<CommentController>(sp => new CommentController(sp.GetRequiredService<ICommentService>(), 
+                                                                              sp.GetRequiredService<IMappersService>()
+                                                                              ));
+
             services.AddScoped<CompanyController>(sp => new CompanyController(sp.GetRequiredService<ICompanyService>()));
             services.AddScoped<ModificationController>(sp => new ModificationController(sp.GetRequiredService<IModificationService>()));
             services.AddScoped<RejectionController>(sp => new RejectionController(sp.GetRequiredService<IRejectionService>()));
             services.AddScoped<RequestController>(sp => new RequestController(sp.GetRequiredService<IRequestService>()));
-            services.AddScoped<ServiceController>(sp => new ServiceController(sp.GetRequiredService<IServiceService>()));
+
+            services.AddScoped<ServiceController>(sp => new ServiceController(sp.GetRequiredService<IServiceService>(), 
+                                                                              sp.GetRequiredService<ICommentService>(), 
+                                                                              sp.GetRequiredService<IMappersService>()));
             services.AddScoped<UserController>(sp => new UserController(sp.GetRequiredService<IUserService>()));
+
+            //services.AddTransient<ServiceBO>();
+
+            //services.AddScoped<ServiceBO>(sp =>
+            //    new ServiceBO(sp.GetRequiredService<ICompanyService>(),
+            //        sp.GetRequiredService<ICategoryService>(),
+            //        sp.GetRequiredService<IUserService>(),
+            //        sp.GetRequiredService<ICommentService>())
+            //    );
+
+            //services.AddScoped<CommentBO>(sp => new CommentBO(sp.GetRequiredService<IUserService>()) );
+
         }
     }
 

@@ -16,7 +16,7 @@ namespace GestionServiceBatiment.ASP.Infrastructures
     {
         //private string _uri;
         public RequestService(string login = null, string password = null)
-            : base("request/", login, password)
+            : base("Request/", login, password)
         {
             //_uri = "category/";
         }
@@ -48,6 +48,16 @@ namespace GestionServiceBatiment.ASP.Infrastructures
                 throw new Exception("Echec de la réception de données.");
             }
             return response.Content.ReadAsAsync<Request>().Result;
+        }
+
+        public IEnumerable<Request> GetByCategory(int categoryId)
+        {
+            HttpResponseMessage response = _httpClient.GetAsync("Category/" + categoryId).Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Echec de la réception de données.");
+            }
+            return response.Content.ReadAsAsync<IEnumerable<Request>>().Result;
         }
 
         public int Post(Request entity)

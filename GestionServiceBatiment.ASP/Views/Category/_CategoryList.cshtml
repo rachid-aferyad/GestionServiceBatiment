@@ -1,0 +1,119 @@
+﻿@model IEnumerable<GestionServiceBatiment.ASP.Models.Categories.DisplayCategory>
+
+
+@foreach (var item in Model)
+{
+    <div class="col-lg-3  col-md-4 d-flex align-items-stretch" data-aos="fade-up">
+        <article class="entry">
+
+            @if (item.ParentId is null)
+            {
+                <div class="entry-img">
+                    <a href="@Request.Path/@Html.DisplayFor(modelItem => item.NavigationName)">
+                        <img src="~/Content/assets/img/blog-1.jpg" alt="" class="img-fluid">
+                    </a>
+                </div>
+                <h2 class="entry-title">
+                    <a href="@Request.Path/@Html.DisplayFor(modelItem => item.NavigationName)">@Html.DisplayFor(modelItem => item.Name)</a>
+                </h2>
+                <div class="entry-content">
+                    <p>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </p>
+                    @*<div class="read-more">
+                    <a href="blog-single.html">Read More</a>
+                </div>*@
+                </div>
+            }
+            else if (@Request.Path.ToLower().StartsWith("/services"))
+            {
+                <div class="entry-img">
+                    <a href="@Request.Path/@Html.DisplayFor(modelItem => item.NavigationName)"><img src="~/Content/assets/img/blog-1.jpg" alt="" class="img-fluid"></a>
+                </div>
+                <h2 class="entry-title">
+                    <a href="@Request.Path/@Html.DisplayFor(modelItem => item.NavigationName)"> @Html.DisplayFor(modelItem => item.Name) </a>
+                </h2>
+                <div class="entry-content">
+                    <p>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </p>
+                </div>
+            }
+            else if (@Request.Path.ToLower().StartsWith("/requests"))
+            {
+                <div class="entry-img">
+                    <a href="@Request.Path/@Html.DisplayFor(modelItem => item.NavigationName)"><img src="~/Content/assets/img/blog-1.jpg" alt="" class="img-fluid"></a>
+                </div>
+                <h2 class="entry-title">
+                    <a href="@Request.Path/@Html.DisplayFor(modelItem => item.NavigationName)"> @Html.DisplayFor(modelItem => item.Name) </a>
+                </h2>
+                <div class="entry-content">
+                    <p>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </p>
+                </div>
+            }
+            else if (@Request.Path.ToLower().StartsWith("/service"))
+            {
+                <div class="entry-img">
+                    <a href="/Create-Service?category=@Html.DisplayFor(modelItem => item.Id)"><img src="~/Content/assets/img/blog-1.jpg" alt="" class="img-fluid"></a>
+                </div>
+                <h2 class="entry-title">
+                    <a href="/Create-Service?category=@Html.DisplayFor(modelItem => item.Id)"> @Html.DisplayFor(modelItem => item.Name) </a>
+                </h2>
+                <div class="entry-content">
+                    <p>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </p>
+                </div>
+            }
+            else if (@Request.Path.ToLower().StartsWith("/request"))
+            {
+        <div class="entry-img">
+            <a href="/Create-Request?category=@Html.DisplayFor(modelItem => item.Id)">
+            <img src="~/Content/assets/img/blog-1.jpg" alt="" class="img-fluid"></a>
+        </div>
+                <h2 class="entry-title">
+                    <a href="/Create-Request?category=@Html.DisplayFor(modelItem => item.Id)"> @Html.DisplayFor(modelItem => item.Name) </a>
+                </h2>
+                <div class="entry-content">
+                    <p>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </p>
+                </div>
+            }
+            else
+            {
+                <div class="entry-img">
+                    <a href="/Create-Category?category=@Html.DisplayFor(modelItem => item.Id)"><img src="~/Content/assets/img/blog-1.jpg" alt="" class="img-fluid"></a>
+                </div>
+                <h2 class="entry-title">
+                    <a href="/Create-Category?category=@Html.DisplayFor(modelItem => item.Id)"> @Html.DisplayFor(modelItem => item.Name) </a>
+                </h2>
+                <div class="entry-content">
+                    <p>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </p>
+                </div>
+            }
+
+            @*<div class="entry-meta">
+            <ul>
+                <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="blog-single.html">@Html.DisplayFor(modelItem => item.Name)</a></li>
+                <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="blog-single.html"><time datetime="01-01-2020">@Html.DisplayFor(modelItem => item.ParentId)</time></a></li>
+            </ul>
+        </div>*@
+        </article><!--End blog entry -->
+    </div>
+ }
+
+            @*@foreach (var item in Model)
+        {
+            <div class="col-md-6">
+                <div class="icon-box">
+                    <i class="icofont-computer"></i>
+                    <h4><a href="#">@item.Text</a></h4>
+                </div>
+            </div>
+        }*@
+

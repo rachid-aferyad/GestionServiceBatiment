@@ -13,21 +13,32 @@ namespace GestionServiceBatiment.ASP.Controllers
     public class CategoryController : Controller
     {
         private ICategoryService _categoryService;
+        
         public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
+
         // GET: Category
+        [Route("Services")]
+        [Route("Requests")]
+        [Route("Categories")]
+        [Route("Service")]
+        [Route("Request")]
         public ActionResult Index()
         {
-            return View(_categoryService.GetSupCategories());
+            string path = Request.Path;
+            return View(_categoryService.GetSupCategories().Select(c => c.MapTo<DisplayCategory>()));
         }
 
-        [Route("services/{parentName}")]
-        [Route("demandes/{parentName}")]
+        [Route("Services/{parentName}")]
+        [Route("Requests/{parentName}")]
+        [Route("Categories/{parentName}")]
+        [Route("Service/{parentName}")]
+        [Route("Request/{parentName}")]
         public ActionResult Index(string parentName)
         {
-            return View(_categoryService.GetSubCategoriesByName(parentName));
+            return View(_categoryService.GetSubCategoriesByName(parentName).Select(c => c.MapTo<DisplayCategory>()));
         }
 
         // GET: Category/Details/5

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GestionServiceBatiment.ASP.Models.Users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,5 +19,6 @@ namespace GestionServiceBatiment.ASP.Models.Companies
         public int AddressZipCode { get; set; }
         public string AddressCountry { get; set; }
         public int ContractorId { get; set; }
+        public User Contractor { get; set; }
     }
 }

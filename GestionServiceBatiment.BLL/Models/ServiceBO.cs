@@ -1,4 +1,5 @@
-﻿using GestionServiceBatiment.BLL.Services.Interfaces;
+﻿using GestionServiceBatiment.BLL.Services.Implementations;
+using GestionServiceBatiment.BLL.Services.Interfaces;
 using GestionServiceBatiment.DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -19,84 +20,85 @@ namespace GestionServiceBatiment.BLL.Models
         public DateTime CreationDate { get; set; }
         public DateTime? ValidationDate { get; set; }
         
-        public int? CompanyId { get; set; }
-        private CompanyBO _company;
-        public CompanyBO Company
-        {
-            get
-            {
-                if (_company is null)
-                {
-                    if (!(CompanyId is null))
-                    {
-                        _company = _companyService.GetById((int)CompanyId);
-                    }
-                    else _company = null;
-                }
-                return _company;
-            }
-            set
-            {
-                Company = value;
-            }
-        }
+        public int CompanyId { get; set; }
+        //private CompanyBO _company;
+        public CompanyBO Company { get; set; }
+        //{
+        //    get
+        //    {
+        //        return _companyService.GetById(CompanyId);
+        //    }
+        //    set
+        //    {
+        //        _company = value;
+        //    } 
+        //}
 
         public int? ValidatorId { get; set; }
-        private UserBO _validator;
-        public UserBO Validator
-        {
-            get
-            {
-                if (_validator is null)
-                {
-                    if (!(ValidatorId is null))
-                    {
-                        _validator = _userService.GetById((int)ValidatorId);
-                    }
-                    else _validator = null;
-                }
-                return _validator;
-            }
-            set
-            {
-                Validator = value;
-            }
-        }
+        //private UserBO _validator;
 
-        public int? CategoryId { get; set; }
-        private CategoryBO _category;
-        public CategoryBO Category
-        {
-            get
-            {
-                if (_category is null)
-                {
-                    if (!(CategoryId is null))
-                    {
-                        _category = _categoryService.GetById((int)CategoryId);
-                    }
-                    else _category = null;
-                }
-                return _category;
-            }
-            set
-            {
-                Category = value;
-            }
-        }
+        public UserBO Validator { get; set; }
+        //{
+        //    get { 
+        //        if(ValidatorId is null)
+        //        {
+        //            _validator = null;
+        //        }
+        //        else
+        //        {
+        //            _validator = _userService.GetById((int)ValidatorId);
+        //        }
+        //        return _validator;
+        //    }
+        //    set { 
+        //        _validator = value; 
+        //    }
+        //}
+
+        public int CategoryId { get; set; }
+        //private CategoryBO _category;
+        public CategoryBO Category { get; set; }
+        //{
+        //    get
+        //    {
+        //        return _categoryService.GetById(CategoryId);
+        //    }
+        //    set
+        //    {
+        //        _category = value;
+        //    }
+        //}
+
+        public IEnumerable<CommentBO> Comments { get; set; }
+        //{
+        //    get
+        //    {
+        //        return _commentService.GetByService(Id);
+        //    }
+        //    //set
+        //    //{
+        //    //    _company = value;
+        //    //}
+        //}
 
         private readonly ICompanyService _companyService;
         private readonly IUserService _userService;
         private readonly ICategoryService _categoryService;
-        public ServiceBO(ICompanyService companyService, IUserService userService, ICategoryService categoryService)
+        private readonly ICommentService _commentService;
+        
+        public ServiceBO(ICompanyService companyService, 
+                         ICategoryService categoryService,
+                         IUserService userService,
+                         ICommentService commentService
+            )
         {
             _companyService = companyService;
             _userService = userService;
             _categoryService = categoryService;
+            _commentService = commentService;
         }
         public ServiceBO()
         {
-
         }
     }
 }

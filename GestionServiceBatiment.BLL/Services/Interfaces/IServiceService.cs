@@ -11,5 +11,6 @@ namespace GestionServiceBatiment.BLL.Services.Interfaces
     {
         IEnumerable<ServiceBO> GetByCompany(int companyId);
         IEnumerable<ServiceBO> GetByCategory(int categoryId);
+        //IEnumerable<ServiceBO> GetByCategoryName(string categoryName);
     }
 }

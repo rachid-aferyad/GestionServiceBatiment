@@ -1,4 +1,4 @@
-﻿using GestionServiceBatiment.DAL.Views.Projects;
+﻿using GestionServiceBatiment.DAL.Views.Services;
 using GestionServiceBatiment.DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -14,5 +14,6 @@ namespace GestionServiceBatiment.DAL.Repositories.Interfaces
         IEnumerable<Comment> GetByCompany(int companyId);
         IEnumerable<Comment> GetByService(int serviceId);
         IEnumerable<Comment> GetByRequest(int requestId);
+        IEnumerable<Comment> GetSubByParent(int parentId);
     }
 }

@@ -151,5 +151,6 @@
     <Build Include="Stored Procedures\Categories\CSP_GetCategoryByName.sql" />
     <Build Include="Stored Procedures\Categories\CSP_GetByParentName.sql" />
     <Build Include="Stored Procedures\Companies\CSP_GetByCompany.sql" />
+    <Build Include="Stored Procedures\Comments\CSP_GetCommentsByParent.sql" />
   </ItemGroup>
 </Project>

@@ -4,7 +4,66 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<main id="main">
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Demandes</h2>
+                <ol>
+                    <li><a href="/">Home</a></li>
+                    <li>Demandes</li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- End Breadcrumbs -->
+    <!-- ======= Service Section ======= -->
+    <section id="blog" class="blog">
+        <div class="container">
+            @*<p>
+                    @Html.ActionLink("Create New", "Create")
+                </p>*@
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-4  col-md-6 d-flex align-items-stretch" data-aos="fade-up">
+                        <article class="entry">
+
+                            <div class="entry-img">
+                                <img src="~/Content/assets/img/blog-1.jpg" alt="" class="img-fluid">
+                            </div>
+
+                            <h2 class="entry-title">
+                                <a href="blog-single.html">@Html.DisplayFor(modelItem => item.Title)</a>
+                            </h2>
+
+                            <div class="entry-meta">
+                                <ul>
+                                    <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="blog-single.html">@Html.DisplayFor(modelItem => item.CreatorId)</a></li>
+                                    <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="blog-single.html"><time datetime="01-01-2020">@Html.DisplayFor(modelItem => item.CreationDate)</time></a></li>
+                                </ul>
+                            </div>
+
+                            <div class="entry-content">
+                                <p>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </p>
+                                <div class="read-more">
+                                    <a href="@Request.Path/@item.Id">Details</a>
+                                </div>
+                            </div>
+
+                        </article><!-- End blog entry -->
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+</main>
+
+<!--<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -22,42 +81,42 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CreationDate)
-        </th>
-        <th>
+        </th>-->
+        @*<th>
             @Html.DisplayNameFor(model => model.CreatorName)
-        </th>
-        <th>
+        </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.CategoryName)
-        </th>
-        <th></th>
+        </th>*@
+        <!--<th></th>
     </tr>
 
-@foreach (var item in Model) {
+@@foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Title)
+            @@Html.DisplayFor(modelItem => item.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @@Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ImageURI)
+            @@Html.DisplayFor(modelItem => item.ImageURI)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreationDate)
-        </td>
-        <td>
+            @@Html.DisplayFor(modelItem => item.CreationDate)
+        </td>-->
+        @*<td>
             @Html.DisplayFor(modelItem => item.CreatorName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CategoryName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>*@
+        <!--<td>
+            @@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @@Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @@Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
 
-</table>
+</table>-->

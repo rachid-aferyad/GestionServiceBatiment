@@ -1,4 +1,4 @@
-﻿using GestionServiceBatiment.DAL.Views.Projects;
+﻿using GestionServiceBatiment.DAL.Views.Services;
 using GestionServiceBatiment.DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,8 @@ namespace GestionServiceBatiment.DAL.Repositories.Interfaces
     {
         IEnumerable<VServiceListing> GetAllServicesListing();
         VServiceDetails GetServiceDetailsById(int id);
-        IEnumerable<VServiceListing> GetByCategory(int categoryId);
+        IEnumerable<Service> GetByCategory(int categoryId);
         IEnumerable<VServiceListing> GetByCompany(int companyId);
+        //IEnumerable<VServiceListing> GetByCategoryName(string categoryName);
     }
 }

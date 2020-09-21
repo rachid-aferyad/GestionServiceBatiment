@@ -63,7 +63,16 @@ namespace GestionServiceBatiment.DAL.Repositories.Implementations
         {
             Command command = new Command("CSP_GetByService");
             command.AddParameter("Table", "Comment");
-            command.AddParameter("ServiceId", serviceId);
+            command.AddParameter("ServiceId", serviceId); 
+            IEnumerable<Comment> comments = _connection.ExecuteReader(command, reader => reader.MapTo<Comment>());
+            return comments;
+        }
+
+        public IEnumerable<Comment> GetSubByParent(int parentId)
+        {
+            Command command = new Command("CSP_GetCommentByParent");
+            //command.AddParameter("Table", "Category");
+            command.AddParameter("ParentId", parentId);
             return _connection.ExecuteReader(command, reader => reader.MapTo<Comment>());
         }
 

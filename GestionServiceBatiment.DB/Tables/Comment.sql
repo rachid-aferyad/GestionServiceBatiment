@@ -8,7 +8,10 @@
 	[CompanyId] INT NULL,
 	[RequestId] INT NULL,
 	[ServiceId] INT NULL,
+	[ParentId] int NULL,
 	CONSTRAINT [PK_Comment] PRIMARY KEY([Id]),
+	CONSTRAINT [FK_Comment_Comment] 
+		FOREIGN KEY ([ParentId]) REFERENCES [dbo].[Comment]([Id]),
 	CONSTRAINT [FK_Comment_User]
 		FOREIGN KEY ([CreatorId]) REFERENCES [User]([Id]),
 	CONSTRAINT [FK_Comment_Company]

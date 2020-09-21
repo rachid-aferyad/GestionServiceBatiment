@@ -32,6 +32,12 @@ namespace GestionServiceBatiment.API.Controllers
             return _requestService.GetById(id).MapTo<Request>();
         }
 
+        [Route("api/Request/Category/{categoryId}")]
+        public IEnumerable<Request> GetByCategory(int categoryId)
+        {
+            return _requestService.GetByCategory(categoryId).Select(s => s.MapTo<Request>());
+        }
+
         // POST: api/Request
         public HttpResponseMessage Post(CreateRequestForm createRequestForm)
         {
@@ -41,11 +47,11 @@ namespace GestionServiceBatiment.API.Controllers
                 {
                     return Request.CreateResponse(HttpStatusCode.BadRequest);
                 }
-                _requestService.Insert(createRequestForm.MapTo<RequestBO>());
+                int requestId = _requestService.Insert(createRequestForm.MapTo<RequestBO>());
                 
-                return Request.CreateResponse(HttpStatusCode.OK);
+                return Request.CreateResponse(HttpStatusCode.OK, requestId);
             }
-            catch
+            catch(Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
