@@ -19,34 +19,7 @@ namespace GestionServiceBatiment.BLL.Models
         public string AddressCity { get; set; }
         public int AddressZipCode { get; set; }
         public string AddressCountry { get; set; }
-        
         public int ContractorId { get; set; }
-        //private UserBO _contractor;
         public UserBO Contractor { get; set; }
-        //{
-        //    get 
-        //    {
-        //        if (_contractor is null)
-        //        {
-        //            _contractor = _userService.GetById((int)this.ContractorId);
-        //        }
-        //        return _contractor;
-        //    }
-        //    set
-        //    { 
-        //        Contractor = value; 
-        //    }
-        //}
-
-        private readonly IUserService _userService;
-        public CompanyBO(IUserService userService)
-        {
-            _userService = userService;
-        }
-
-        public CompanyBO()
-        {
-
-        }
     }
 }

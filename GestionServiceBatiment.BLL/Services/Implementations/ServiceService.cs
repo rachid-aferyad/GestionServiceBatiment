@@ -47,7 +47,10 @@ namespace GestionServiceBatiment.BLL.Services.Implementations
         public IEnumerable<ServiceBO> GetByCategory(int categoryId)
         {
             IEnumerable<ServiceBO> servicesBO = _serviceRepository.GetByCategory(categoryId)
-                .Select(s => _mappersService.Map<Service, ServiceBO>(s)); // _serviceRepository.GetById(id).MapTo<ServiceBO>();
+                .Select(s => _mappersService.Map<VServiceListing, ServiceBO>(s)); 
+            
+            
+            // _serviceRepository.GetById(id).MapTo<ServiceBO>();
             //servicesBO.ToList().ForEach(s => s.Comments = _commentService.GetByService(s.Id));
             foreach (var item in servicesBO)
             {
@@ -59,10 +62,11 @@ namespace GestionServiceBatiment.BLL.Services.Implementations
             //return _serviceRepository.GetByCategory(categoryId).Select(s => _mappersService.Map<VServiceListing, ServiceBO>(s));
         }
 
-        //public IEnumerable<ServiceBO> GetByCategoryName(istringnt categoryName)
-        //{
-        //    return _serviceRepository.GetByCategoryName(categoryName).Select(s => s.MapTo<ServiceBO>());
-        //}
+        public IEnumerable<ServiceBO> GetByCategoryName(string categoryName)
+        {
+            CategoryBO categoryBO = _categoryService.GetByName(categoryName);
+            return _serviceRepository.GetByCategory(categoryBO.Id).Select(s => _mappersService.Map<VServiceListing, ServiceBO>(s));
+        }
 
         public IEnumerable<ServiceBO> GetByCompany(int companyId)
         {
@@ -71,12 +75,25 @@ namespace GestionServiceBatiment.BLL.Services.Implementations
 
         public ServiceBO GetById(int id)
         {
-            ServiceBO serviceBO = _mappersService.Map<Service, ServiceBO>(_serviceRepository.GetById(id)); // _serviceRepository.GetById(id).MapTo<ServiceBO>();
-            serviceBO.Company = _companyService.GetById(serviceBO.CompanyId);
-            serviceBO.Category = _categoryService.GetById(serviceBO.CategoryId);
+            ServiceBO serviceBO = _mappersService.Map<VServiceDetails, ServiceBO>(_serviceRepository.GetServiceDetailsById(id)); // _serviceRepository.GetById(id).MapTo<ServiceBO>();
+            //serviceBO.Company = _companyService.GetById(serviceBO.CompanyId);
+            //serviceBO.Category = _categoryService.GetById(serviceBO.CategoryId);
             serviceBO.Comments = _commentService.GetByService(id);
 
             return serviceBO;
+        }
+
+        public ServiceBO GetServiceDetailsById(int id)
+        {
+            ServiceBO serviceBO = _mappersService.Map<VServiceDetails, ServiceBO>(_serviceRepository.GetServiceDetailsById(id)); // _serviceRepository.GetById(id).MapTo<ServiceBO>();
+            serviceBO.Comments = _commentService.GetByService(id);
+
+            return serviceBO;
+        }
+
+        public int GetServicesCount()
+        {
+            return _serviceRepository.GetServicesCount();
         }
 
         public int Insert(ServiceBO entity)

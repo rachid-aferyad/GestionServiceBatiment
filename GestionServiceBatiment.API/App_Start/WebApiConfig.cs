@@ -51,17 +51,17 @@ namespace GestionServiceBatiment.API
             services.AddTransient<IServiceRepository, ServiceRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
 
-            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddSingleton<ICategoryService, CategoryService>();
             services.AddTransient<ICommentService, CommentService>();
-            services.AddTransient<ICompanyService, CompanyService>();
+            services.AddSingleton<ICompanyService, CompanyService>();
             services.AddTransient<IModificationService, ModificationService>();
             services.AddTransient<IRejectionService, RejectionService>();
             services.AddTransient<IRequestService, RequestService>();
-            services.AddTransient<IServiceService, ServiceService>();
+            services.AddSingleton<IServiceService, ServiceService>();
             services.AddTransient<IUserService, UserService>();
 
             // Add mappers
-            services.AddTransient<IMappersService, MapperAPI>();
+            services.AddSingleton<IMappersService, MapperAPI>();
             //services.Add<IMappersService, MapperBLL>();
             
             // Add controllers
@@ -73,10 +73,10 @@ namespace GestionServiceBatiment.API
                                                                               sp.GetRequiredService<IMappersService>()
                                                                               ));
 
-            services.AddScoped<CompanyController>(sp => new CompanyController(sp.GetRequiredService<ICompanyService>()));
+            services.AddScoped<CompanyController>(sp => new CompanyController(sp.GetRequiredService<ICompanyService>(), sp.GetRequiredService<IMappersService>()));
             services.AddScoped<ModificationController>(sp => new ModificationController(sp.GetRequiredService<IModificationService>()));
             services.AddScoped<RejectionController>(sp => new RejectionController(sp.GetRequiredService<IRejectionService>()));
-            services.AddScoped<RequestController>(sp => new RequestController(sp.GetRequiredService<IRequestService>()));
+            services.AddScoped<RequestController>(sp => new RequestController(sp.GetRequiredService<IRequestService>(), sp.GetRequiredService<IMappersService>()));
 
             services.AddScoped<ServiceController>(sp => new ServiceController(sp.GetRequiredService<IServiceService>(), 
                                                                               sp.GetRequiredService<ICommentService>(), 

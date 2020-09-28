@@ -1,0 +1,117 @@
+﻿@model GestionServiceBatiment.ASP.Models.Comments.DisplayComment
+
+@if (Model.ParentId == null)
+{
+    <h2>@Html.DisplayFor(model => model.ParentId)</h2>
+        <div id="@string.Format("{0}_{1}", "comment", Model.Id)" data-id="@string.Format("{0}_{1}", "comment", Model.Id)" class="comment clearfix">
+            <img src="~/Content/assets/img/comments-2.jpg" class="comment-img  float-left" alt="">
+            <h5>
+                <a href="">
+                    @Html.DisplayFor(model => Model.Creator.FirstName) @Html.DisplayFor(model => Model.Creator.LastName)
+                </a>
+                <a href="#" data-id="@Model.Id" class="reply">
+                    <i class="icofont-reply"></i> Reply
+                </a>
+            </h5>
+            <time datetime="2020-01-01">@Html.DisplayFor(model => Model.CreationDate)</time>
+            <p>
+                <span id="parentId">@Html.DisplayFor(model => Model.ParentId)</span>
+                @Html.DisplayFor(model => Model.Content)
+            </p>
+
+            @*@foreach (var subComment in Model.Children)
+            {
+
+                <div id="@Model.Id" data-id="@string.Format("{0}_{1}", "comment-reply", subComment.Id)" class="comment comment-reply clearfix">
+                    <img src="~/Content/assets/img/comments-3.jpg" class="comment-img  float-left" alt="">
+                    <h5><a href="">@Html.DisplayFor(model => subComment.CreatorId)</a> <a href="#" data-id="@subComment.Id" class="reply"><i class="icofont-reply"></i> Reply</a></h5>
+                    <time datetime="2020-01-01">@Html.DisplayFor(model => subComment.CreationDate)</time>
+                    <p>
+                        @Html.DisplayFor(model => subComment.Content)
+                    </p>
+                </div><!-- End comment reply #1-->
+            }*@
+        </div><!-- End comment #2-->
+
+}
+
+
+
+
+
+
+@*@using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>CreateCommentForm</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Star, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Star, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Star, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CreatorId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CreatorId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CreatorId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CompanyId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CompanyId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ServiceId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ServiceId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ServiceId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.RequestId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.RequestId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RequestId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ParentId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ParentId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ParentId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@

@@ -1,13 +1,14 @@
-﻿using GestionServiceBatiment.BLL.Mappers;
-using GestionServiceBatiment.BLL.Models;
+﻿using GestionServiceBatiment.BLL.Models;
 using GestionServiceBatiment.BLL.Services.Interfaces;
 using GestionServiceBatiment.DAL.Models;
+using GestionServiceBatiment.DAL.Views.Companies;
 using GestionServiceBatiment.DAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tools.Mappers;
 
 namespace GestionServiceBatiment.BLL.Services.Implementations
 {
@@ -15,15 +16,13 @@ namespace GestionServiceBatiment.BLL.Services.Implementations
     {
         private readonly ICompanyRepository _companyRepository;
         private readonly IUserService _userService;
+        private readonly IMappersService _mappersService;
 
-        public CompanyService()
-        {
-        }
-
-        public CompanyService(ICompanyRepository companyRepository, IUserService userService)
+        public CompanyService(ICompanyRepository companyRepository, IUserService userService, IMappersService mappersService)
         {
             _companyRepository = companyRepository;
             _userService = userService;
+            _mappersService = mappersService;
         }
 
         public bool Delete(int id)
@@ -33,24 +32,29 @@ namespace GestionServiceBatiment.BLL.Services.Implementations
 
         public IEnumerable<CompanyBO> GetAll()
         {
-            return _companyRepository.GetAll().Select(c => c.MapTo<CompanyBO>());
+            return _companyRepository.GetAll().Select(c => _mappersService.Map<Company, CompanyBO>(c));
         }
 
         public CompanyBO GetById(int id)
         {
-            CompanyBO companyBO = _companyRepository.GetById(id).MapTo<CompanyBO>();
+            CompanyBO companyBO = _mappersService.Map<Company, CompanyBO>(_companyRepository.GetById(id));
             companyBO.Contractor = _userService.GetById(companyBO.ContractorId);
             return companyBO;
         }
 
+        public IEnumerable<CompanyBO> GetMostRatedProviders()
+        {
+            return _companyRepository.GetMostRatedProviders().Select(c => _mappersService.Map<VCompanyListing, CompanyBO>(c));
+        }
+
         public int Insert(CompanyBO entity)
         {
-            return _companyRepository.Insert(entity.MapTo<Company>());
+            return _companyRepository.Insert(_mappersService.Map<CompanyBO, Company>(entity));
         }
 
         public bool Update(int id, CompanyBO entity)
         {
-            Company company = entity.MapTo<Company>();
+            Company company = _mappersService.Map<CompanyBO, Company>(entity);
             company.Id = id;
             return _companyRepository.Update(company);
         }

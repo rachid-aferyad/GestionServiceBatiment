@@ -1,6 +1,8 @@
 ﻿using GestionServiceBatiment.DAL.Mappers;
 using GestionServiceBatiment.DAL.Models;
 using GestionServiceBatiment.DAL.Repositories.Interfaces;
+using GestionServiceBatiment.DAL.Views;
+using GestionServiceBatiment.DAL.Views.Comments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,45 +37,51 @@ namespace GestionServiceBatiment.DAL.Repositories.Implementations
             return _connection.ExecuteReader(command, reader => reader.MapTo<Comment>()).SingleOrDefault();
         }
 
-        public IEnumerable<Comment> GetByCreator(int creatorId)
+        public IEnumerable<VComment> GetByCreator(int creatorId)
         {
             Command command = new Command("CSP_GetByUser");
-            command.AddParameter("Table", "Comment");
+            command.AddParameter("Table", "V_Comment");
             command.AddParameter("creatorId", creatorId);
-            return _connection.ExecuteReader(command, reader => reader.MapTo<Comment>());
+            return _connection.ExecuteReader(command, reader => reader.MapTo<VComment>());
         }
 
-        public IEnumerable<Comment> GetByCompany(int companyId)
+        public IEnumerable<VComment> GetByCompany(int companyId)
         {
             Command command = new Command("CSP_GetByCompany");
-            command.AddParameter("Table", "Comment");
+            command.AddParameter("Table", "V_Comment");
             command.AddParameter("CompanyId", companyId);
-            return _connection.ExecuteReader(command, reader => reader.MapTo<Comment>());
+            return _connection.ExecuteReader(command, reader => reader.MapTo<VComment>());
         }
 
-        public IEnumerable<Comment> GetByRequest(int requestId)
+        public IEnumerable<VComment> GetByRequest(int requestId)
         {
             Command command = new Command("CSP_GetByRequest");
-            command.AddParameter("Table", "Comment");
+            command.AddParameter("Table", "V_Comment");
             command.AddParameter("RequestId", requestId);
-            return _connection.ExecuteReader(command, reader => reader.MapTo<Comment>());
+            return _connection.ExecuteReader(command, reader => reader.MapTo<VComment>());
         }
 
-        public IEnumerable<Comment> GetByService(int serviceId)
+        public IEnumerable<VComment> GetByService(int serviceId)
         {
             Command command = new Command("CSP_GetByService");
-            command.AddParameter("Table", "Comment");
+            command.AddParameter("Table", "V_Comment");
             command.AddParameter("ServiceId", serviceId); 
-            IEnumerable<Comment> comments = _connection.ExecuteReader(command, reader => reader.MapTo<Comment>());
+            IEnumerable<VComment> comments = _connection.ExecuteReader(command, reader => reader.MapTo<VComment>());
             return comments;
         }
 
-        public IEnumerable<Comment> GetSubByParent(int parentId)
+        public IEnumerable<VComment> GetSubByParent(int parentId)
         {
             Command command = new Command("CSP_GetCommentByParent");
             //command.AddParameter("Table", "Category");
             command.AddParameter("ParentId", parentId);
-            return _connection.ExecuteReader(command, reader => reader.MapTo<Comment>());
+            return _connection.ExecuteReader(command, reader => reader.MapTo<VComment>());
+        }
+        
+        public IEnumerable<VComment> GetLatestReviews()
+        {
+            Command command = new Command("CSP_GetLatestReviews");
+            return _connection.ExecuteReader(command, reader => reader.MapTo<VComment>());
         }
 
         public int Insert(Comment comment)
@@ -81,6 +89,7 @@ namespace GestionServiceBatiment.DAL.Repositories.Implementations
             Command command = new Command("CSP_AddComment");
             command.AddParameter("Content", comment.Content);
             command.AddParameter("CreatorId", comment.CreatorId);
+            command.AddParameter("ParentId", comment.ParentId);
             command.AddParameter("CompanyId", comment.CompanyId);
             command.AddParameter("ServiceId", comment.ServiceId);
             command.AddParameter("RequestId", comment.RequestId);
@@ -97,5 +106,6 @@ namespace GestionServiceBatiment.DAL.Repositories.Implementations
             return _connection.ExecuteNonQuery(command) > 0;
 
         }
+
     }
 }

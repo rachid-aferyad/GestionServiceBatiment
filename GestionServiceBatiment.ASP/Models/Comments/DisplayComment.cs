@@ -20,5 +20,6 @@ namespace GestionServiceBatiment.ASP.Models.Comments
         public int? ServiceId { get; set; }
         public int? RequestId { get; set; }
         public int? ParentId { get; set; }
+        public IEnumerable<DisplayComment> Children { get; set; }
     }
 }

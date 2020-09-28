@@ -6,11 +6,14 @@
 		S.[ImageURI],
 		S.[CreationDate],
 		S.[CategoryId],
-		CAT.[Name] AS [CategoryName],
 		S.[CompanyId],
-		C.[Name] AS [CompanyName]
+		CAT.[Name] AS [CategoryName],
+		COMP.[Name] AS [CompanyName]
+	
 	FROM [dbo].[Service] S
-		LEFT JOIN [dbo].[Company] C
-		ON C.[Id] = S.[CompanyId]
-			LEFT JOIN [dbo].[Category] CAT
+		
+		JOIN [dbo].[Company] COMP
+		ON COMP.[Id] = S.[CompanyId]
+			
+			JOIN [dbo].[Category] CAT
 			ON CAT.[Id] = S.[CategoryId]

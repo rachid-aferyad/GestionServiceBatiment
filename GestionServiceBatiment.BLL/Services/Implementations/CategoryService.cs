@@ -3,6 +3,7 @@ using GestionServiceBatiment.BLL.Models;
 using GestionServiceBatiment.BLL.Services.Interfaces;
 using GestionServiceBatiment.DAL.Models;
 using GestionServiceBatiment.DAL.Repositories.Interfaces;
+using GestionServiceBatiment.DAL.Views.Categories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,17 +43,22 @@ namespace GestionServiceBatiment.BLL.Services.Implementations
 
         public IEnumerable<CategoryBO> GetSup()
         {
-            return _categoryRepository.GetSup().Select(c => _mappersService.Map<Category, CategoryBO>(c));
+            return _categoryRepository.GetSup().Select(c => _mappersService.Map<VCategoryListing, CategoryBO>(c));
+        }
+
+        public IEnumerable<CategoryBO> GetTop()
+        {
+            return _categoryRepository.GetTop().Select(c => _mappersService.Map<VCategoryListing, CategoryBO>(c));
         }
 
         public IEnumerable<CategoryBO> GetSub(int categoryId)
         {
-            return _categoryRepository.GetSub(categoryId).Select(c => _mappersService.Map<Category, CategoryBO>(c));
+            return _categoryRepository.GetSub(categoryId).Select(c => _mappersService.Map<VCategoryListing, CategoryBO>(c));
         }
 
         public IEnumerable<CategoryBO> GetSubByParentName(string parentName)
         {
-            return _categoryRepository.GetSubByParentName(parentName).Select(c => _mappersService.Map<Category, CategoryBO>(c));
+            return _categoryRepository.GetSubByParentName(parentName).Select(c => _mappersService.Map<VCategoryListing, CategoryBO>(c));
         }
 
         public CategoryBO GetById(int id)
@@ -66,7 +72,7 @@ namespace GestionServiceBatiment.BLL.Services.Implementations
 
         public CategoryBO GetByName(string name)
         {
-            return _mappersService.Map<Category, CategoryBO>(_categoryRepository.GetByName(name));
+            return _mappersService.Map<VCategoryDetails, CategoryBO>(_categoryRepository.GetByName(name));
         }
 
         public int Insert(CategoryBO entity)

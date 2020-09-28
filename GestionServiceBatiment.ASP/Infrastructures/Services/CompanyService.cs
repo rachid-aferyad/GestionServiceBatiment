@@ -50,6 +50,16 @@ namespace GestionServiceBatiment.ASP.Infrastructures
             return response.Content.ReadAsAsync<Company>().Result;
         }
 
+        public IEnumerable<CompanyListing> GetMostRatedProviders()
+        {
+            HttpResponseMessage response = _httpClient.GetAsync("MostRatedProviders").Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Echec de la réception de données.");
+            }
+            return response.Content.ReadAsAsync<IEnumerable<CompanyListing>>().Result;
+        }
+
         public int Post(Company entity)
         {
             string jsonContent = JsonConvert.SerializeObject(entity, Formatting.Indented);

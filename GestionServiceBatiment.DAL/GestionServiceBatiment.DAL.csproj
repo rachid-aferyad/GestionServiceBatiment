@@ -70,8 +70,18 @@
     <Compile Include="Repositories\Interfaces\ICommentRepository.cs" />
     <Compile Include="Repositories\Interfaces\IServiceRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
+    <Compile Include="Views\Categories\VCategoryDetails.cs" />
+    <Compile Include="Views\Categories\VCategoryListing.cs" />
+    <Compile Include="Views\Categories\VCategory.cs" />
+    <Compile Include="Views\Companies\VCompanyDetails.cs" />
+    <Compile Include="Views\Companies\VCompanyListing.cs" />
+    <Compile Include="Views\Requests\VRequestListing.cs" />
+    <Compile Include="Views\Requests\VRequestDetails.cs" />
+    <Compile Include="Views\Requests\VRequest.cs" />
     <Compile Include="Views\Services\VServiceAdmin.cs" />
     <Compile Include="Views\Services\VServiceCreator.cs" />
+    <Compile Include="Views\Companies\VCompany.cs" />
+    <Compile Include="Views\Comments\VComment.cs" />
     <Compile Include="Views\Services\VServiceDetails.cs" />
     <Compile Include="Views\Services\VServiceListing.cs" />
     <Compile Include="Views\Users\VUser.cs" />
@@ -82,6 +92,11 @@
       <Project>{70596C63-8926-44ED-859C-DDA5100C0F85}</Project>
       <Name>ToolBox</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tools.Mappers\Tools.Mappers.csproj">
+      <Project>{b139ca9f-f821-4e98-9f04-06d50e968238}</Project>
+      <Name>Tools.Mappers</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

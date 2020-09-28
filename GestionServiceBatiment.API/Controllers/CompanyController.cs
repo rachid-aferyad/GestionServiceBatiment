@@ -1,5 +1,4 @@
-﻿using GestionServiceBatiment.BLL.Mappers;
-using GestionServiceBatiment.BLL.Services.Interfaces;
+﻿using GestionServiceBatiment.BLL.Services.Interfaces;
 using GestionServiceBatiment.BLL.Services.Implementations;
 using System;
 using System.Collections.Generic;
@@ -9,27 +8,37 @@ using System.Net.Http;
 using System.Web.Http;
 using GestionServiceBatiment.BLL.Models;
 using GestionServiceBatiment.API.Models.Companies;
+using Tools.Mappers;
 
 namespace GestionServiceBatiment.API.Controllers
 {
     public class CompanyController : ApiController
     {
         private readonly ICompanyService _companyService;
-        public CompanyController(ICompanyService companyService)
+        private readonly IMappersService _mappersService;
+
+        public CompanyController(ICompanyService companyService, IMappersService mappersService)
         {
             _companyService = companyService;
+            _mappersService = mappersService;
         }
 
         // GET: api/Company
-        public IEnumerable<Company> Get()
+        public IEnumerable<CompanyListing> Get()
         {
-            return _companyService.GetAll().Select(c => c.MapTo<Company>());
+            return _companyService.GetAll().Select(c => _mappersService.Map<CompanyBO, CompanyListing>(c));
         }
 
         // GET: api/Company/5
-        public Company Get(int id)
+        public DisplayCompany Get(int id)
         {
-            return _companyService.GetById(id).MapTo<Company>();
+            return _mappersService.Map<CompanyBO, DisplayCompany>(_companyService.GetById(id));
+        }
+
+        [Route("api/Company/MostRatedProviders")]
+        public IEnumerable<CompanyListing> GetMostRatedProviders()
+        {
+            return _companyService.GetMostRatedProviders().Select(c => _mappersService.Map<CompanyBO, CompanyListing>(c));
         }
 
         // POST: api/Company
@@ -41,7 +50,7 @@ namespace GestionServiceBatiment.API.Controllers
                 {
                     return Request.CreateResponse(HttpStatusCode.BadRequest);
                 }
-                _companyService.Insert(createCompanyForm.MapTo<CompanyBO>());
+                _companyService.Insert(_mappersService.Map<CreateCompanyForm, CompanyBO>(createCompanyForm));
                 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
@@ -60,7 +69,7 @@ namespace GestionServiceBatiment.API.Controllers
                 {
                     return Request.CreateResponse(HttpStatusCode.BadRequest);
                 }
-                _companyService.Update(id, updateCompanyForm.MapTo<CompanyBO>());
+                _companyService.Update(id, _mappersService.Map<UpdateCompanyForm, CompanyBO>(updateCompanyForm));
 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }

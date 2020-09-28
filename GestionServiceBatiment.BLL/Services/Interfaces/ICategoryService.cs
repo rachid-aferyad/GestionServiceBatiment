@@ -13,5 +13,6 @@ namespace GestionServiceBatiment.BLL.Services.Interfaces
         IEnumerable<CategoryBO> GetSub(int categoryId);
         CategoryBO GetByName(string name);
         IEnumerable<CategoryBO> GetSubByParentName(string parentName);
+        IEnumerable<CategoryBO> GetTop();
     }
 }

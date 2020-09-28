@@ -194,6 +194,7 @@
     <Compile Include="Models\Categories\UpdateCategoryForm.cs" />
     <Compile Include="Models\Categories\CreateCategoryForm.cs" />
     <Compile Include="Models\Categories\Category.cs" />
+    <Compile Include="Models\Companies\CompanyListing.cs" />
     <Compile Include="Models\Companies\DisplayCompany.cs" />
     <Compile Include="Models\Companies\UpdateCompanyForm.cs" />
     <Compile Include="Models\Companies\CreateCompanyForm.cs" />
@@ -202,11 +203,13 @@
     <Compile Include="Models\Rejections\CreateRejectionForm.cs" />
     <Compile Include="Models\Requests\CreateRequestForm.cs" />
     <Compile Include="Models\Requests\DisplayRequest.cs" />
+    <Compile Include="Models\Requests\RequestListing.cs" />
     <Compile Include="Models\Requests\Request.cs" />
     <Compile Include="Models\Requests\UpdateRequestForm.cs" />
     <Compile Include="Models\Services\DisplayService.cs" />
     <Compile Include="Models\Modifications\DisplayModification.cs" />
     <Compile Include="Models\Rejections\DisplayRejection.cs" />
+    <Compile Include="Models\Services\ServiceListing.cs" />
     <Compile Include="Models\Services\UpdateServiceForm.cs" />
     <Compile Include="Models\Services\CreateServiceForm.cs" />
     <Compile Include="Models\Modifications\Modification.cs" />

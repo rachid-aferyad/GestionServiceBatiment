@@ -1,38 +1,18 @@
-﻿<!-- ======= Footer ======= -->
+﻿@*@model IEnumerable<GestionServiceBatiment.ASP.Models.Categories.CategoryListing>*@
 
-
-
-
-
-    @*@if (ViewBag.Title == "Index")
-    {
-        <div class="footer-newsletter">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <h4>Join Our Newsletter</h4>
-                        <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-                        <form action="" method="post">
-                            <input type="email" name="email"><input type="submit" value="Subscribe">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    }*@
-
+<!-- ======= Footer ======= -->
     <div class="footer-top">
         <div class="container">
             <div class="row">
 
                 <div class="col-lg-3 col-md-6 footer-contact">
-                    <h3>RAGBat</h3>
+                    <h3>RA-Service</h3>
                     <p>
                         Avenue Albert 1er <br>
                         4030, Liège<br>
                         Belgique <br><br>
                         <strong>Tél:</strong> +32 455 100 300<br>
-                        <strong>Email:</strong> info@ragbat.be<br>
+                        <strong>Email:</strong> info@ra-service.be<br>
                     </p>
                 </div>
 
@@ -49,11 +29,7 @@
                 <div class="col-lg-3 col-md-6 footer-links">
                     <h4>Top Catégories</h4>
                     <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                        @{ Html.RenderAction("GetTopCategories", "Shared"); }
                     </ul>
                 </div>
 

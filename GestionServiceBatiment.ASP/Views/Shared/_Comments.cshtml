@@ -1,0 +1,53 @@
+﻿@model IEnumerable<GestionServiceBatiment.ASP.Models.Comments.DisplayComment>
+@using GestionServiceBatiment.ASP.Mappers;
+
+@{
+    IEnumerable<GestionServiceBatiment.ASP.Models.Comments.DisplayComment> roots = Model.Where(c => c.ParentId == null).OrderByDescending(c => c.CreationDate);
+    //IEnumerable<GestionServiceBatiment.ASP.Models.Comments.DisplayComment> subComments = Model.Where(c => c.ParentId != null);
+}
+
+
+
+@foreach (var root in roots)
+{
+    @*<h2>@Html.DisplayFor(model => supComment.ParentId)</h2>*@
+
+    <div id="@root.Id" class="comment clearfix">
+        <img src="~/Content/assets/img/comments-2.jpg" class="comment-img  float-left" alt="">
+        <h5>
+            <a href="">
+                @Html.DisplayFor(model => root.Creator.FirstName) @Html.DisplayFor(model => root.Creator.LastName)
+                @Html.DisplayFor(model => root.Star)
+            </a>
+            <a href="javascript:;" data-id="@root.Id" class="reply" onclick="replyComment(@root.Id)">
+                <i class="icofont-reply"></i> Répondre
+            </a>
+        </h5>
+        <time datetime="2020-01-01">@Html.DisplayFor(model => root.CreationDate)</time>
+        <p>
+            <span id="parentId">@Html.DisplayFor(model => root.ParentId)</span>
+            @Html.DisplayFor(model => root.Content)
+        </p>
+
+        @foreach (var child in root.GetAllDescendants().Where(c => c.Id != root.Id).OrderBy(c => c.CreationDate))
+        {
+            <div id="@child.Id" class="comment comment-reply clearfix">
+                <img src="~/Content/assets/img/comments-3.jpg" class="comment-img  float-left" alt="">
+                <h5>
+                    <a href="">
+                        @Html.DisplayFor(model => child.Creator.FirstName) @Html.DisplayFor(model => child.Creator.LastName)
+                        @Html.DisplayFor(model => child.Star)
+                    </a>
+                    <a href="javascript:;" data-id="@child.Id" class="reply" onclick="replyComment(@child.Id)">
+                        <i class="icofont-reply"></i> Répondre
+                    </a>
+                </h5>
+                <time datetime="2020-01-01">@Html.DisplayFor(model => child.CreationDate)</time>
+                <p>
+                    @Html.DisplayFor(model => child.Content)
+                </p>
+            </div><!-- End comment reply #1-->
+
+        }
+    </div><!-- End comment #2-->
+}

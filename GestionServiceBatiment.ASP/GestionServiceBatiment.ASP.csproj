@@ -159,6 +159,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DependencyInjection\DefaultDependencyResolver.cs" />
     <Compile Include="Global.asax.cs">
@@ -182,11 +183,13 @@
     <Compile Include="Infrastructures\Services\CompanyService.cs" />
     <Compile Include="Infrastructures\Services\CategoryService.cs" />
     <Compile Include="Infrastructures\Services\UserService.cs" />
+    <Compile Include="Mappers\AllChildren.cs" />
     <Compile Include="Mappers\Mapper.cs" />
     <Compile Include="Mappers\MapperASP.cs" />
     <Compile Include="Mappers\Mappers.cs" />
     <Compile Include="Models\Categories\Category.cs" />
     <Compile Include="Models\Categories\CreateCategoryForm.cs" />
+    <Compile Include="Models\Categories\CategoryListing.cs" />
     <Compile Include="Models\Categories\DisplayCategory.cs" />
     <Compile Include="Models\Categories\UpdateCategoryForm.cs" />
     <Compile Include="Models\Comments\Comment.cs" />
@@ -195,8 +198,11 @@
     <Compile Include="Models\Comments\UpdateCommentForm.cs" />
     <Compile Include="Models\Companies\Company.cs" />
     <Compile Include="Models\Companies\CreateCompanyForm.cs" />
+    <Compile Include="Models\Companies\CompanyListing.cs" />
     <Compile Include="Models\Companies\DisplayCompany.cs" />
     <Compile Include="Models\Companies\UpdateCompanyForm.cs" />
+    <Compile Include="Models\EntityType.cs" />
+    <Compile Include="Mappers\CommentEnumerable.cs" />
     <Compile Include="Models\Home\HomeViewModel.cs" />
     <Compile Include="Models\Modifications\DisplayModification.cs" />
     <Compile Include="Models\Modifications\Modification.cs" />
@@ -207,9 +213,11 @@
     <Compile Include="Models\Requests\CreateRequestForm.cs" />
     <Compile Include="Models\Requests\DisplayRequest.cs" />
     <Compile Include="Models\Requests\Request.cs" />
+    <Compile Include="Models\Requests\RequestListing.cs" />
     <Compile Include="Models\Requests\UpdateRequestForm.cs" />
     <Compile Include="Models\Services\CreateServiceForm.cs" />
     <Compile Include="Models\Services\DisplayService.cs" />
+    <Compile Include="Models\Services\ServiceListing.cs" />
     <Compile Include="Models\Services\Service.cs" />
     <Compile Include="Models\Services\UpdateServiceForm.cs" />
     <Compile Include="Models\Users\CreateUserForm.cs" />
@@ -217,6 +225,7 @@
     <Compile Include="Models\Users\UpdateUserForm.cs" />
     <Compile Include="Models\Users\User.cs" />
     <Compile Include="Models\Users\UserRole.cs" />
+    <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -285,6 +294,7 @@
     <Content Include="Content\assets\vendor\boxicons\css\boxicons.min.css" />
     <Content Include="Content\assets\vendor\boxicons\css\transformations.css" />
     <Content Include="Content\assets\vendor\boxicons\fonts\boxicons.svg" />
+    <Content Include="Content\assets\vendor\fontawesome-\css\all.min.css" />
     <Content Include="Content\assets\vendor\icofont\icofont.min.css" />
     <Content Include="Content\assets\vendor\owl.carousel\assets\ajax-loader.gif" />
     <Content Include="Content\assets\vendor\owl.carousel\assets\owl.carousel.css" />
@@ -576,12 +586,20 @@
     <Content Include="Views\Modification\Delete.cshtml" />
     <Content Include="Views\Comment\Index.cshtml" />
     <Content Include="Views\Comment\Details.cshtml" />
-    <Content Include="Views\Comment\Create.cshtml" />
+    <Content Include="Views\Comment\_Create.cshtml" />
     <Content Include="Views\Comment\Edit.cshtml" />
     <Content Include="Views\Comment\Delete.cshtml" />
     <Content Include="Views\Modification\Index.cshtml" />
     <Content Include="Views\Category\_CategoryList.cshtml" />
     <Content Include="Views\Category\_SubCategoriesList.cshtml" />
+    <Content Include="Views\Service\CommentForm.cshtml" />
+    <Content Include="Views\Comment\Create - Copier.cshtml" />
+    <Content Include="Views\Shared\_Comments.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Comment.cshtml" />
+    <Content Include="Views\Service\Comments.cshtml" />
+    <Content Include="Views\Comment\GetComments.cshtml" />
+    <Content Include="Views\Shared\_NewComment.cshtml" />
+    <Content Include="Views\Shared\_TopCategories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

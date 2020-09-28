@@ -1,4 +1,5 @@
 ﻿using GestionServiceBatiment.DAL.Models;
+using GestionServiceBatiment.DAL.Views.Companies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace GestionServiceBatiment.DAL.Repositories.Interfaces
 {
     public interface ICompanyRepository : IRepository<int, Company>
     {
-        Company GetByContractor(int contractorId);
+        VCompanyDetails GetByContractor(int contractorId);
+        IEnumerable<VCompanyListing> GetMostRatedProviders();
     }
 }

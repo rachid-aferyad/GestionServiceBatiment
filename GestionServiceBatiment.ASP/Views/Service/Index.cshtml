@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GestionServiceBatiment.ASP.Models.Services.DisplayService>
+﻿@model IEnumerable<GestionServiceBatiment.ASP.Models.Services.ServiceListing>
 
 @{
     ViewBag.Title = "Index";
@@ -30,7 +30,7 @@
             <div class="row">
                 @foreach (var item in Model)
                 {
-                    <div class="col-lg-4  col-md-6 d-flex align-items-stretch" data-aos="fade-up">
+                    <div class="col-lg-3  col-md-4 d-flex align-items-stretch" data-aos="fade-up">
                         <article class="entry">
 
                             <div class="entry-img">
@@ -42,9 +42,21 @@
                             </h2>
 
                             <div class="entry-meta">
+                                @*<ul>
+                                    <li class="d-flex align-items-center">
+                                        <i class="icofont-user"></i>
+                                        <a href="/Company/Details/@item.CompanyId">@Html.DisplayFor(modelItem => item.CompanyName)</a>
+                                    </li>
+                                    <li class="d-flex align-items-center">
+                                        <i class="icofont-wall-clock"></i>
+                                        <a href="/Company/Details/@item.CompanyId">
+                                            <time datetime="01-01-2020">@Html.DisplayFor(modelItem => item.CreationDate)</time>
+                                        </a>
+                                    </li>
+                                </ul>*@
                                 <ul>
-                                    <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="blog-single.html">@Html.DisplayFor(modelItem => item.Title)</a></li>
-                                    <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="blog-single.html"><time datetime="01-01-2020">@Html.DisplayFor(modelItem => item.CreationDate)</time></a></li>
+                                    <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="/Company/Details/@item.CompanyId">@Html.DisplayFor(modelItem => item.CompanyName)</a></li>
+                                    <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="/Company/Details/@item.CompanyId"><time datetime="2020-01-01">@Html.DisplayFor(modelItem => item.CreationDate)</time></a></li>
                                 </ul>
                             </div>
 

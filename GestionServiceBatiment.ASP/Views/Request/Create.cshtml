@@ -21,7 +21,6 @@
         </div>
     </section><!-- End Breadcrumbs -->
 
-
     <section id="contact" class="contact">
         <div class="container" data-aos="fade-up">
 
@@ -39,36 +38,24 @@
                 </div>
 
                 <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-                    @using (Html.BeginForm("Create", "Request", FormMethod.Post, new { @class = "form" }))
+                    @using (Html.BeginForm("Create", "Request", FormMethod.Post, new { @class = "service-form" }))
                     {
                         @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
-                        @Html.HiddenFor(model => model.CategoryId)
-                        <!--<div class="form-row">-->
-                        @*<div class="form-group col-md-6">
-            @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label" })
-            @Html.EditorFor(model => model.CategoryId, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
-        </div>*@
-                        <!--</div>-->
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        <div class="form-horizontal">
+                            @Html.HiddenFor(model => model.CategoryId)
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = 10 })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="text-center"><button type="submit">Créer</button></div>
                         </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
-                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = 10 })
-                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="mb-3">
-                            <div class="loading">Loading</div>
-                            <div class="error-message"></div>
-                            <div class="sent-message">La demande est créée.</div>
-                        </div>
-                        <div class="text-center"><button type="submit">Créer</button></div>
-                    </div>
                     }
 
                 </div>

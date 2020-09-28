@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using GestionServiceBatiment.ASP.Infrastructures.Interfaces;
 using GestionServiceBatiment.ASP.Mappers;
+using GestionServiceBatiment.ASP.Models;
 using GestionServiceBatiment.ASP.Models.Comments;
 
 namespace GestionServiceBatiment.ASP.Controllers
@@ -105,6 +106,11 @@ namespace GestionServiceBatiment.ASP.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult GetComments(EntityType entityType, int entityId)
+        {
+            return View(_commentService.GetComments(entityType, entityId).Select(s => s.MapTo<DisplayComment>()));
         }
     }
 }

@@ -48,16 +48,14 @@ namespace TestMappers
                 Id = s.Id,
                 Name = s.Name,
                 Description = s.Description,
-                ParentId = s.ParentId,
-                NavigationName = s.NavigationName
+                ParentId = s.ParentId
             });
             service.Register<DisplayCategory, Category>((s) => new Category()
             {
                 Id = s.Id,
                 Name = s.Name,
                 Description = s.Description,
-                ParentId = s.ParentId,
-                NavigationName = s.NavigationName
+                ParentId = s.ParentId
             }) ;
             
             //service.Register<DisplayService, Service>((s) => new Service(){

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 
@@ -36,14 +37,21 @@ namespace Tools.Mappers
                 string propertyName = propertyInfo.Name;
 
                 MapAttribute mapAttribute = propertyInfo.GetCustomAttribute<MapAttribute>();
+                
                 if (!(mapAttribute is null))
                     propertyName = mapAttribute.PropertyName;
 
                 PropertyInfo sourceProperty = sourceProperties.Where(p => p.Name == propertyName).SingleOrDefault();
+
                 if (!(sourceProperty is null))
                 {
                     propertyInfo.SetMethod.Invoke(result, new object[] { sourceProperty.GetMethod.Invoke(source, null) });
-                }
+                } 
+                //else if (sourceProperty.GetValue(source) == DBNull.Value)
+                //{
+                //    propertyInfo.SetMethod.Invoke(result, new object[] { null });
+                //}
+
             }
 
             return result;

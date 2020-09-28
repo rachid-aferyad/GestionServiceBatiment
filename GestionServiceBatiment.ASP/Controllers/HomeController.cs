@@ -1,5 +1,4 @@
 ﻿using GestionServiceBatiment.ASP.Infrastructures.Interfaces;
-using GestionServiceBatiment.ASP.Mappers;
 using GestionServiceBatiment.ASP.Models.Categories;
 using GestionServiceBatiment.ASP.Models.Comments;
 using GestionServiceBatiment.ASP.Models.Companies;
@@ -10,45 +9,52 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Tools.Mappers;
 
 namespace GestionServiceBatiment.ASP.Controllers
 {
     public class HomeController : Controller
     {
-        private ICategoryService _categoryService;
-        private IServiceService _serviceService;
-        private IRequestService _requestService;
-        private ICompanyService _companyService;
-        private ICommentService _commentService;
+        private readonly ICategoryService _categoryService;
+        private readonly IServiceService _serviceService;
+        private readonly IRequestService _requestService;
+        private readonly ICompanyService _companyService;
+        private readonly ICommentService _commentService;
+        private readonly IMappersService _mappersService;
         
         public HomeController(ICategoryService categoryService, 
             IServiceService serviceService, 
             IRequestService requestService,
             ICompanyService companyService,
-            ICommentService commentService)
+            ICommentService commentService,
+            IMappersService mappersService)
         {
             _categoryService = categoryService;
             _serviceService = serviceService;
             _requestService = requestService;
             _companyService = companyService;
             _commentService = commentService;
+            _mappersService = mappersService;
         }
         
         // GET: Category
         public ActionResult Index()
         {
             HomeViewModel homeViewModel = new HomeViewModel();
-            homeViewModel.NumberOfServices = _serviceService.GetAll().Count();
-            homeViewModel.RecentRequests = _requestService.GetAll()
-                .OrderByDescending(r => r.CreationDate).Take(6)
-                .Select(r => r.MapTo<DisplayRequest>());
-            homeViewModel.CategoryList = _categoryService.GetSupCategories().Select(r => r.MapTo<DisplayCategory>());
-            homeViewModel.MostRatedProviders = _companyService.GetAll()
-                .OrderByDescending(company => _commentService.GetByCompany(company.Id).Sum(comment => comment.Star))
-                .Select(company => company.MapTo<DisplayCompany>());
-            homeViewModel.LatestReviews = _commentService.GetAll()
-                .OrderByDescending(c => c.CreationDate)
-                .Select(c => c.MapTo<DisplayComment>());
+            
+            homeViewModel.NumberOfServices = _serviceService.GetServicesCount();
+
+            homeViewModel.RecentRequests = _requestService.GetLatestRequests()
+                                           .OrderByDescending(r => r.CreationDate);
+
+            homeViewModel.CategoryList = _categoryService.GetSupCategories();
+            
+            homeViewModel.TopCategories = _categoryService.GetTopCategories();
+
+            homeViewModel.MostRatedProviders = _companyService.GetMostRatedProviders();
+
+            homeViewModel.LatestReviews = _commentService.GetLatestReviews()
+                                          .OrderByDescending(c => c.CreationDate);
 
             return View(homeViewModel);
         }

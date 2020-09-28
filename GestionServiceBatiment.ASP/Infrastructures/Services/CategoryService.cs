@@ -51,7 +51,7 @@ namespace GestionServiceBatiment.ASP.Infrastructures
             return response.Content.ReadAsAsync<Category>().Result;
         }
 
-        public Category GetByName(string name)
+        public DisplayCategory GetByName(string name)
         {
             name = name.Replace('-', ' ');
 
@@ -60,21 +60,32 @@ namespace GestionServiceBatiment.ASP.Infrastructures
             {
                 throw new Exception("Echec de la réception de données.");
             }
-            return response.Content.ReadAsAsync<Category>().Result;
+            return response.Content.ReadAsAsync<DisplayCategory>().Result;
         }
 
-        public IEnumerable<Category> GetSubCategories(int categoryId)
+        public IEnumerable<CategoryListing> GetSubCategories(int categoryId)
         {
             HttpResponseMessage response = _httpClient.GetAsync("Sub/" + categoryId.ToString()).Result;
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Echec de la réception de données.");
             }
-            IEnumerable<Category> categories = response.Content.ReadAsAsync<IEnumerable<Category>>().Result;
+            IEnumerable<CategoryListing> categories = response.Content.ReadAsAsync<IEnumerable<CategoryListing>>().Result;
+            return categories;
+        }
+        
+        public IEnumerable<CategoryListing> GetTopCategories()
+        {
+            HttpResponseMessage response = _httpClient.GetAsync("Top").Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Echec de la réception de données.");
+            }
+            IEnumerable<CategoryListing> categories = response.Content.ReadAsAsync<IEnumerable<CategoryListing>>().Result;
             return categories;
         }
 
-        public IEnumerable<Category> GetSubCategoriesByName(string parentName)
+        public IEnumerable<CategoryListing> GetSubCategoriesByName(string parentName)
         {
             parentName = parentName.Replace('-', ' ');
 
@@ -83,17 +94,17 @@ namespace GestionServiceBatiment.ASP.Infrastructures
             {
                 throw new Exception("Echec de la réception de données.");
             }
-            return response.Content.ReadAsAsync<IEnumerable<Category>>().Result;
+            return response.Content.ReadAsAsync<IEnumerable<CategoryListing>>().Result;
         }
 
-        public IEnumerable<Category> GetSupCategories()
+        public IEnumerable<CategoryListing> GetSupCategories()
         {
             HttpResponseMessage response = _httpClient.GetAsync("Sup").Result;
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Echec de la réception de données.");
             }
-            IEnumerable<Category> categories = response.Content.ReadAsAsync<IEnumerable<Category>>().Result;
+            IEnumerable<CategoryListing> categories = response.Content.ReadAsAsync<IEnumerable<CategoryListing>>().Result;
             return categories;
         }
 

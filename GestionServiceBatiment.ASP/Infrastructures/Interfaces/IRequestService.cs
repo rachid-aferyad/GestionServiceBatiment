@@ -9,6 +9,8 @@ namespace GestionServiceBatiment.ASP.Infrastructures.Interfaces
 {
     public interface IRequestService : IService<int, Request>
     {
-        IEnumerable<Request> GetByCategory(int categoryId);
+        IEnumerable<RequestListing> GetByCategory(int categoryId);
+        IEnumerable<RequestListing> GetLatestRequests();
+        DisplayRequest GetRequestDetailsById(int id);
     }
 }

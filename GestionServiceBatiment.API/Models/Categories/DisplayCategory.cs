@@ -14,14 +14,5 @@ namespace GestionServiceBatiment.API.Models.Categories
         public string Description { get; set;}
         public int? ParentId { get; set; }
         public DisplayCategory Parent { get; set; }
-
-
-        public string NavigationName
-        {
-            get
-            {
-                return Name.Replace(' ', '-');
-            }
-        }
     }
 }

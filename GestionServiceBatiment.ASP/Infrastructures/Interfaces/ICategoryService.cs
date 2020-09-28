@@ -9,9 +9,10 @@ namespace GestionServiceBatiment.ASP.Infrastructures.Interfaces
 {
     public interface ICategoryService : IService<int, Category>
     {
-        IEnumerable<Category> GetSupCategories();
-        IEnumerable<Category> GetSubCategories(int categoryId);
-        IEnumerable<Category> GetSubCategoriesByName(string parentName);
-        Category GetByName(string name);
+        IEnumerable<CategoryListing> GetSupCategories();
+        IEnumerable<CategoryListing> GetTopCategories();
+        IEnumerable<CategoryListing> GetSubCategories(int categoryId);
+        IEnumerable<CategoryListing> GetSubCategoriesByName(string parentName);
+        DisplayCategory GetByName(string name);
     }
 }

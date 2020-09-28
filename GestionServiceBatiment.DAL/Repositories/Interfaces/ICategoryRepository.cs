@@ -1,4 +1,5 @@
 ﻿using GestionServiceBatiment.DAL.Models;
+using GestionServiceBatiment.DAL.Views.Categories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,10 @@ namespace GestionServiceBatiment.DAL.Repositories.Interfaces
 {
     public interface ICategoryRepository : IRepository<int, Category>
     {
-        IEnumerable<Category> GetSup();
-        IEnumerable<Category> GetSub(int categoryId);
-        Category GetByName(string name);
-        IEnumerable<Category> GetSubByParentName(string parentName);
+        IEnumerable<VCategoryListing> GetSup();
+        IEnumerable<VCategoryListing> GetSub(int categoryId);
+        VCategoryDetails GetByName(string name);
+        IEnumerable<VCategoryListing> GetSubByParentName(string parentName);
+        IEnumerable<VCategoryListing> GetTop();
     }
 }

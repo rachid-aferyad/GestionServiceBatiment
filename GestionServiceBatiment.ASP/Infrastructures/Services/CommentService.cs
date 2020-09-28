@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using GestionServiceBatiment.ASP.Models.Comments;
 using GestionServiceBatiment.ASP.Infrastructures.Services;
 using GestionServiceBatiment.ASP.Infrastructures.Interfaces;
+using GestionServiceBatiment.ASP.Models;
 
 namespace GestionServiceBatiment.ASP.Infrastructures
 {
@@ -20,6 +21,7 @@ namespace GestionServiceBatiment.ASP.Infrastructures
         {
             //_uri = "category/";
         }
+        
         public bool Delete(int id)
         {
             HttpResponseMessage response = _httpClient.DeleteAsync(id.ToString()).Result;
@@ -50,34 +52,44 @@ namespace GestionServiceBatiment.ASP.Infrastructures
             return response.Content.ReadAsAsync<Comment>().Result;
         }
 
-        public IEnumerable<Comment> GetByCompany(int companyId)
+        public IEnumerable<DisplayComment> GetByCompany(int companyId)
         {
             HttpResponseMessage response = _httpClient.GetAsync("Company/" + companyId.ToString() + "/Comments").Result;
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Echec de la réception de données.");
             }
-            return response.Content.ReadAsAsync<IEnumerable<Comment>>().Result;
+            return response.Content.ReadAsAsync<IEnumerable<DisplayComment>>().Result;
         }
         
-        public IEnumerable<Comment> GetByService(int serviceId)
+        public IEnumerable<DisplayComment> GetByService(int serviceId)
         {
             HttpResponseMessage response = _httpClient.GetAsync("Service/" + serviceId.ToString() + "/Comments").Result;
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Echec de la réception de données.");
             }
-            return response.Content.ReadAsAsync<IEnumerable<Comment>>().Result;
+            return response.Content.ReadAsAsync<IEnumerable<DisplayComment>>().Result;
         }
-        
-        public IEnumerable<Comment> GetByRequest(int requestId)
+
+        public IEnumerable<DisplayComment> GetByRequest(int requestId)
         {
             HttpResponseMessage response = _httpClient.GetAsync("Request/" + requestId.ToString() + "/Comments").Result;
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Echec de la réception de données.");
             }
-            return response.Content.ReadAsAsync<IEnumerable<Comment>>().Result;
+            return response.Content.ReadAsAsync<IEnumerable<DisplayComment>>().Result;
+        }
+
+        public IEnumerable<DisplayComment> GetByCreator(int creatorId)
+        {
+            HttpResponseMessage response = _httpClient.GetAsync("Creator/" + creatorId.ToString() + "/Comments").Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Echec de la réception de données.");
+            }
+            return response.Content.ReadAsAsync<IEnumerable<DisplayComment>>().Result;
         }
 
         public int Post(Comment entity)
@@ -102,6 +114,38 @@ namespace GestionServiceBatiment.ASP.Infrastructures
                 throw new Exception("Echec de la mise à jour des données.");
             }
             return true;
+        }
+
+        public IEnumerable<DisplayComment> GetLatestReviews()
+        {
+            HttpResponseMessage response = _httpClient.GetAsync("LatestComments").Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Echec de la réception de données.");
+            }
+            return response.Content.ReadAsAsync<IEnumerable<DisplayComment>>().Result;
+        }
+
+        public IEnumerable<DisplayComment> GetComments(EntityType entityType, int entityId)
+        {
+            if ((int)entityType == 1)
+            {
+                GetByService(entityId);
+            }
+            else if((int)entityType == 2)
+            {
+                GetByRequest(entityId);
+            }
+            else if ((int)entityType == 3)
+            {
+                GetByCompany(entityId);
+            }
+            else if ((int)entityType == 4)
+            {
+                GetByCreator(entityId);
+            }
+            
+            return null;
         }
     }
 }

@@ -3,6 +3,8 @@ using GestionServiceBatiment.BLL.Models;
 using GestionServiceBatiment.BLL.Services.Interfaces;
 using GestionServiceBatiment.DAL.Models;
 using GestionServiceBatiment.DAL.Repositories.Interfaces;
+using GestionServiceBatiment.DAL.Views;
+using GestionServiceBatiment.DAL.Views.Comments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +19,7 @@ namespace GestionServiceBatiment.BLL.Services.Implementations
         private ICommentRepository _commentRepository;
         private readonly IMappersService _mappersService;
 
-        public CommentService(ICommentRepository commentRepository
-            , IMappersService mappersService
-            )
+        public CommentService(ICommentRepository commentRepository, IMappersService mappersService)
         {
             _commentRepository = commentRepository;
             _mappersService = mappersService;
@@ -37,12 +37,12 @@ namespace GestionServiceBatiment.BLL.Services.Implementations
 
         public IEnumerable<CommentBO> GetByCompany(int companyId)
         {
-            return _commentRepository.GetByCompany(companyId).Select(c => _mappersService.Map<Comment, CommentBO>(c));
+            return _commentRepository.GetByCompany(companyId).Select(c => _mappersService.Map<VComment, CommentBO>(c));
         }
 
         public IEnumerable<CommentBO> GetByCreator(int creatorId)
         {
-            return _commentRepository.GetByCreator(creatorId).Select(c => _mappersService.Map<Comment, CommentBO>(c));
+            return _commentRepository.GetByCreator(creatorId).Select(c => _mappersService.Map<VComment, CommentBO>(c));
         }
 
         public CommentBO GetById(int id)
@@ -52,21 +52,26 @@ namespace GestionServiceBatiment.BLL.Services.Implementations
 
         public IEnumerable<CommentBO> GetByRequest(int requestId)
         {
-            return _commentRepository.GetByRequest(requestId).Select(c => _mappersService.Map<Comment, CommentBO>(c));
+            return _commentRepository.GetByRequest(requestId).Select(c => _mappersService.Map<VComment, CommentBO>(c));
         }
 
         public IEnumerable<CommentBO> GetByService(int serviceId)
         {
-            IEnumerable<Comment> comments = _commentRepository.GetByService(serviceId);
+            IEnumerable<VComment> comments = _commentRepository.GetByService(serviceId);
             IEnumerable<CommentBO> commentsBO = comments.Select(
-                c => _mappersService.Map<Comment, CommentBO>(c)
+                c => _mappersService.Map<VComment, CommentBO>(c)
                 );
             return commentsBO;
         }
         
         public IEnumerable<CommentBO> GetByParent(int parentId)
         {
-            return _commentRepository.GetSubByParent(parentId).Select(c => _mappersService.Map<Comment, CommentBO>(c));
+            return _commentRepository.GetSubByParent(parentId).Select(c => _mappersService.Map<VComment, CommentBO>(c));
+        }
+        
+        public IEnumerable<CommentBO> GetLatestReviews()
+        {
+            return _commentRepository.GetLatestReviews().Select(c => _mappersService.Map<VComment, CommentBO>(c));
         }
 
         public int Insert(CommentBO entity)
@@ -80,5 +85,6 @@ namespace GestionServiceBatiment.BLL.Services.Implementations
             comment.Id = id;
             return _commentRepository.Update(comment);
         }
+
     }
 }

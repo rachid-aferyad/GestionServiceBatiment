@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace GestionServiceBatiment.ASP.Models.Services
 {
@@ -22,8 +23,11 @@ namespace GestionServiceBatiment.ASP.Models.Services
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime CreationDate { get; set; }
+        public int CompanyId { get; set; }
         public DisplayCompany Company { get; set; }
+        public int CategoryId { get; set; }
         public DisplayCategory Category { get; set; }
         public IEnumerable<DisplayComment> Comments { get; set; }
+        public IEnumerable<CategoryListing> SubCategories { get; set; }
     }
 }

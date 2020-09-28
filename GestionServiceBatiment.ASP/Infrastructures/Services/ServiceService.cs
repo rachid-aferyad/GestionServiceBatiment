@@ -40,14 +40,24 @@ namespace GestionServiceBatiment.ASP.Infrastructures
             return response.Content.ReadAsAsync<IEnumerable<Service>>().Result;
         }
 
-        public IEnumerable<Service> GetByCategory(int categoryId)
+        public IEnumerable<ServiceListing> GetByCategory(int categoryId)
         {
             HttpResponseMessage response = _httpClient.GetAsync("Category/" + categoryId).Result;
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Echec de la réception de données.");
             }
-            return response.Content.ReadAsAsync<IEnumerable<Service>>().Result;
+            return response.Content.ReadAsAsync<IEnumerable<ServiceListing>>().Result;
+        }
+
+        public IEnumerable<ServiceListing> GetByCategoryName(string categoryName)
+        {
+            HttpResponseMessage response = _httpClient.GetAsync("CategoryName/" + categoryName).Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Echec de la réception de données.");
+            }
+            return response.Content.ReadAsAsync<IEnumerable<ServiceListing>>().Result;
         }
 
         //public IEnumerable<Service> GetByCategoryName(string categoryName)
@@ -69,6 +79,27 @@ namespace GestionServiceBatiment.ASP.Infrastructures
             }
             Service service = response.Content.ReadAsAsync<Service>().Result;
             return service;
+        }
+
+        public DisplayService GetServiceDetailsById(int id)
+        {
+            HttpResponseMessage response = _httpClient.GetAsync(id.ToString()).Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Echec de la réception de données.");
+            }
+            DisplayService displayService = response.Content.ReadAsAsync<DisplayService>().Result;
+            return displayService;
+        }
+
+        public int GetServicesCount()
+        {
+            HttpResponseMessage response = _httpClient.GetAsync("Count/").Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Echec de la réception de données.");
+            }
+            return response.Content.ReadAsAsync<int>().Result;
         }
 
         public int Post(Service entity)

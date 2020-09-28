@@ -9,12 +9,12 @@ using System.Web;
 
 namespace GestionServiceBatiment.ASP.Models.Home
 {
-    public class HomeViewModel
+    public class HomeViewModel : ViewModelBase
     {
         public int NumberOfServices { get; set; }
-        public IEnumerable<DisplayRequest> RecentRequests { get; set; }
-        public IEnumerable<DisplayCategory> CategoryList { get; set; }
-        public IEnumerable<DisplayCompany> MostRatedProviders { get; set; }
+        public IEnumerable<RequestListing> RecentRequests { get; set; }
+        public IEnumerable<CategoryListing> CategoryList { get; set; }
+        public IEnumerable<CompanyListing> MostRatedProviders { get; set; }
         public IEnumerable<DisplayComment> LatestReviews { get; set; }
     }
 }

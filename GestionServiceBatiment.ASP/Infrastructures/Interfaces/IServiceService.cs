@@ -9,7 +9,9 @@ namespace GestionServiceBatiment.ASP.Infrastructures.Interfaces
 {
     public interface IServiceService : IService<int, Service>
     {
-        IEnumerable<Service> GetByCategory(int categoryId);
-        //IEnumerable<Service> GetByCategoryName(string categoryName);
+        IEnumerable<ServiceListing> GetByCategory(int categoryId);
+        DisplayService GetServiceDetailsById(int id);
+        IEnumerable<ServiceListing> GetByCategoryName(string categoryName);
+        int GetServicesCount();
     }
 }

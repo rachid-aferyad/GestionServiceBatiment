@@ -15,5 +15,6 @@ namespace GestionServiceBatiment.BLL.Services.Interfaces
         IEnumerable<CommentBO> GetByService(int serviceId);
         IEnumerable<CommentBO> GetByRequest(int requestId);
         IEnumerable<CommentBO> GetByParent(int parentId);
+        IEnumerable<CommentBO> GetLatestReviews();
     }
 }

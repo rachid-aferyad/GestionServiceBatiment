@@ -1,6 +1,7 @@
 ﻿using GestionServiceBatiment.DAL.Mappers;
 using GestionServiceBatiment.DAL.Models;
 using GestionServiceBatiment.DAL.Repositories.Interfaces;
+using GestionServiceBatiment.DAL.Views.Companies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,12 +27,12 @@ namespace GestionServiceBatiment.DAL.Repositories.Implementations
             return _connection.ExecuteReader(command, reader => reader.MapTo<Company>());
         }
 
-        public Company GetByContractor(int contractorId)
+        public VCompanyDetails GetByContractor(int contractorId)
         {
             Command command = new Command("CSP_GetCompanyByContractorId");
             //command.AddParameter("Table", "Company");
             command.AddParameter("ContractorId", contractorId);
-            return _connection.ExecuteReader(command, reader => reader.MapTo<Company>()).SingleOrDefault();
+            return _connection.ExecuteReader(command, reader => reader.MapTo<VCompanyDetails>()).SingleOrDefault();
         }
 
         public Company GetById(int id)
@@ -42,12 +43,18 @@ namespace GestionServiceBatiment.DAL.Repositories.Implementations
             return _connection.ExecuteReader(command, reader => reader.MapTo<Company>()).SingleOrDefault();
         }
 
-        public IEnumerable<Company> GetByService(int serviceId)
+        public IEnumerable<VCompanyListing> GetByService(int serviceId)
         {
             Command command = new Command("CSP_GetByService");
             command.AddParameter("Table", "Company");
             command.AddParameter("ServiceId", serviceId);
-            return _connection.ExecuteReader(command, reader => reader.MapTo<Company>());
+            return _connection.ExecuteReader(command, reader => reader.MapTo<VCompanyListing>());
+        }
+
+        public IEnumerable<VCompanyListing> GetMostRatedProviders()
+        {
+            Command command = new Command("CSP_GetMostRatedProviders");
+            return _connection.ExecuteReader(command, reader => reader.MapTo<VCompanyListing>());
         }
 
         public int Insert(Company company)

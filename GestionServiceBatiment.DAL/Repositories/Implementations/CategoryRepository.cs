@@ -1,6 +1,7 @@
 ﻿using GestionServiceBatiment.DAL.Mappers;
 using GestionServiceBatiment.DAL.Models;
 using GestionServiceBatiment.DAL.Repositories.Interfaces;
+using GestionServiceBatiment.DAL.Views.Categories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,6 @@ namespace GestionServiceBatiment.DAL.Repositories.Implementations
 {
     public class CategoryRepository : BaseRepository, ICategoryRepository
     {
-
         public bool Delete(int id)
         {
             Command command = new Command("CSP_DeleteCategory");
@@ -27,26 +27,32 @@ namespace GestionServiceBatiment.DAL.Repositories.Implementations
             return _connection.ExecuteReader(command, reader => reader.MapTo<Category>());
         }
 
-        public IEnumerable<Category> GetSup()
+        public IEnumerable<VCategoryListing> GetSup()
         {
             Command command = new Command("CSP_GetSupCategories");
-            return _connection.ExecuteReader(command, reader => reader.MapTo<Category>());
+            return _connection.ExecuteReader(command, reader => reader.MapTo<VCategoryListing>());
         }
 
-        public IEnumerable<Category> GetSub(int categoryId)
+        public IEnumerable<VCategoryListing> GetTop()
+        {
+            Command command = new Command("CSP_GetTopCategories");
+            return _connection.ExecuteReader(command, reader => reader.MapTo<VCategoryListing>());
+        }
+
+        public IEnumerable<VCategoryListing> GetSub(int categoryId)
         {
             Command command = new Command("CSP_GetByParent");
             //command.AddParameter("Table", "Category");
             command.AddParameter("ParentId", categoryId);
-            return _connection.ExecuteReader(command, reader => reader.MapTo<Category>());
+            return _connection.ExecuteReader(command, reader => reader.MapTo<VCategoryListing>());
         }
 
-        public IEnumerable<Category> GetSubByParentName(string parentName)
+        public IEnumerable<VCategoryListing> GetSubByParentName(string parentName)
         {
             Command command = new Command("CSP_GetByParentName");
             //command.AddParameter("Table", "Category");
             command.AddParameter("ParentName", parentName);
-            return _connection.ExecuteReader(command, reader => reader.MapTo<Category>());
+            return _connection.ExecuteReader(command, reader => reader.MapTo<VCategoryListing>());
         }
 
         public Category GetById(int id)
@@ -57,20 +63,20 @@ namespace GestionServiceBatiment.DAL.Repositories.Implementations
             return _connection.ExecuteReader(command, reader => reader.MapTo<Category>()).SingleOrDefault();
         }
 
-        public Category GetByName(string name)
+        public VCategoryDetails GetByName(string name)
         {
             Command command = new Command("CSP_GetCategoryByName");
             //command.AddParameter("Table", "Category");
             command.AddParameter("Name", name);
-            return _connection.ExecuteReader(command, reader => reader.MapTo<Category>()).SingleOrDefault();
+            return _connection.ExecuteReader(command, reader => reader.MapTo<VCategoryDetails>()).SingleOrDefault();
         }
 
-        public IEnumerable<Category> GetByService(int serviceId)
+        public IEnumerable<VCategoryListing> GetByService(int serviceId)
         {
             Command command = new Command("CSP_GetByService");
             command.AddParameter("Table", "Category");
             command.AddParameter("ServiceId", serviceId);
-            return _connection.ExecuteReader(command, reader => reader.MapTo<Category>());
+            return _connection.ExecuteReader(command, reader => reader.MapTo<VCategoryListing>());
         }
 
         public int Insert(Category entity)

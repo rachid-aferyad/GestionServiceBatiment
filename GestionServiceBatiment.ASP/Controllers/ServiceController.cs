@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using GestionServiceBatiment.ASP.Infrastructures.Interfaces;
+using GestionServiceBatiment.ASP.Mappers;
 using GestionServiceBatiment.ASP.Models.Categories;
 using GestionServiceBatiment.ASP.Models.Comments;
 using GestionServiceBatiment.ASP.Models.Services;
@@ -38,11 +39,11 @@ namespace GestionServiceBatiment.ASP.Controllers
         }
 
         [Route("Services/{subCatgeory}/{categoryName}")]
+        [Route("Category/{categoryName}")]
         public ActionResult Index(string categoryName)
         {
-            Category category = _categoryService.GetByName(categoryName);
-            IEnumerable<DisplayService> displayServices = _serviceService.GetByCategory(category.Id).Select(
-                s => _mappersService.Map<Service, DisplayService>(s));
+            categoryName = categoryName.Replace('-', ' ');
+            IEnumerable<ServiceListing> displayServices = _serviceService.GetByCategoryName(categoryName);
             return View(displayServices);
         }
 
@@ -51,9 +52,9 @@ namespace GestionServiceBatiment.ASP.Controllers
         [Route("Service/Details/{id}")]
         public ActionResult Details(int id)
         {
-            DisplayService displayService = _mappersService.Map<Service, DisplayService>(_serviceService.GetById(id));
-            //IEnumerable<DisplayComment> comments = _commentService.GetByService(displayService.Id).Select(c => _mappersService.Map<Comment, DisplayComment>(c));
-            //displayService.Comments = comments;
+            DisplayService displayService = _serviceService.GetServiceDetailsById(id);
+            displayService.Comments = displayService.Comments.Count() > 0 ? displayService.Comments.BuildTree() : displayService.Comments;
+            displayService.SubCategories = _categoryService.GetSubCategories((int)displayService.Category.ParentId);
             return View(displayService);
         }
 
@@ -62,9 +63,6 @@ namespace GestionServiceBatiment.ASP.Controllers
         [Route("Create-Service")]
         public ActionResult Create()
         {
-            //CreateServiceForm createServiceForm = new CreateServiceForm();
-            //IEnumerable<DisplayCategory> supCategories = _categoryService.GetAll().Select(c => c.MapTo<DisplayCategory>());
-
             CreateServiceForm createServiceForm = new CreateServiceForm();
             createServiceForm.CategoryId = int.Parse(Request.Params["category"]);
 
@@ -167,5 +165,61 @@ namespace GestionServiceBatiment.ASP.Controllers
                 return View();
             }
         }
+
+        [HttpPost]
+        [Route("Service/Comments/CreateCommentForm")]
+        public ActionResult CreateCommentForm(int serviceId, int parentId)
+        {
+            CreateCommentForm createCommentForm = new CreateCommentForm()
+            {
+                ServiceId = serviceId,
+                ParentId = parentId,
+                CreatorId = 12,
+                Star = 3
+            };
+
+            return PartialView("_NewComment", createCommentForm);
+        }
+
+        [HttpPost]
+        [Route("Service/Comments/AddCommentToService")]
+        public ActionResult AddCommentToService(CreateCommentForm createCommentForm)
+        {
+            try
+            {
+                createCommentForm.CreatorId = 12;
+                createCommentForm.Star = 3;
+                if (ModelState.IsValid)
+                {
+                    _commentService.Post(_mappersService.Map<CreateCommentForm, Comment>(createCommentForm));
+                    IEnumerable<DisplayComment> comments = _commentService.GetByService((int)createCommentForm.ServiceId).Count() > 0 ?
+                        _commentService.GetByService((int)createCommentForm.ServiceId).BuildTree() : _commentService.GetByService((int)createCommentForm.ServiceId);
+                    return PartialView("_Comments", comments);
+                    //return RedirectToAction(nameof(GetComments));
+                }
+                else
+                    return View(createCommentForm);
+            }
+            catch(Exception ex)
+            {
+                return View(createCommentForm);
+            }
+        }
+
+        [HttpPost]
+        [Route("Service/GetComments/{serviceId}")]
+        public ActionResult GetComments(int serviceId)
+        {
+            IEnumerable<DisplayComment> comments = _commentService.GetByService(serviceId).Count() > 0 ? 
+                _commentService.GetByService(serviceId).BuildTree() : _commentService.GetByService(serviceId);
+            //foreach(var comment in comments.Where(c => c.ParentId == null))
+            //{
+            //    comment.Children = comment.GetAllDescendants();
+            //}
+
+            return PartialView("_Comments", comments);
+        }
+
+        
     }
 }

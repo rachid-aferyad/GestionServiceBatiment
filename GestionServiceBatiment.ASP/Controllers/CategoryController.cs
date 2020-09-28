@@ -27,8 +27,7 @@ namespace GestionServiceBatiment.ASP.Controllers
         [Route("Request")]
         public ActionResult Index()
         {
-            string path = Request.Path;
-            return View(_categoryService.GetSupCategories().Select(c => c.MapTo<DisplayCategory>()));
+            return View(_categoryService.GetSupCategories());
         }
 
         [Route("Services/{parentName}")]
@@ -38,7 +37,8 @@ namespace GestionServiceBatiment.ASP.Controllers
         [Route("Request/{parentName}")]
         public ActionResult Index(string parentName)
         {
-            return View(_categoryService.GetSubCategoriesByName(parentName).Select(c => c.MapTo<DisplayCategory>()));
+            parentName = parentName.Replace('-', ' ');
+            return View(_categoryService.GetSubCategoriesByName(parentName));
         }
 
         // GET: Category/Details/5

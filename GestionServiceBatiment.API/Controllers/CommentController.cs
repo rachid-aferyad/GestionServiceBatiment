@@ -11,6 +11,7 @@ using GestionServiceBatiment.API.Models.Comments;
 using GestionServiceBatiment.BLL.Services;
 using GestionServiceBatiment.BLL.Models;
 using Tools.Mappers;
+using GestionServiceBatiment.API.Mappers;
 
 namespace GestionServiceBatiment.API.Controllers
 {
@@ -28,34 +29,40 @@ namespace GestionServiceBatiment.API.Controllers
         [Route("api/Comments")]
         public IEnumerable<Comment> Get()
         {
-            return _commentService.GetAll().Select(c => c.MapTo<Comment>());
+            return _commentService.GetAll().Select(c => _mappersService.Map<CommentBO, Comment>(c));
         }
 
         [Route("api/Comments/{id:int:min(1)}")]
         public Comment Get(int id)
         {
-            return _commentService.GetById(id).MapTo<Comment>();
+            return _mappersService.Map<CommentBO, Comment>(_commentService.GetById(id));
         }
         
         [Route("api/Company/{companyId:int:min(1)}/Comments")]
-        public IEnumerable<Comment> GetByCompany(int companyId)
+        public IEnumerable<DisplayComment> GetByCompany(int companyId)
         {
-            return _commentService.GetByCompany(companyId).Select(c => c.MapTo<Comment>());
+            return _commentService.GetByCompany(companyId).Select(c => _mappersService.Map<CommentBO, DisplayComment>(c));
         }
 
         // GET: api/Comment/5
         [Route("api/Service/{serviceId:int:min(1)}/Comments")]
-        public IEnumerable<Comment> GetByService(int serviceId)
+        public IEnumerable<DisplayComment> GetByService(int serviceId)
         {
-            IEnumerable<Comment> comments = _commentService.GetByService(serviceId).Select(c => c.MapTo<Comment>());
+            IEnumerable<DisplayComment> comments = _commentService.GetByService(serviceId).Select(c => _mappersService.Map<CommentBO, DisplayComment>(c));
             return comments;
         }
-        
+
         // GET: api/Comment/5
         [Route("api/Request/{requestId:int:min(1)}/Comments")]
-        public IEnumerable<Comment> GetByRequest(int requestId)
+        public IEnumerable<DisplayComment> GetByRequest(int requestId)
         {
-            return _commentService.GetByRequest(requestId).Select(c => c.MapTo<Comment>());
+            return _commentService.GetByRequest(requestId).Select(c => _mappersService.Map<CommentBO, DisplayComment>(c));
+        }
+
+        [Route("api/LatestComments")]
+        public IEnumerable<DisplayComment> GetLatestReviews()
+        {
+            return _commentService.GetLatestReviews().Select(c => _mappersService.Map<CommentBO, DisplayComment>(c));
         }
 
         // POST: api/Comment
@@ -71,9 +78,9 @@ namespace GestionServiceBatiment.API.Controllers
                 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
-            catch
+            catch(Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
 

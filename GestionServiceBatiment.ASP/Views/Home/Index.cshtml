@@ -40,9 +40,15 @@
                     {
                         <div class="col-md-6 mt-4 mt-md-0">
                                 <div class="icon-box">
-                                    <i class="icofont-computer"></i>
-                                    <h4><a href="/Request/@request.Id">@request.Title</a></h4>
-                                    <h4>@request.CreationDate</h4>
+                                    @*<i class="icofont-computer"></i>*@
+                                    <div class="mb-5">
+                                        <div class="float-left">
+                                            <h4><a href="/Request/Details/@request.Id">@request.Title</a></h4>
+                                        </div>
+                                        <div class="float-right date">
+                                            <span>@request.CreationDate</span>
+                                        </div>
+                                    </div>
                                     <p>@request.Description</p>
                                 </div>
                         </div>
@@ -143,7 +149,7 @@
                             <h4>@provider.Name</h4>
                             <p>
                                 <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                @provider.AddressCity, @provider.AddressCountry
+                                @*@provider.AddressCity, @provider.AddressCountry*@
                                 <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                             </p>
                         </div>
@@ -203,8 +209,8 @@
                         <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
                             <div class="pic"><img src="~/Content/assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
                             <div class="member-info">
-                                <h4>@review.Id</h4>
-                                <span>@review.Star</span>
+                                <h4>@review.Creator.FirstName @review.Creator.LastName</h4>
+                                <span>@review.CreationDate</span>
                                 <p>@review.Content</p>
                                 <div class="social">
                                     <a href=""><i class="ri-twitter-fill"></i></a>

@@ -9,5 +9,6 @@ namespace GestionServiceBatiment.ASP.Infrastructures.Interfaces
 {
     public interface ICompanyService : IService<int, Company>
     {
+        IEnumerable<CompanyListing> GetMostRatedProviders();
     }
 }

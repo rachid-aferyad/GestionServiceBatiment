@@ -25,15 +25,21 @@ namespace GestionServiceBatiment.API.Controllers
             _mappersService = mappersService;
         }
 
-        public IEnumerable<Category> Get()
+        public IEnumerable<DisplayCategory> Get()
         {
-            return _categoryService.GetAll().Select(c => _mappersService.Map<CategoryBO, Category>(c));
+            return _categoryService.GetAll().Select(c => _mappersService.Map<CategoryBO, DisplayCategory>(c));
         }
 
         [Route("api/Category/Sup")]
         public IEnumerable<Category> GetSup()
         {
             return _categoryService.GetSup().Select(c => _mappersService.Map<CategoryBO, Category>(c));
+        }
+
+        [Route("api/Category/Top")]
+        public IEnumerable<Category> GetTop()
+        {
+            return _categoryService.GetTop().Select(c => _mappersService.Map<CategoryBO, Category>(c));
         }
 
         [Route("api/Category/Sub/{id:int:min(1)}")]

@@ -152,5 +152,15 @@
     <Build Include="Stored Procedures\Categories\CSP_GetByParentName.sql" />
     <Build Include="Stored Procedures\Companies\CSP_GetByCompany.sql" />
     <Build Include="Stored Procedures\Comments\CSP_GetCommentsByParent.sql" />
+    <Build Include="Views\V_Company.sql" />
+    <Build Include="Views\V_Category.sql" />
+    <Build Include="Views\V_Comment.sql" />
+    <Build Include="Stored Procedures\Comments\CSP_GetLatestReviews.sql" />
+    <Build Include="Stored Procedures\Services\CSP_GetServicesCount.sql" />
+    <Build Include="Stored Procedures\Requests\CSP_GetLatestRequests.sql" />
+    <Build Include="Stored Procedures\Companies\CSP_GetMostRatedProviders.sql" />
+    <Build Include="Views\V_CompanyListing.sql" />
+    <Build Include="Views\V_Service.sql" />
+    <Build Include="Stored Procedures\Categories\CSP_GetTopCategories.sql" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,12 @@
+﻿@model IEnumerable<GestionServiceBatiment.ASP.Models.Categories.CategoryListing>
+
+
+@foreach (var item in Model)
+{
+    <li>
+        <i class="bx bx-chevron-right"></i>
+        <a href="/Categories/@Html.DisplayFor(model => item.NavigationName)">
+            @Html.DisplayFor(model => item.Name)
+        </a>
+    </li>
+}

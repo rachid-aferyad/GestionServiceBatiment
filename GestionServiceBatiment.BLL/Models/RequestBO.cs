@@ -21,17 +21,5 @@ namespace GestionServiceBatiment.BLL.Models
         public CategoryBO Category { get; set; }
 
         public IEnumerable<CommentBO> Comments { get; set; }
-
-        private readonly IUserService _userService;
-        private readonly ICategoryService _categoryService;
-        public RequestBO(IUserService userService, ICategoryService categoryService)
-        {
-            _userService = userService;
-            _categoryService = categoryService;
-        }
-        public RequestBO()
-        {
-
-        }
     }
 }

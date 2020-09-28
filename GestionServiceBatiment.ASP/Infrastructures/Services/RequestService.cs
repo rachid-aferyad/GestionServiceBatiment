@@ -50,14 +50,35 @@ namespace GestionServiceBatiment.ASP.Infrastructures
             return response.Content.ReadAsAsync<Request>().Result;
         }
 
-        public IEnumerable<Request> GetByCategory(int categoryId)
+        public DisplayRequest GetRequestDetailsById(int id)
+        {
+            HttpResponseMessage response = _httpClient.GetAsync(id.ToString()).Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Echec de la réception de données.");
+            }
+            DisplayRequest displayRequest = response.Content.ReadAsAsync<DisplayRequest>().Result;
+            return displayRequest;
+        }
+
+        public IEnumerable<RequestListing> GetByCategory(int categoryId)
         {
             HttpResponseMessage response = _httpClient.GetAsync("Category/" + categoryId).Result;
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Echec de la réception de données.");
             }
-            return response.Content.ReadAsAsync<IEnumerable<Request>>().Result;
+            return response.Content.ReadAsAsync<IEnumerable<RequestListing>>().Result;
+        }
+        
+        public IEnumerable<RequestListing> GetLatestRequests()
+        {
+            HttpResponseMessage response = _httpClient.GetAsync("LatestRequests/").Result;
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Echec de la réception de données.");
+            }
+            return response.Content.ReadAsAsync<IEnumerable<RequestListing>>().Result;
         }
 
         public int Post(Request entity)
@@ -83,5 +104,6 @@ namespace GestionServiceBatiment.ASP.Infrastructures
             }
             return true;
         }
+
     }
 }

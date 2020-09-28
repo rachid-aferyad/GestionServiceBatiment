@@ -30,30 +30,36 @@ namespace GestionServiceBatiment.API.Controllers
         }
 
         // GET: api/Service
-        public IEnumerable<Service> Get()
+        public IEnumerable<ServiceListing> Get()
         {
-            return _serviceService.GetAll().Select(c => _mappersService.Map<ServiceBO, Service>(c));
+            return _serviceService.GetAll().Select(c => _mappersService.Map<ServiceBO, ServiceListing>(c));
         }
 
         // GET: api/Service/5
         public DisplayService Get(int id)
         {
-            ServiceBO serviceBO = _serviceService.GetById(id);
+            ServiceBO serviceBO = _serviceService.GetServiceDetailsById(id);
             DisplayService displayService = _mappersService.Map<ServiceBO, DisplayService>(serviceBO);
             return displayService;
         }
 
         [Route("api/Service/Category/{categoryId}")]
-        public IEnumerable<DisplayService> GetByCategory(int categoryId)
+        public IEnumerable<ServiceListing> GetByCategory(int categoryId)
         {
-            return _serviceService.GetByCategory(categoryId).Select(s => _mappersService.Map<ServiceBO, DisplayService>(s));
+            return _serviceService.GetByCategory(categoryId).Select(s => _mappersService.Map<ServiceBO, ServiceListing>(s));
         }
 
-        //[Route("Service/CategoryName/{categoryName}")]
-        //public Service GetByCategoryName(string categoryName)
-        //{
-        //    return _serviceService.GetByCategoryName(categoryName).MapTo<Service>();
-        //}
+        [Route("api/Service/CategoryName/{categoryName}")]
+        public IEnumerable<ServiceListing> GetByCategoryName(string categoryName)
+        {
+            return _serviceService.GetByCategoryName(categoryName).Select(s => _mappersService.Map<ServiceBO, ServiceListing>(s)); //.MapTo<Service>();
+        }
+
+        [Route("api/Service/Count")]
+        public int GetServicesCount()
+        {
+            return _serviceService.GetServicesCount();
+        }
 
         // POST: api/Service
         public HttpResponseMessage Post(CreateServiceForm createServiceForm)

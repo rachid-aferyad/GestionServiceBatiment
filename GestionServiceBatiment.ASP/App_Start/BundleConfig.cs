@@ -53,6 +53,7 @@ namespace GestionServiceBatiment.ASP
                       "~/Content/assets/vendor/remixicon/remixicon.css",
                       "~/Content/assets/vendor/venobox/venobox.css",
                       "~/Content/assets/vendor/owl.carousel/assets/owl.carousel.min.css",
+                      "~/Content/assets/vendor/fontawesome/all.min.css",
                       "~/Content/assets/vendor/aos/aos.css",
                       "~/Content/assets/css/style.css",
                       "~/Content/site.css"

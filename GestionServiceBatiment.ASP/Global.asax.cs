@@ -40,6 +40,7 @@ namespace GestionServiceBatiment.ASP
             Services.AddTransient<IServiceService, ServiceService>();
             Services.AddTransient<IUserService, UserService>();
 
+            Services.AddTransient(typeof(SharedController));
             Services.AddTransient(typeof(HomeController));
             Services.AddTransient(typeof(CategoryController));
             Services.AddTransient(typeof(CommentController));

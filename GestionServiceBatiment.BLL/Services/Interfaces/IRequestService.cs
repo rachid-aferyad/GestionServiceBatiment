@@ -12,5 +12,7 @@ namespace GestionServiceBatiment.BLL.Services.Interfaces
     {
         IEnumerable<RequestBO> GetByCategory(int categoryId);
         IEnumerable<RequestBO> GetByCreator(int creatorId);
+        IEnumerable<RequestBO> GetLatestRequests();
+        RequestBO GetRequestDetailsById(int id);
     }
 }

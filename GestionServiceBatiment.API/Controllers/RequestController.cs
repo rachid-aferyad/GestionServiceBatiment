@@ -1,5 +1,4 @@
-﻿using GestionServiceBatiment.BLL.Mappers;
-using GestionServiceBatiment.BLL.Services.Interfaces;
+﻿using GestionServiceBatiment.BLL.Services.Interfaces;
 using GestionServiceBatiment.BLL.Services.Implementations;
 using System;
 using System.Collections.Generic;
@@ -9,33 +8,43 @@ using System.Net.Http;
 using System.Web.Http;
 using GestionServiceBatiment.BLL.Models;
 using GestionServiceBatiment.API.Models.Requests;
+using Tools.Mappers;
 
 namespace GestionServiceBatiment.API.Controllers
 {
     public class RequestController : ApiController
     {
         private readonly IRequestService _requestService;
-        public RequestController(IRequestService requestService)
+        private readonly IMappersService _mappersService;
+
+        public RequestController(IRequestService requestService, IMappersService mappersService)
         {
             _requestService = requestService;
+            _mappersService = mappersService;
         }
 
         // GET: api/Request
-        public IEnumerable<Request> Get()
+        public IEnumerable<RequestListing> Get()
         {
-            return _requestService.GetAll().Select(c => c.MapTo<Request>());
+            return _requestService.GetAll().Select(c => _mappersService.Map<RequestBO, RequestListing>(c));
         }
 
         // GET: api/Request/5
-        public Request Get(int id)
+        public DisplayRequest Get(int id)
         {
-            return _requestService.GetById(id).MapTo<Request>();
+            return _mappersService.Map<RequestBO, DisplayRequest>(_requestService.GetRequestDetailsById(id));
         }
 
         [Route("api/Request/Category/{categoryId}")]
-        public IEnumerable<Request> GetByCategory(int categoryId)
+        public IEnumerable<RequestListing> GetByCategory(int categoryId)
         {
-            return _requestService.GetByCategory(categoryId).Select(s => s.MapTo<Request>());
+            return _requestService.GetByCategory(categoryId).Select(s => _mappersService.Map<RequestBO, RequestListing>(s));
+        }
+
+        [Route("api/Request/LatestRequests")]
+        public IEnumerable<RequestListing> GetLatestRequests()
+        {
+            return _requestService.GetLatestRequests().Select(s => _mappersService.Map<RequestBO, RequestListing>(s));
         }
 
         // POST: api/Request
@@ -47,7 +56,7 @@ namespace GestionServiceBatiment.API.Controllers
                 {
                     return Request.CreateResponse(HttpStatusCode.BadRequest);
                 }
-                int requestId = _requestService.Insert(createRequestForm.MapTo<RequestBO>());
+                int requestId = _requestService.Insert(_mappersService.Map<CreateRequestForm, RequestBO>(createRequestForm));
                 
                 return Request.CreateResponse(HttpStatusCode.OK, requestId);
             }
@@ -66,7 +75,7 @@ namespace GestionServiceBatiment.API.Controllers
                 {
                     return Request.CreateResponse(HttpStatusCode.BadRequest);
                 }
-                _requestService.Update(id, updateRequestForm.MapTo<RequestBO>());
+                _requestService.Update(id, _mappersService.Map<UpdateRequestForm, RequestBO>(updateRequestForm));
 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }

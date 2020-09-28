@@ -8,11 +8,17 @@ using GestionServiceBatiment.DAL.Models;
 using GestionServiceBatiment.DAL.Mappers;
 using GestionServiceBatiment.DAL.Repositories.Interfaces;
 using GestionServiceBatiment.DAL.Views.Services;
+using Tools.Mappers;
 
 namespace GestionServiceBatiment.DAL.Repositories.Implementations
 {
     public class ServiceRepository : BaseRepository, IServiceRepository
     {
+        //private readonly IMappersService _mappersService;
+        //public ServiceRepository(IMappersService mappersService)
+        //{
+        //    _mappersService = mappersService;
+        //}
         public bool Delete(int id)
         {
             Command command = new Command("CSP_DeleteService");
@@ -32,11 +38,11 @@ namespace GestionServiceBatiment.DAL.Repositories.Implementations
             return _connection.ExecuteReader(command, reader => reader.MapTo<VServiceListing>());
         }
 
-        public IEnumerable<Service> GetByCategory(int categoryId)
+        public IEnumerable<VServiceListing> GetByCategory(int categoryId)
         {
             Command command = new Command("CSP_GetServicesByCategory");
             command.AddParameter("CategoryId", categoryId);
-            return _connection.ExecuteReader(command, reader => reader.MapTo<Service>());
+            return _connection.ExecuteReader(command, reader => reader.MapTo<VServiceListing>());
         }
 
         //public IEnumerable<VServiceListing> GetByCategoryName(string categoryName)
@@ -65,6 +71,12 @@ namespace GestionServiceBatiment.DAL.Repositories.Implementations
             Command command = new Command("CSP_GetServiceById");
             command.AddParameter("Id", id);
             return _connection.ExecuteReader(command, reader => reader.MapTo<VServiceDetails>()).SingleOrDefault();
+        }
+
+        public int GetServicesCount()
+        {
+            Command command = new Command("CSP_GetServicesCount");
+            return _connection.ExecuteNonQuery(command);
         }
 
         public int Insert(Service entity)

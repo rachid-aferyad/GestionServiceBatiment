@@ -12,8 +12,9 @@ namespace GestionServiceBatiment.DAL.Repositories.Interfaces
     {
         IEnumerable<VServiceListing> GetAllServicesListing();
         VServiceDetails GetServiceDetailsById(int id);
-        IEnumerable<Service> GetByCategory(int categoryId);
+        IEnumerable<VServiceListing> GetByCategory(int categoryId);
         IEnumerable<VServiceListing> GetByCompany(int companyId);
+        int GetServicesCount();
         //IEnumerable<VServiceListing> GetByCategoryName(string categoryName);
     }
 }

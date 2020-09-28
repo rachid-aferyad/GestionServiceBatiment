@@ -9,8 +9,10 @@ namespace GestionServiceBatiment.ASP.Infrastructures.Interfaces
 {
     public interface ICommentService : IService<int, Comment>
     {
-        IEnumerable<Comment> GetByCompany(int companyId);
-        IEnumerable<Comment> GetByService(int serviceId);
-        IEnumerable<Comment> GetByRequest(int requestId);
+        IEnumerable<DisplayComment> GetByCompany(int companyId);
+        IEnumerable<DisplayComment> GetByService(int serviceId);
+        IEnumerable<DisplayComment> GetByRequest(int requestId);
+        IEnumerable<DisplayComment> GetLatestReviews();
+        IEnumerable<DisplayComment> GetComments(EntityType entityType, int entityId);
     }
 }
